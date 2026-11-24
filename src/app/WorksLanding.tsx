@@ -51,8 +51,8 @@ export default function WorksLanding() {
     <header className="works-header">
       <Link className="works-wordmark" href="/" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
       <nav className="works-nav" aria-label="Main navigation">
-        <a href="/#works-search">Find a service</a>
-        <a href="/#works-businesses">Businesses</a>
+        <Link href="/#works-search">Find a service</Link>
+        <Link href="/#works-businesses">Businesses</Link>
         <Link href="/account">My Account <span aria-hidden="true">↗</span></Link>
       </nav>
       <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link>
@@ -65,7 +65,7 @@ export default function WorksLanding() {
         <p>Find the products, services and people you need to bring your next project to life.</p>
         <div className="works-hero-actions">
           <Link className="works-primary" href="/request">Browse services & prices <ArrowDown size={17}/></Link>
-          <a className="works-secondary" href="/#works-businesses">Browse businesses <ArrowRight size={16}/></a>
+          <a className="works-secondary" href="/#works-businesses">Browse businesses <ArrowRight size={16}/></Link>
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
@@ -124,7 +124,7 @@ export default function WorksLanding() {
     </section>
 
     <footer className="works-footer">
-      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><a href="/#works-search">Find a service</a><a href="/#works-businesses">Businesses</a><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
+      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><Link href="/#works-search">Find a service</Link><Link href="/#works-businesses">Businesses</Link><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
       <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Three participating businesses. Distinct teams and responsibilities.</span></div>
     </footer>
   </main>;
