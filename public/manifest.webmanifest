@@ -15,6 +15,12 @@
   "theme_color": "#294735",
   "icons": [
     {
+      "src": "/iteration13-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "/works-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
