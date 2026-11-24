@@ -72,6 +72,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
   const reloadForUpdate = useRef(false);
 
   useEffect(() => {
+    setInstallCardDismissed(dismissedRecently());
     const env = environment();
     const embedded = initialEmbedded || env.embedded;
     setEmbeddedAndroid((initialEmbedded && initialAndroid) || (env.embedded && env.android));
@@ -330,7 +331,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
           <span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span>
         </div>
         <button className="i13-install-close" type="button" aria-label="Dismiss install prompt" onClick={dismissInstall}>×</button>
-        <button className="i13-install-action" type="button" onClick={() => {
+        <button className="i13-install-action" type="button" disabled={!canInstall && !canShowManualInstall} onClick={() => {
           if (installPromptRef.current) {
             void install();
             return;
@@ -339,7 +340,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
             setInstallHelpOpen(true);
             setInstallState("native");
           }
-        }}>{canInstall ? "Install THE WORKS" : "Add to Home Screen"} <span aria-hidden="true">↗</span></button>
+        }}>{canInstall ? "Install THE WORKS" : canShowManualInstall ? "Add to Home Screen" : "Install unavailable in this browser"} <span aria-hidden="true">↗</span></button>{!canInstall && !canShowManualInstall && <small className="i13-install-note">Your browser has not offered its native install option yet. The app remains available here.</small>}
       </aside>
     )}
     {installCard}
