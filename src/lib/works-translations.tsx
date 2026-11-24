@@ -6,6 +6,14 @@ export type WorksLanguage="en"|"tn";
 export const WORKS_LANGUAGE_KEY="theworks:language:v1";
 export const WORKS_LANGUAGE_EVENT="theworks:language-changed";
 
+se client";
+
+import {Children,cloneElement,isValidElement,useEffect,useState,type ReactNode,type ReactElement} from "react";
+
+export type WorksLanguage="en"|"tn";
+export const WORKS_LANGUAGE_KEY="theworks:language:v1";
+export const WORKS_LANGUAGE_EVENT="theworks:language-changed";
+
 const tn:Record<string,string>={
  "Your order/request has been saved and sent to the responsible business team.":"Kopo ya gago e bolokilwe mme e rometswe kwa setlhopheng sa kgwebo se se ikarabelang.",
  "Order history could not be refreshed. Check your connection.":"Hisitori ya dikopo ga e a kgona go ntšhwafadiwa. Tlhola kgokagano ya gago.",
