@@ -2,7 +2,7 @@ import fs from "node:fs";
 
 const read = path => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 const sw = read("../public/sw.js");
-const page = read("../src/app/page.tsx");
+const page = read("../src/app/studio/page.tsx");
 const moneyInsights = read("../src/app/AdminMoneyInsights.tsx");
 const account = read("../src/app/AccountWorkspace.tsx");
 const offline = read("../src/app/offline/page.tsx");
