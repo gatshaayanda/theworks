@@ -484,6 +484,41 @@ service cloud.firestore {
       allow create, update: if isAdmin() && validReconciliation();
     }
 
+    match /worksServices/{serviceId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /worksEnquiries/{enquiryId} {
+      allow create: if signedIn() && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.customerName is string && request.resource.data.phone is string
+        && request.resource.data.items is list && request.resource.data.items.size() > 0
+        && request.resource.data.businesses is list && request.resource.data.status == 'new';
+      allow read: if isAdmin() || (signedIn() && resource.data.customerId == request.auth.uid);
+      allow update: if isAdmin() || (signedIn() && resource.data.customerId == request.auth.uid
+        && request.resource.data.customerId == resource.data.customerId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['updatedAt']));
+      allow delete: if false;
+    }
+    function isWorksCompanyAdmin(company) {
+      return isAdmin() && (
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role in ['owner','Owner']
+        || (get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.keys().hasAny(['businesses'])
+          && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.businesses.hasAny([company]))
+      );
+    }
+    match /worksCompanyRequests/{requestId} {
+      allow create: if signedIn() && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.business in ['PROSPEC','GALAXY LIQUIDS','KAVON GROUP']
+        && request.resource.data.enquiryId is string && request.resource.data.items is list
+        && request.resource.data.items.size() > 0 && request.resource.data.status == 'new';
+      allow read: if isWorksCompanyAdmin(resource.data.business)
+        || (signedIn() && resource.data.customerId == request.auth.uid);
+      allow update: if isWorksCompanyAdmin(resource.data.business)
+        && request.resource.data.business == resource.data.business
+        && request.resource.data.customerId == resource.data.customerId;
+      allow delete: if isWorksCompanyAdmin(resource.data.business);
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
