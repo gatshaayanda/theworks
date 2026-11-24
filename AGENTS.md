@@ -406,3 +406,63 @@ The product owner has approved a top-down, screen-by-screen redesign of the Iter
 - Load the saved business identity, catalogue, uploaded media URLs, announcement, customer requests, Account records, owner Briefcase notes and activity from their existing keys without reseeding, replacing or resetting them.
 - Continue must preserve the existing workspace and remove only obsolete launch query parameters from the URL; it must not migrate, clear or overwrite browser-local records.
 - Verify the existing workspace resumes unchanged, new requests still appear in Account and owner Briefcase, and the setup path remains independent. Keep Setup as the current QA checkpoint; do not redesign Account or Briefcase.
+
+
+---
+
+# THE WORKS — Project-specific product override
+
+This section is authoritative for THE WORKS and supersedes inherited Iteration 13 demo identity/setup and opening-choice instructions wherever they conflict with the public product.
+
+## Product identity and source lineage
+- Product: THE WORKS — Business & Experiences.
+- Source foundation: cloned from gatshaayanda/iteration13; Iteration 13 remains the engineering/PWA baseline.
+- Product owner: user. GitHub main is the source of truth.
+- Start future implementation/QA chats by reading this file, docs/THE-WORKS-PRODUCT-DIRECTION.md, START-HERE.md, GOLDEN-BASELINE.md, and the relevant Iteration 13 standards.
+- Luvie's Foods and The Plug are visual/interaction references only, never architecture sources.
+
+## Business model
+THE WORKS is a shared discovery, enquiry and customer-access platform for three participating businesses, not a declared common legal parent:
+- PROSPEC — marketing, branding, printing, corporate clothing, merchandise, signage, sourcing and supplies.
+- GALAXY LIQUIDS (TipsyLiquids (Pty) Ltd) — mobile bars, drinks menus and event beverage services.
+- KAVON GROUP — event planning, production, décor, VIP hospitality, logistics and execution.
+
+Keep each business's identity, enquiries, quotations, conversations, projects/bookings, payments, receipts, staff permissions and financial records company-scoped. A shared customer identity must not create cross-company staff access. Do not imply common ownership or legal group status.
+
+## Public customer entry
+- Public root is THE WORKS landing page, not the inherited business-identity/setup/demo selector.
+- Balanced direction: concise editorial hero plus immediately usable service search/shortcuts, then distinct business showcases, how-it-works, shared-account reassurance and compact footer.
+- Visitors browse before registering. The customer can start with a need/service or browse a named business.
+- Search and category shortcuts route through a curated service map and clearly identify the responsible provider. The initial map is discovery content, not a live inventory, package or availability feed.
+- Only publish verified company offerings and prices. Use “Price on request” for quote-led services; do not invent prices.
+- One customer identity across businesses; customer visibility is limited to that customer's own records.
+
+## Owner and staff entry
+- One public footer Briefcase icon is the owner/staff entry affordance.
+- It must ultimately open an authenticated, permission-checked company selector for PROSPEC, GALAXY LIQUIDS and KAVON GROUP. An authorised group overview is optional and permission-controlled.
+- A company selector is not itself an authentication boundary.
+- Do not expose generic Create a business / Load an example / Use previous business setup on the public path.
+- Do not route a company choice into a shared unscoped dashboard. Existing /admin is inherited and must be audited before representing it as a company-specific workspace.
+
+## Visual direction
+- Dominant genre: Atmosphere — curated, image-led service discovery with editorial confidence.
+- Secondary: Quiet for search, request, account and confirmation; Data for owner/staff operations; restrained Character for micro-interactions.
+- Luvie's Foods qualities: warm, direct storefront voice; immediate useful customer action; purposeful hero photography; compact menu-style discovery; honest empty/loading states.
+- The Plug qualities: confident editorial hierarchy; curated discovery; image-forward cards; clear My Account; discreet Briefcase affordance.
+- Do not copy either reference's identity, logos, palette, proprietary copy, data model or workflows.
+- Palette: warm paper #F6F4EE, charcoal #20241F, deep green #294735, amber #E5A044. Manrope headings, DM Sans body/interface. Maintain WCAG AA contrast.
+- Mobile-first. Search and category shortcuts belong in the first viewport; avoid oversized marketing scrolls and card-on-card clutter.
+
+## Protected foundation
+- Preserve PWA registration, native beforeinstallprompt capture/click-to-prompt, embedded-browser gate, iOS Safari guide, manifest/install eligibility, service-worker cache namespace, offline shell and update behavior.
+- Preserve Firebase/Auth/Firestore configuration and rules unless explicitly instructed. Do not configure Firebase or invent credentials.
+- Preserve UploadThing. Do not introduce Firebase Storage.
+- Keep browser-local demo behavior distinct from production/shared-cloud behavior. Never call browser-local data a shared customer account.
+- Preserve inherited routes during migration. The old Iteration 13 setup/demo is available at /studio for migration/recovery only; it is not THE WORKS public entry point.
+- Existing /account and /admin routes are inherited surfaces and must be audited/adapted before claiming shared customer identity or company-scoped administration.
+
+## Current implementation checkpoint
+- Public root: balanced editorial landing, responsive search/shortcuts, provider-labelled results, three business showcases, how-it-works and account explanation.
+- Search uses a curated service map based on the supplied company profiles. It does not yet create enquiries or show live catalogues/prices.
+- Hero and card photography uses remote Unsplash sample images. Replace with approved business-owned imagery when available.
+- The landing's My Account and Briefcase links currently point to inherited /account and /admin routes. Do not claim they yet implement THE WORKS shared account or company selector.
