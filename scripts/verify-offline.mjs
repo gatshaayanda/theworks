@@ -49,7 +49,7 @@ check(Boolean(workerShellCache && statusShellCache && workerShellCache === statu
 check(sw.includes('const required = path === "/" || path === "/offline"') && sw.includes("if (required) throw error;"), "home and offline fallback must be stored successfully before the service worker can install");
 check(sw.includes("const criticalAssets = [...discovered]") && sw.includes("await shell.put(request, response);") && sw.includes("Required app-shell asset returned"), "required Next.js JavaScript and CSS must be cached before the worker installs");
 check(/const MEDIA_CACHE = "theworks-media-v\\d+"/.test(sw), "THE WORKS image-only media cache must use its isolated versioned namespace");
-check(/const MEDIA_CACHE = "iteration13-media-v\d+"/.test(sw), "versioned media cache is missing");
+check(/const MEDIA_CACHE = "theworks-media-v\d+"/.test(sw), "versioned THE WORKS media cache is missing");
 check(sw.includes('"/", "/offline"') && sw.includes('"/patterns", "/iphone-install"'), "home, offline and public utility routes must be precached");
 check(sw.includes("for (const match of html.matchAll") && sw.includes("/_next\\/static\\/"), "app-shell HTML must discover and precache its versioned Next.js assets");
 check(sw.includes('request.destination === "image"') && sw.includes('event.respondWith(cacheMediaRequest(request, event))'), "only approved image requests should use the offline media cache");
@@ -62,7 +62,7 @@ check(sw.includes('return await cache.match(request) || await cache.match("/") |
 check(page.includes("setOnline(navigator.onLine)") && page.includes('window.addEventListener("offline", syncOnline)') && page.includes('window.addEventListener("online", syncOnline)'), "the compact Store offline indicator must follow browser connectivity events");
 check(pwaRegister.includes('window.addEventListener("online", online)') && pwaRegister.includes('window.removeEventListener("online", online)'), "pending notification delivery must retry when connectivity returns");
 check(!pwaRegister.includes("offlineBanner") && !page.includes("sd-offline-notice") && !pwaCss.includes(".offlineBanner"), "duplicated full-width offline/reconnect banners must stay removed");
-check(page.includes("App shell saved") && page.includes("Demo mode") && page.includes("iteration13-shell-v33") && page.includes("shell.match(\"/offline\")"), "the expandable connectivity status must verify the saved app shell and explain local demo boundaries");
+check(page.includes("App shell saved") && page.includes("Demo mode") && page.includes("theworks-shell-v35") && page.includes("shell.match(\"/offline\")"), "the expandable connectivity status must verify the saved app shell and explain local demo boundaries");
 check(globalCss.includes(".sd-connect-details>summary") && globalCss.includes(".sd-connect-popover") && globalCss.includes("[open]>summary"), "connectivity status must be a compact, keyboard-operable disclosure rather than a persistent banner");
 check(pwaCss.includes(".pwaUpdate{position:fixed;top:calc(env(safe-area-inset-top") && pwaCss.includes("bottom:auto"), "update-ready prompt must stay compact at the top, not cover bottom actions");
 check(sw.includes("preservePaths = []") && sw.includes("removable.slice(0, excess)") && sw.includes("trimCache(SHELL_CACHE, STATIC_LIMIT, APP_SHELL)"), "cache trimming must preserve precached app-shell routes");
