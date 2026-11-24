@@ -73,10 +73,6 @@ export default function WorksLanding() {
     }
   }
 
-  function findService(value = "") {
-    setQuery(value);
-    window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
-  }
 
   return <main className={"works-site"+experienceClass}>
     <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
