@@ -78,8 +78,8 @@ export default function WorksLanding() {
         <div className="works-hero-foot"><span>One place to begin.</span><span>Three specialist teams to make it happen.</span></div>
       </div>
       <div className="works-hero-visual" aria-label="A glimpse of the products and experiences available through THE WORKS">
-        <div className="works-photo works-photo-main"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="A beautifully arranged event space" fetchPriority="high"/><span>EVENTS & EXPERIENCES</span></div>
-        <div className="works-photo works-photo-small"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Branded clothing and apparel" loading="lazy"/><span>BRANDING</span></div>
+        <div className="works-photo works-photo-main"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="A beautifully arranged event space" fetchPriority="high" onError={event => { event.currentTarget.style.display = "none"; }}/><span>EVENTS & EXPERIENCES</span></div>
+        <div className="works-photo works-photo-small"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Branded clothing and apparel" loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>BRANDING</span></div>
         <div className="works-photo works-photo-drink"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Cocktails prepared for an event" loading="lazy"/><span>HOSPITALITY</span></div>
         <div className="works-visual-stamp"><strong>MAKE<br/>IT HAPPEN.</strong><span>THE WORKS · BW</span></div>
       </div>
