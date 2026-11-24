@@ -7,7 +7,9 @@
 .i13-install-mark{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:11px;background:#294735;color:#fff;font-weight:950;font-size:1.05rem}
 .i13-install-close{position:absolute;right:8px;top:7px;width:28px;height:28px;border:0;border-radius:50%;background:#f0f1f4;color:#333;font-size:1.25rem;line-height:1;cursor:pointer}
 .i13-install-action{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:11px 13px;border:0;border-radius:10px;background:#294735;color:#fff;font:inherit;font-size:.86rem;font-weight:850;cursor:pointer}
-.i13-install-action:focus-visible,.i13-install-close:focus-visible{outline:3px solid #e5a044;outline-offset:3px}\n.i13-install-action:disabled{background:#e7e9e4;color:#667067;cursor:not-allowed;box-shadow:none}\n.i13-install-note{grid-column:1/-1;color:#697067;font-size:.65rem;line-height:1.4}
+.i13-install-action:focus-visible,.i13-install-close:focus-visible{outline:3px solid #e5a044;outline-offset:3px}
+.i13-install-action:disabled{background:#e7e9e4;color:#667067;cursor:not-allowed;box-shadow:none}
+.i13-install-note{grid-column:1/-1;color:#697067;font-size:.65rem;line-height:1.4}
 @media(min-width:700px){.i13-install-card{width:350px}}
 
 
