@@ -27,9 +27,9 @@ export default function AccountPage(){
    if(encoded){const parsed:Record<string,number>={};encoded.split(",").forEach(part=>{const [id,count]=part.split(":");const quantity=Math.max(1,Math.min(10000,Number(count)||1));if(id)parsed[id]=quantity;});setQuantities(parsed);}
  },[]);
  useEffect(()=>{
-   let alive=true,stopRequests=()=>{};
+   let alive=true,stopAuth=()=>{},stopRequests=()=>{};
    void (async()=>{if(hasFirebaseWebConfig){try{await setPersistence(auth,browserLocalPersistence)}catch{}}if(!alive)return;
-     const stop=onAuthStateChanged(auth,async next=>{
+     stopAuth=onAuthStateChanged(auth,async next=>{
        if(!alive)return;setUser(next);stopRequests();
        if(next){
          stopRequests=onSnapshot(query(collection(db,"worksEnquiries"),where("customerId","==",next.uid)),snap=>setEnquiries(snap.docs.map(d=>({id:d.id,...d.data()} as WorksEnquiry)).sort((a,b)=>b.createdAt.localeCompare(a.createdAt))),()=>setNotice("Order history could not be refreshed. Check your connection."));
@@ -39,9 +39,8 @@ export default function AccountPage(){
        }else{setProfile(null);setEnquiries([])}
        setReady(true);
      });
-     return ()=>{stop();stopRequests()};
    })();
-   return()=>{alive=false;stopRequests()};
+   return()=>{alive=false;stopAuth();stopRequests()};
  },[]);
  const selected=useMemo(()=>services.filter(service=>(quantities[service.id]||0)>0).map(service=>({service,quantity:quantities[service.id]})),[services,quantities]);
  const subtotal=selected.reduce((sum,item)=>sum+(item.service.priceMode==="quote"?0:(item.service.price??0)*item.quantity),0);
