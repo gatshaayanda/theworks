@@ -24,3 +24,21 @@
 .works-account-order-form>button:disabled{opacity:.5;cursor:not-allowed}
 .works-account-order-form input:focus,.works-account-order-form textarea:focus{outline:3px solid #e5a044;outline-offset:1px}
 @media(max-width:560px){.works-account-order-fields{grid-template-columns:1fr}.works-account-selected-list article{align-items:flex-start}.works-account-basket-total{align-items:flex-start;flex-direction:column}}
+
+.works-account-order-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 16px}
+.works-account-order-stats>div{display:grid;gap:4px;padding:14px;border:1px solid #dce2d9;border-radius:12px;background:#fff}
+.works-account-order-stats>div>strong{font-size:27px;line-height:1;font-weight:900}
+.works-account-order-stats>div>span{font-size:10px;font-weight:900;letter-spacing:.08em}
+.works-account-order-stats>div>small{font-size:11px;color:#687168}
+.works-account-order-card{margin:10px 0;padding:15px;border:1px solid #dce2d9;border-radius:13px;background:#fff}
+.works-account-order-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.works-account-order-card-head>strong{font-size:12px;letter-spacing:.05em}
+.works-account-order-card-head>span{padding:5px 9px;border-radius:999px;background:#edf3ed;color:#294735;font-size:10px;font-weight:850;text-transform:capitalize}
+.works-account-order-card>small{display:block;margin-top:6px;color:#6b746b;font-size:11px}
+.works-account-order-lines{display:grid;gap:8px;margin-top:12px}
+.works-account-order-lines>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;padding-top:8px;border-top:1px solid #edf0eb}
+.works-account-order-lines>div>span{font-size:13px;font-weight:750}
+.works-account-order-lines>div>small{grid-column:1;color:#6b746b;font-size:10px}
+.works-account-order-lines>div>b{grid-column:2;grid-row:1/3;align-self:center;font-size:11px;text-align:right}
+.works-account-order-card>p{margin:10px 0 0;color:#647064;font-size:10px}
+@media(max-width:520px){.works-account-order-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.works-account-order-card-head{align-items:flex-start;flex-direction:column}}
