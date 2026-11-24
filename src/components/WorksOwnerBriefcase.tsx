@@ -8,7 +8,7 @@ import {auth,db} from "@/lib/firebase/client";
 import {WORKS_BUSINESSES,type WorksBusiness} from "@/lib/firebase/works-catalogue";
 
 type WorksOrder={id:string;customerId?:string;customerName?:string;phone?:string;email?:string;location?:string;brief?:string;items?:{business:string;name:string;quantity:number;price?:number|null;priceMode?:string;priceLabel?:string}[];businesses?:string[];status?:string;createdAt?:string;updatedAt?:string;adminNote?:string;quoteTotal?:number;paymentsReceived?:number};
-type Tab="today"|"work"|"money"|"notes"|"insights";
+type Tab="today"|"work"|"money"|"store"|"notes"|"insights";
 const STATUSES=["new","reviewing","accepted","in progress","completed","declined"];
 const money=(n:number)=>"P"+n.toLocaleString("en-BW",{maximumFractionDigits:2});
 const shiftKey="theworks:owner-shift:v1";
@@ -47,7 +47,7 @@ export default function WorksOwnerBriefcase(){
    <p className="worksShiftFootnote">This shift timer is stored on this device. It is a convenience timer, not a server-enforced security session.</p>
   </section>
   <section className="worksAvailability"><div><span className="worksBriefcaseKicker">CUSTOMER-FACING SIGNAL</span><strong>Business availability</strong><small>Choose what customers should see in your availability panel.</small></div><select value={availability} onChange={e=>changeAvailability(e.target.value)}><option>Available</option><option>Limited</option><option>Unavailable</option></select></section>
-  <nav className="worksBriefcaseTabs">{(["today","work","money","notes","insights"] as Tab[]).map(t=><button key={t} className={tab===t?"active":""} onClick={()=>setTab(t)}>{t==="today"?"Today":t==="work"?"Customers & jobs":t==="money"?"Money":t==="notes"?"My Notes":"Insights"}</button>)}<Link href="/admin/storefront">Store design ↗</Link></nav>
+  <nav className="worksBriefcaseTabs">{(["today","work","money","store","notes","insights"] as Tab[]).map(t=>t==="store"?<Link key={t} href="/admin/storefront">Store design ↗</Link>:<button key={t} className={tab===t?"active":""} onClick={()=>setTab(t)}>{t==="today"?"Today":t==="work"?"Customers & jobs":t==="money"?"Money":t==="notes"?"My Notes":"Insights"}</button>)}</nav>
   <section className="worksBusinessFilter"><label>BUSINESS VIEW<select value={business} onChange={e=>setBusiness(e.target.value as "ALL"|WorksBusiness)}><option value="ALL">All businesses · combined</option>{WORKS_BUSINESSES.map(b=><option key={b}>{b}</option>)}</select></label><span>{business==="ALL"?"Orders remain assigned to their responsible business.":"Showing "+business+" only."}</span></section>
   {notice&&<p className="worksBriefcaseNotice" role="status">{notice}</p>}
   {tab==="today"&&<><div className="worksBriefcaseSectionHead"><div><span className="worksBriefcaseKicker">YOUR BRIEFCASE / TODAY</span><h2>Your business at a glance</h2></div></div>
