@@ -3,14 +3,14 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Iteration 13 | Service Studio",
-    short_name: "Iteration 13",
-    description: "A mobile-first service-order demo with customer requests, local admin tools, installation guidance and offline-aware behavior.",
-    start_url: "/",
+    name: "THE WORKS | Business & Experiences",
+    short_name: "THE WORKS",
+    description: "Discover specialist businesses, products and services through THE WORKS.",
+    start_url: "/#works-discovery",
     scope: "/",
     display: "standalone",
     background_color: "#f6f5f0",
-    theme_color: "#155eef",
+    theme_color: "#294735",
     orientation: "portrait-primary",
     lang: "en",
     categories: ["business", "productivity"],
@@ -25,24 +25,24 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     shortcuts: [
       {
-        name: "Browse services",
+        name: "Find a service",
         short_name: "Services",
-        description: "Explore the service menu and submit a request",
+        description: "Search services and products",
         url: "/",
         icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
       },
       {
-        name: "My account",
+        name: "My Account",
         short_name: "Account",
-        description: "Review your local demo requests",
-        url: "/?view=account",
+        description: "Open your customer account",
+        url: "/account",
         icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
       },
       {
-        name: "Admin demo",
-        short_name: "Admin",
-        description: "Open the local prototype operations panel",
-        url: "/#admin",
+        name: "Owner Briefcase",
+        short_name: "Briefcase",
+        description: "Open the owner and staff workspace",
+        url: "/admin",
         icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
       }
     ]
