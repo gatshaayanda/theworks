@@ -9,3 +9,12 @@
 .i13-install-action{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:11px 13px;border:0;border-radius:10px;background:#294735;color:#fff;font:inherit;font-size:.86rem;font-weight:850;cursor:pointer}
 .i13-install-action:focus-visible,.i13-install-close:focus-visible{outline:3px solid #e5a044;outline-offset:3px}
 @media(min-width:700px){.i13-install-card{width:350px}}
+
+
+/* THE WORKS identity treatment — keep the inherited install lifecycle unchanged. */
+.plugInstallModal:before{background:linear-gradient(90deg,#294735 0 72%,#e5a044 72% 100%)}
+.plugInstallMark{background:#294735;border-color:#e5a044}
+.plugInstallTag,.plugInstallKicker,.plugInstallModal h2 em,.plugInstallModalBenefits b{color:#294735}
+.plugInstallPrimary{background:#294735;box-shadow:0 10px 24px rgba(41,71,53,.22)}
+.plugInstallPrimary:hover{background:#1f3929}
+.plugInstallPrimary:focus-visible,.plugInstallClose:focus-visible{outline:3px solid #e5a044;outline-offset:3px}
