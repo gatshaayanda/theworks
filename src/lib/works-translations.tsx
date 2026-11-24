@@ -1,6 +1,6 @@
 "use client";
 
-import {Children,cloneElement,isValidElement,useEffect,useState,type ReactNode} from "react";
+import {Children,cloneElement,isValidElement,useEffect,useState,type ReactNode,type ReactElement} from "react";
 
 export type WorksLanguage="en"|"tn";
 export const WORKS_LANGUAGE_KEY="theworks:language:v1";
@@ -61,7 +61,7 @@ export function localizeWorks(language:WorksLanguage,node:ReactNode):ReactNode{
  if(language!=="tn")return node;
  return Children.map(node,child=>{
   if(typeof child==="string"){const trimmed=child.trim();const translated=tn[trimmed];return translated===undefined?child:child.replace(trimmed,translated)}
-  if(isValidElement(child)){const element=child as React.ReactElement<{children?:ReactNode}>;return cloneElement(element,{children:localizeWorks(language,element.props.children)})}
+  if(isValidElement(child)){const element=child as ReactElement<{children?:ReactNode}>;return cloneElement(element,{children:localizeWorks(language,element.props.children)})}
   return child;
  });
 }
