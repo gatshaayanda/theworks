@@ -8,6 +8,7 @@ import {getCustomerProfile,saveCustomerProfile,type CustomerProfile} from "@/lib
 import {DEFAULT_WORKS_CATALOGUE,subscribeToWorksServices,WORKS_BUSINESSES,type WorksService} from "@/lib/firebase/works-catalogue";
 import "../works-account.css";
 import "../works-request.css";
+import {localizeWorks,useWorksLanguage} from "@/lib/works-translations";
 
 type AccountTab="overview"|"orders"|"messages"|"receipts";
 type WorksEnquiry={id:string;items:{business:string;name:string;priceLabel:string;price?:number|null;priceMode?:string;quantity:number}[];status:string;createdAt:string;brief?:string;businesses?:string[]};
@@ -16,6 +17,7 @@ const money=(value:number)=>"P"+value.toLocaleString("en-BW",{maximumFractionDig
 const priceLabel=(service:WorksService)=>service.priceMode==="quote"?"Price on request":(service.priceMode==="from"?"From ":"")+money(service.price??0)+(service.unit?" / "+service.unit:"");
 
 export default function AccountPage(){
+ const {language,setLanguage}=useWorksLanguage();
  const[user,setUser]=useState<User|null>(null),[profile,setProfile]=useState<CustomerProfile|null>(null),[ready,setReady]=useState(false),[busy,setBusy]=useState(false),[tab,setTab]=useState<AccountTab>("overview"),[notice,setNotice]=useState("");
  const[services,setServices]=useState<WorksService[]>(starter),[quantities,setQuantities]=useState<Record<string,number>>({}),[enquiries,setEnquiries]=useState<WorksEnquiry[]>([]);
  const[name,setName]=useState(""),[phone,setPhone]=useState(""),[email,setEmail]=useState(""),[location,setLocation]=useState(""),[eventDate,setEventDate]=useState(""),[brief,setBrief]=useState("");
@@ -71,9 +73,9 @@ export default function AccountPage(){
  }
  const activeOrders=enquiries.filter(item=>!["completed","collected","delivered","cancelled","rejected"].includes((item.status||"").toLowerCase())).length;
  const greeting=profile?.name?.trim().split(/\s+/)[0]||user?.displayName?.trim().split(/\s+/)[0]||"there";
- return <main className="works-account-page">
+ return localizeWorks(language,<main className="works-account-page">
   <div className="works-account-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
-  <header className="works-account-header"><Link href="/" className="works-account-brand"><span className="works-account-mark">W<span>·</span></span><span><b>THE WORKS</b><small>BUSINESS & EXPERIENCES</small></span></Link><nav><Link href="/#works-discovery">Find a service</Link><Link href="/#works-businesses">Businesses</Link><Link href="/account" aria-current="page">My Account</Link></nav></header>
+  <header className="works-account-header"><Link href="/" className="works-account-brand"><span className="works-account-mark">W<span>·</span></span><span><b>THE WORKS</b><small>BUSINESS & EXPERIENCES</small></span></Link><nav><Link href="/#works-discovery">Find a service</Link><Link href="/#works-businesses">Businesses</Link><Link href="/account" aria-current="page">My Account</Link><label className="works-language-control"><span>Language</span><select aria-label="Display language" value={language} onChange={event=>setLanguage(event.target.value==="tn"?"tn":"en")}><option value="en">English</option><option value="tn">Setswana</option></select></label></nav></header>
   <div className="works-account-wrap">
    <div className="works-account-breadcrumb"><Link href="/">← Back to THE WORKS</Link><span>YOUR CUSTOMER SPACE</span></div>
    <section className="works-account-hero"><div className="works-account-hero-copy"><span className="works-account-eyebrow">THE WORKS / MY ACCOUNT</span><h1>Dumela, <em>{greeting}.</em></h1><p>Your selected services, orders, quotations, conversations and project updates—together in one place.</p><div className="works-account-hero-meta"><span className={user?"is-connected":""}><i/>{ready?(user?(user.isAnonymous?"Guest order session":"Account connected"):"Browse first · Connect when ready"):"Restoring your space…"}</span><span>ONE CUSTOMER ACCOUNT</span></div></div><div className="works-account-hero-art" aria-label="THE WORKS customer account"><div className="works-account-art-ring"/><div className="works-account-art-card"><small>YOUR WORK, TOGETHER</small><strong>One place.<br/>Clear next steps.</strong><div><span>ORDERS</span><span>QUOTES</span><span>PROJECTS</span></div></div><span className="works-account-art-stamp">THE<br/>WORKS</span></div></section>
