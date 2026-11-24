@@ -10,7 +10,7 @@ const allowed=(file:File)=>file.type.startsWith("image/")||file.type==="applicat
 
 function timeText(value:string){const date=new Date(value);return Number.isFinite(date.getTime())?date.toLocaleString([], {dateStyle:"medium",timeStyle:"short"}):""}
 
-export default function ConversationPanel({conversationId,conversationTitle,onBack}:{conversationId?:string;conversationTitle?:string;onBack?:()=>void}){
+export default function ConversationPanel({conversationId,conversationTitle,onBack,business="THE PLUG",enquiryId}:{conversationId?:string;conversationTitle?:string;onBack?:()=>void;business?:string;enquiryId?:string}){
  const[user,setUser]=useState(auth.currentUser),[activeConversationId,setActiveConversationId]=useState(conversationId),[conversation,setConversation]=useState<Conversation|null>(null),[messages,setMessages]=useState<ConversationMessage[]>([]),[text,setText]=useState(""),[file,setFile]=useState<File|null>(null),[busy,setBusy]=useState(false),[notice,setNotice]=useState(""),bottomRef=useRef<HTMLDivElement>(null);
  useEffect(()=>{const stop=auth.onAuthStateChanged(()=>setUser(auth.currentUser));return stop},[]);
  useEffect(()=>{setActiveConversationId(conversationId)},[conversationId]);
@@ -22,7 +22,7 @@ export default function ConversationPanel({conversationId,conversationTitle,onBa
   setBusy(true);setNotice("");
   try{
    let attachment:ConversationMessage["attachment"]=undefined;
-   const currentConversationId=activeConversationId||await createCustomerConversation(user.uid,conversationTitle||"Question");
+   const currentConversationId=activeConversationId||await createCustomerConversation(user.uid,conversationTitle||"Question",business,enquiryId);
    if(!activeConversationId)setActiveConversationId(currentConversationId);
    const messageRef=collection(db,"conversations",currentConversationId,"messages");
    const messageId=crypto.randomUUID();
@@ -45,12 +45,12 @@ export default function ConversationPanel({conversationId,conversationTitle,onBa
  }
  if(!activeConversationId&&!conversationTitle)return null;
  return <section className="conversationPanel">
-  <div className="conversationHeader"><div><span className="kicker">Talk to The Plug</span><h2>{conversation?.title||conversationTitle||"Conversation"}</h2><p>Ask a question, make a product request or send details for a bulk order.</p></div>{onBack&&<button className="button buttonLight" onClick={onBack}>Back</button>}</div>
+  <div className="conversationHeader"><div><span className="kicker">Talk to {business}</span><h2>{conversation?.title||conversationTitle||"Conversation"}</h2><p>Ask a question, make a product request or send details for a bulk order.</p></div>{onBack&&<button className="button buttonLight" onClick={onBack}>Back</button>}</div>
   <div className="messageList" aria-live="polite">
-   {messages.length===0&&<div className="conversationEmpty"><strong>Start the conversation.</strong><p>Tell The Plug what you need. You can add a photo or PDF when it helps explain the request.</p></div>}
-   {messages.map(message=><article className={"messageBubble "+(message.senderRole==="customer"?"messageMine":"messageThem")} key={message.id}><div className="messageRole">{message.senderRole==="customer"?"You":"The Plug"} · {timeText(message.createdAt)}</div>{message.text&&<p>{message.text}</p>}{message.attachment&&<a className="messageAttachment" href={message.attachment.url} target="_blank" rel="noreferrer">{message.attachment.type.startsWith("image/")?"🖼️":"📄"} {message.attachment.name}<small>{Math.max(1,Math.round(message.attachment.size/1024))} KB · Open</small></a>}</article>)}
+   {messages.length===0&&<div className="conversationEmpty"><strong>Start the conversation.</strong><p>Tell {business} what you need. You can add a photo or PDF when it helps explain the request.</p></div>}
+   {messages.map(message=><article className={"messageBubble "+(message.senderRole==="customer"?"messageMine":"messageThem")} key={message.id}><div className="messageRole">{message.senderRole==="customer"?"You":business} · {timeText(message.createdAt)}</div>{message.text&&<p>{message.text}</p>}{message.attachment&&<a className="messageAttachment" href={message.attachment.url} target="_blank" rel="noreferrer">{message.attachment.type.startsWith("image/")?"🖼️":"📄"} {message.attachment.name}<small>{Math.max(1,Math.round(message.attachment.size/1024))} KB · Open</small></a>}</article>)}
    <div ref={bottomRef}/>
   </div>
-  <div className="messageComposer"><textarea value={text} onChange={e=>setText(e.target.value)} placeholder="Write to The Plug…" rows={3} maxLength={2000}/><div className="composerActions"><label className="attachmentButton">📎 {file?"Attached":"Add photo or PDF"}<input id="theplug-conversation-file" type="file" accept="image/*,application/pdf" hidden onChange={e=>{const next=e.target.files?.[0]??null;if(next&&!allowed(next)){setNotice("Please choose an image or PDF.") ;return}if(next&&next.size>MAX_FILE_SIZE){setNotice("Attachments must be 10 MB or smaller.");return}setFile(next);setNotice("")}}/></label>{file&&<button className="fileRemove" type="button" onClick={()=>{setFile(null);const input=document.getElementById("theplug-conversation-file") as HTMLInputElement|null;if(input)input.value=""}}>Remove {file.name}</button>}<button className="button buttonPrimary" type="button" disabled={busy||(!text.trim()&&!file)} onClick={()=>void send()}>{busy?"Sending…":"Send"}</button></div>{notice&&<p className="notice" role="status">{notice}</p>}<small className="orderTruth">Images and PDFs are optional. The Plug staff will see your message in Business Inbox.</small></div>
+  <div className="messageComposer"><textarea value={text} onChange={e=>setText(e.target.value)} placeholder={`Write to ${business}…`} rows={3} maxLength={2000}/><div className="composerActions"><label className="attachmentButton">📎 {file?"Attached":"Add photo or PDF"}<input id="theplug-conversation-file" type="file" accept="image/*,application/pdf" hidden onChange={e=>{const next=e.target.files?.[0]??null;if(next&&!allowed(next)){setNotice("Please choose an image or PDF.") ;return}if(next&&next.size>MAX_FILE_SIZE){setNotice("Attachments must be 10 MB or smaller.");return}setFile(next);setNotice("")}}/></label>{file&&<button className="fileRemove" type="button" onClick={()=>{setFile(null);const input=document.getElementById("theplug-conversation-file") as HTMLInputElement|null;if(input)input.value=""}}>Remove {file.name}</button>}<button className="button buttonPrimary" type="button" disabled={busy||(!text.trim()&&!file)} onClick={()=>void send()}>{busy?"Sending…":"Send"}</button></div>{notice&&<p className="notice" role="status">{notice}</p>}<small className="orderTruth">Images and PDFs are optional. The {business} team will see your message in Business Inbox.</small></div>
  </section>
 }
