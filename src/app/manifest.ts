@@ -16,12 +16,12 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["business", "productivity"],
     prefer_related_applications: false,
     icons: [
-      { src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-      { src: "/iteration13-icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-      { src: "/iteration13-icon-180.png", sizes: "180x180", type: "image/png", purpose: "any" },
-      { src: "/iteration13-icon-192.svg", sizes: "192x192", type: "image/svg+xml", purpose: "any" },
+      { src: "/works-icon.svg", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/works-icon.svg", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/works-icon.svg", sizes: "180x180", type: "image/png", purpose: "any" },
+      { src: "/works-icon.svg", sizes: "192x192", type: "image/svg+xml", purpose: "any" },
       
-      { src: "/iteration13-icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }
+      { src: "/works-icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }
     ],
     shortcuts: [
       {
@@ -29,21 +29,21 @@ export default function manifest(): MetadataRoute.Manifest {
         short_name: "Services",
         description: "Search services and products",
         url: "/#works-discovery",
-        icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/works-icon.svg", sizes: "192x192", type: "image/png" }]
       },
       {
         name: "My Account",
         short_name: "Account",
         description: "Open your customer account",
         url: "/account",
-        icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/works-icon.svg", sizes: "192x192", type: "image/png" }]
       },
       {
         name: "Owner Briefcase",
         short_name: "Briefcase",
         description: "Open the owner and staff workspace",
         url: "/admin",
-        icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
+        icons: [{ src: "/works-icon.svg", sizes: "192x192", type: "image/png" }]
       }
     ]
   };
