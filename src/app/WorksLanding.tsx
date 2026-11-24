@@ -86,7 +86,7 @@ export default function WorksLanding() {
         <Link href="/account" aria-label="Open My Account">My Account <span aria-hidden="true">↗</span></Link>
         <label className="works-language-control"><span>Language</span><select aria-label="Display language" value={language} onChange={event=>setLanguage(event.target.value==="tn"?"tn":"en")}><option value="en">English</option><option value="tn">Setswana</option></select></label>
       </nav>
-      <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link>
+      <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link><label className="works-language-control works-mobile-language"><span>Language</span><select aria-label="Display language" value={language} onChange={event=>setLanguage(event.target.value==="tn"?"tn":"en")}><option value="en">English</option><option value="tn">Setswana</option></select></label>
     </header>
 
     <section className="works-hero">
