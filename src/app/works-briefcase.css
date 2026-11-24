@@ -3,3 +3,22 @@
 @media(max-width:390px){.worksShiftTop{display:grid}.worksShiftMetrics strong{font-size:21px}.worksBriefcaseStats article{padding:12px}.worksBriefcaseStats strong{font-size:23px}}
 
 .worksOwnerNotes{display:block;width:100%;box-sizing:border-box;min-height:180px;margin:12px 0;padding:13px;border:1px solid #d5ddd7;border-radius:9px;background:#fbfcfa;color:#1b2b22;font:inherit;font-size:13px;line-height:1.6;resize:vertical}
+
+
+/* Align THE WORKS Briefcase with the Iteration 13 Business OS shell. */
+.worksBriefcaseHeader{align-items:center;padding:4px 0 14px;border-bottom:1px solid #e1e7e2}
+.worksOwnerGreeting{display:block;margin-top:13px;color:#68796f;font-size:12px;font-weight:700}
+.worksBriefcaseHeader h1{max-width:680px;font-size:clamp(30px,5.2vw,46px);letter-spacing:-.055em}
+.worksBriefcaseHeader p strong{color:#233e30}
+.worksOwnerLive{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border:1px solid #dce5dd;border-radius:999px;background:#fff;color:#456052;font-size:9px;font-weight:850;letter-spacing:.08em}
+.worksShiftPanel{margin-top:16px;padding:13px 16px;border-radius:12px;box-shadow:none}
+.worksShiftTop{align-items:center}
+.worksShiftTop h2{font-size:17px;margin:4px 0}
+.worksShiftTop p{font-size:11px}
+.worksShiftMetrics{margin-top:13px}
+.worksShiftInactive{margin-top:10px;padding:9px 11px}
+.worksShiftFootnote{margin:8px 0 0!important;font-size:9px!important}
+.worksBriefcaseTabs{margin-top:15px}
+.worksBriefcaseTabs button{border-radius:7px}
+.worksBriefcaseTabs button.active{background:#e1eee6;color:#14573d}
+@media(max-width:720px){.worksBriefcaseHeader{padding-bottom:12px}.worksBriefcaseHeaderLinks{align-items:center}.worksOwnerLive{margin-right:4px}}
