@@ -52,8 +52,9 @@ export async function createCustomerConversation(uid:string,title:string,busines
 export function subscribeToCustomerConversations(uid:string,onChange:(items:Conversation[])=>void,onError:(error:Error)=>void):Unsubscribe{
  return onSnapshot(query(conversationsCollection,where("customerId","==",uid)),snapshot=>onChange(snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<Conversation,"id">})).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt))),error=>onError(error instanceof Error?error:new Error("Customer conversations unavailable.")));
 }
-export function subscribeToAdminConversations(onChange:(items:Conversation[])=>void,onError:(error:Error)=>void):Unsubscribe{
- return onSnapshot(conversationsCollection,snapshot=>onChange(snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<Conversation,"id">})).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt))),error=>onError(error instanceof Error?error:new Error("Customer inbox unavailable.")));
+export function subscribeToAdminConversations(onChange:(items:Conversation[])=>void,onError:(error:Error)=>void,businesses?:string[]):Unsubscribe{
+ const source=businesses?.length?query(conversationsCollection,where("business","in",businesses)):conversationsCollection;
+ return onSnapshot(source,snapshot=>onChange(snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<Conversation,"id">})).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt))),error=>onError(error instanceof Error?error:new Error("Customer inbox unavailable.")));
 }
 export function subscribeToConversation(id:string,onConversation:(conversation:Conversation|null)=>void,onMessages:(messages:ConversationMessage[])=>void,onError:(error:Error)=>void):Unsubscribe{
  const stopConversation=onSnapshot(doc(db,"conversations",id),snapshot=>onConversation(snapshot.exists()?{id:snapshot.id,...snapshot.data() as Omit<Conversation,"id">}:null),error=>onError(error instanceof Error?error:new Error("Conversation unavailable.")));

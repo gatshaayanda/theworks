@@ -1,8 +1,9 @@
 "use client";
 import {useEffect,useState} from "react";
-import {addDoc,collection,serverTimestamp} from "firebase/firestore";
+import {addDoc,collection,doc,getDoc,serverTimestamp} from "firebase/firestore";
 import {getDownloadURL,ref,uploadBytes} from "firebase/storage";
 import {auth,db,storage} from "@/lib/firebase/client";
+import {WORKS_BUSINESSES} from "@/lib/firebase/works-catalogue";
 import {subscribeToAdminConversations,subscribeToConversation,updateConversationRead,recordConversationMessage,type Conversation,type ConversationMessage} from "@/lib/firebase/data";
 
 const MAX_FILE_SIZE=10*1024*1024;
@@ -12,7 +13,7 @@ const timeText=(value:string)=>{const d=new Date(value);return Number.isFinite(d
 export default function AdminConversations(){
  const[user,setUser]=useState(auth.currentUser),[items,setItems]=useState<Conversation[]>([]),[selected,setSelected]=useState<string>(),[conversation,setConversation]=useState<Conversation|null>(null),[messages,setMessages]=useState<ConversationMessage[]>([]),[text,setText]=useState(""),[file,setFile]=useState<File|null>(null),[busy,setBusy]=useState(false),[notice,setNotice]=useState("");
  useEffect(()=>auth.onAuthStateChanged(next=>setUser(next)),[]);
- useEffect(()=>subscribeToAdminConversations(setItems,error=>setNotice(error.message)),[]);
+ useEffect(()=>{if(!user){setItems([]);return}let alive=true,stop=()=>{};void getDoc(doc(db,"admins",user.uid)).then(snapshot=>{if(!alive)return;const admin=snapshot.data()||{},role=String(admin.role||"").toLowerCase();if(role==="owner"){stop=subscribeToAdminConversations(setItems,error=>setNotice(error.message));return}const businesses=Array.isArray(admin.businesses)?admin.businesses.filter((value):value is string=>typeof value==="string"&&WORKS_BUSINESSES.includes(value as typeof WORKS_BUSINESSES[number])):[];if(!businesses.length){setItems([]);setNotice("This account has no business inbox assignment.");return}stop=subscribeToAdminConversations(setItems,error=>setNotice(error.message),businesses)}).catch(error=>setNotice(error instanceof Error?error.message:"Business inbox access could not be checked."));return()=>{alive=false;stop()}},[user]);
  useEffect(()=>{if(!selected){setConversation(null);setMessages([]);return}return subscribeToConversation(selected,setConversation,setMessages,error=>setNotice(error.message))},[selected]);
  useEffect(()=>{if(selected)void updateConversationRead(selected,"admin")},[selected]);
  async function send(){if(!user||!selected||(!text.trim()&&!file))return;setBusy(true);setNotice("");try{const messageId=crypto.randomUUID();let attachment:ConversationMessage["attachment"]=undefined;if(file){if(!allowed(file))throw new Error("Please attach an image or PDF.");if(file.size>MAX_FILE_SIZE)throw new Error("Attachments must be 10 MB or smaller.");const storageRef=ref(storage,`conversationAttachments/${selected}/${messageId}/${file.name.replace(/[^a-zA-Z0-9._-]/g,"-")}`);const uploaded=await uploadBytes(storageRef,file,{contentType:file.type});attachment={url:await getDownloadURL(uploaded.ref),name:file.name,type:file.type,size:file.size}}await addDoc(collection(db,"conversations",selected,"messages"),{senderId:user.uid,senderRole:"admin",text:text.trim(),attachment:attachment??null,createdAt:new Date().toISOString(),createdAtServer:serverTimestamp()});

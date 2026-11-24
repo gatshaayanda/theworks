@@ -167,6 +167,19 @@ service cloud.firestore {
       allow read: if false;
     }
 
+    function isWorksCompanyAdmin(company) {
+      return isAdmin() && (
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role in ['owner','Owner']
+        || (get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.keys().hasAny(['businesses'])
+          && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.businesses.hasAny([company]))
+      );
+    }
+    function canAccessConversationBusiness(conversation) {
+      return !conversation.keys().hasAny(['business'])
+        || conversation.business == 'THE PLUG'
+        || isWorksCompanyAdmin(conversation.business);
+    }
+
     match /conversations/{conversationId} {
       allow create: if signedIn()
         && request.resource.data.customerId == request.auth.uid
@@ -177,17 +190,18 @@ service cloud.firestore {
         && request.resource.data.lastMessageAt is string
         && request.resource.data.lastMessagePreview is string
         && request.resource.data.unreadForCustomer is bool
-        && request.resource.data.unreadForAdmin is bool;
-      allow read: if isAdmin() || (signedIn() && resource.data.customerId == request.auth.uid);
-      allow update: if isAdmin()
+        && request.resource.data.unreadForAdmin is bool
+        && (!request.resource.data.keys().hasAny(['business']) || request.resource.data.business in ['THE PLUG','PROSPEC','GALAXY LIQUIDS','KAVON GROUP']);
+      allow read: if (isAdmin() && canAccessConversationBusiness(resource.data)) || (signedIn() && resource.data.customerId == request.auth.uid);
+      allow update: if (isAdmin() && canAccessConversationBusiness(resource.data))
         || (signedIn()
           && resource.data.customerId == request.auth.uid
           && request.resource.data.customerId == resource.data.customerId
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['updatedAt','lastMessageAt','lastMessagePreview','unreadForCustomer','unreadForAdmin','customerLastReadAt']));
-      allow delete: if isAdmin();
+      allow delete: if isAdmin() && canAccessConversationBusiness(resource.data);
 
       match /messages/{messageId} {
-        allow read: if isAdmin() || (signedIn() && get(/databases/$(database)/documents/conversations/$(conversationId)).data.customerId == request.auth.uid);
+        allow read: if (isAdmin() && canAccessConversationBusiness(get(/databases/$(database)/documents/conversations/$(conversationId)).data)) || (signedIn() && get(/databases/$(database)/documents/conversations/$(conversationId)).data.customerId == request.auth.uid);
         allow create: if signedIn()
           && request.resource.data.senderId == request.auth.uid
           && request.resource.data.senderRole in ['customer','admin']
@@ -196,7 +210,7 @@ service cloud.firestore {
           && request.resource.data.createdAt is string
           && (
             (request.resource.data.senderRole == 'customer' && get(/databases/$(database)/documents/conversations/$(conversationId)).data.customerId == request.auth.uid)
-            || (request.resource.data.senderRole == 'admin' && isAdmin())
+            || (request.resource.data.senderRole == 'admin' && isAdmin() && canAccessConversationBusiness(get(/databases/$(database)/documents/conversations/$(conversationId)).data))
           );
         allow update, delete: if false;
       }
@@ -498,13 +512,6 @@ service cloud.firestore {
         && request.resource.data.customerId == resource.data.customerId
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['updatedAt']));
       allow delete: if false;
-    }
-    function isWorksCompanyAdmin(company) {
-      return isAdmin() && (
-        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role in ['owner','Owner']
-        || (get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.keys().hasAny(['businesses'])
-          && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.businesses.hasAny([company]))
-      );
     }
     match /worksPayments/{paymentId} {
       allow read: if isAdmin() || (signedIn() && resource.data.customerId == request.auth.uid);
