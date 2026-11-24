@@ -52,3 +52,13 @@
 .works-account-hero-art{min-height:250px;transform:scale(.88);transform-origin:center}
 .works-account-businesses{display:none}
 @media(max-width:700px){.works-account-header{align-items:flex-start;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}.works-account-header nav{width:100%;gap:12px;flex-wrap:wrap;align-items:center}.works-language-control{margin-left:auto}.works-account-hero{padding-top:12px;padding-bottom:18px}.works-account-hero-art{display:none}}
+
+
+/* Keep the account focused on the customer's actual activity, not decorative promotion. */
+.works-account-hero{grid-template-columns:1fr;min-height:0;padding:16px 0 20px}
+.works-account-hero-art{display:none}
+.works-account-businesses{display:none}
+.works-account-connect{margin:16px 0;padding:20px 22px;gap:20px}
+.works-account-connect h2{font-size:clamp(1.8rem,3vw,2.8rem);margin:8px 0}
+.works-account-connect>div:first-child>p{font-size:.8rem;line-height:1.5}
+@media(max-width:700px){.works-account-connect{padding:16px;gap:12px}.works-account-hero h1{font-size:clamp(2.5rem,12vw,4rem)}}
