@@ -33,17 +33,17 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, "public/manifest.web
 if (manifest.name !== "THE WORKS | Business & Experiences") failures.push("manifest: wrong application name");
 if (manifest.short_name !== "THE WORKS") failures.push("manifest: wrong short name");
 if (manifest.theme_color !== "#294735") failures.push("manifest: wrong theme color");
-if (!manifest.icons?.some(icon => icon.src === "/iteration13-icon.svg" || icon.src === "/iteration13-icon-192.png")) failures.push("manifest: prototype icon missing");
-for (const iconPath of ["/iteration13-icon.svg", "/iteration13-icon-192.png", "/iteration13-icon-512.png"]) {
+if (!manifest.icons?.some(icon => icon.src === "/works-icon.svg")) failures.push("manifest: THE WORKS icon missing");
+for (const iconPath of ["/works-icon.svg"]) {
   if (!manifest.icons?.some(icon => icon.src === iconPath)) failures.push("manifest: icon missing " + iconPath);
   if (!fs.existsSync(path.join(root, "public", iconPath.slice(1)))) failures.push("manifest icon asset missing " + iconPath);
 }
 const appManifest = fs.readFileSync(path.join(root, "src/app/manifest.ts"), "utf8");
 if (!appManifest.includes('name: "THE WORKS | Business & Experiences"')) failures.push("app manifest: wrong application name");
 if (appManifest.includes("The Plug") || appManifest.includes("plug-icon")) failures.push("app manifest: inherited The Plug identity remains");
-for (const iconPath of ["/iteration13-icon-192.png", "/iteration13-icon-512.png"]) if (!appManifest.includes(iconPath)) failures.push("app manifest: missing " + iconPath);
-if (!fs.existsSync(path.join(root, "public/iteration13-icon.svg"))) failures.push("prototype icon file missing");
-if (!fs.existsSync(path.join(root, "public/iteration13-icon-180.png"))) failures.push("Apple install icon file missing");
+if (!appManifest.includes("/works-icon.svg")) failures.push("app manifest: THE WORKS icon missing");
+if (!fs.existsSync(path.join(root, "public/works-icon.svg"))) failures.push("THE WORKS icon file missing");
+
 const layout = fs.readFileSync(path.join(root, "src/app/layout.tsx"), "utf8");
 const pwaRegister = fs.readFileSync(path.join(root, "src/app/pwa-register.tsx"), "utf8");
 for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"THE WORKS"']) if (!layout.includes(expected)) failures.push("layout: missing " + expected);
@@ -51,7 +51,7 @@ for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"
 if (!layout.includes('appleWebApp:{capable:true,title:"THE WORKS"')) failures.push("layout: missing THE WORKS Apple install metadata");
 const sw = fs.readFileSync(path.join(root, "public/sw.js"), "utf8");
 if (!/iteration13-shell-v\d+/.test(sw)) failures.push("service worker: missing isolated cache namespace");
-if (!sw.includes("/iteration13-icon.svg")) failures.push("service worker: prototype icon missing from app shell");
+if (!sw.includes("/works-icon.svg")) failures.push("service worker: THE WORKS icon missing from app shell");
 if (!sw.includes("/iphone-install") || !sw.includes("/iphone-install.svg")) failures.push("service worker: iPhone installation guide is not cached for offline use");
 if (!layout.includes("__iteration13InstallPrompt") || !layout.includes("beforeinstallprompt")) failures.push("PWA layout: early native install-prompt capture is missing");
 if (!pwaRegister.includes("await prompt.prompt()") || !pwaRegister.includes("setCanInstall(true)")) failures.push("PWA install: retained native prompt is not connected to the branded install action");
