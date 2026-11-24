@@ -104,8 +104,8 @@ export default function WorksLanding() {
       </div>
     </section>
 
-    <details className="works-businesses-disclosure"><summary>Meet the businesses <span>Optional · learn more about each team</span></summary>
-    <section className="works-businesses" id="works-businesses">
+    <details className="works-businesses-disclosure" id="works-businesses"><summary>Meet the businesses <span>Optional · learn more about each team</span></summary>
+    <section className="works-businesses">
       <div className="works-section-heading works-business-heading">
         <div><span className="works-eyebrow">MEET THE SPECIALISTS</span><h2>Good people.<br/><em>Different strengths.</em></h2></div>
         <p>Explore each business directly. Every enquiry is handled by the business responsible for the service.</p>
