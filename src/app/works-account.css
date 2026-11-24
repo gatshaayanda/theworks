@@ -64,3 +64,45 @@
 @media(max-width:700px){.works-account-connect{padding:16px;gap:12px}.works-account-hero h1{font-size:clamp(2.5rem,12vw,4rem)}}
 
 .works-message-hub{display:grid;gap:14px;grid-column:1/-1}.works-message-list{display:grid;gap:8px}.works-message-list>button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px;border:1px solid #dce2d9;border-radius:11px;background:#fff;text-align:left;cursor:pointer}.works-message-list>button>span{display:grid;gap:4px;min-width:0}.works-message-list>button b,.works-message-start strong{color:#294735;font-size:10px;letter-spacing:.08em}.works-message-list>button strong{font-size:14px}.works-message-list>button small,.works-message-list>button time{color:#687168;font-size:11px}.works-message-list>button i{font-size:10px;color:#294735;font-style:normal;font-weight:850}.works-message-start{display:grid;gap:9px;padding:15px;border:1px solid #dce2d9;border-radius:11px;background:#fff}.works-message-start label,.worksPaymentEntry label{display:grid;gap:5px;font-size:12px;font-weight:750}.works-message-start select,.worksPaymentEntry input,.worksPaymentEntry select{min-height:40px;padding:8px 10px;border:1px solid #d4dbd2;border-radius:8px;background:#fff;color:#202820;font:inherit}.works-message-start>button{min-height:43px;border:0;border-radius:8px;background:#294735;color:#fff;font:inherit;font-weight:850}.works-receipt-list{display:grid;grid-column:1/-1;gap:10px}.works-receipt-list>article{padding:15px;border:1px solid #dce2d9;border-radius:12px;background:#fff}.works-receipt-list>article header{display:flex;justify-content:space-between;gap:12px;align-items:center}.works-receipt-list>article header div{display:grid;gap:4px}.works-receipt-list>article header small{font-size:10px;color:#294735;font-weight:850}.works-receipt-list>article header strong{font-size:12px}.works-receipt-list>article header>b{font-size:17px}.works-receipt-list>article p{margin:10px 0 0;color:#586358;font-size:12px}.works-receipt-list>article>small{display:block;margin-top:10px;color:#72796f;font-size:10px;line-height:1.5}.worksPaymentEntry{display:grid;gap:10px;margin-top:16px;padding:14px;border:1px solid #dce2d9;border-radius:11px;background:#f7f8f4}.worksPaymentEntry h3{margin:0;font-size:16px}.worksPaymentEntry p{margin:0;color:#687168;font-size:12px;line-height:1.5}.worksPaymentEntry .worksPrimaryButton{margin-top:3px}@media(max-width:520px){.works-message-list>button{align-items:flex-start;flex-wrap:wrap}.works-receipt-list>article header{align-items:flex-start;flex-direction:column}}
+
+
+/* Guided customer request: selection first, details second, account activity after submission. */
+.works-account-journey-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:22px 0 25px;border-bottom:1px solid #deddd5}
+.works-account-journey-intro h1{margin:9px 0 8px;font-family:Manrope,Arial,sans-serif;font-size:clamp(2.4rem,5vw,4.1rem);line-height:.98;letter-spacing:-.075em}
+.works-account-journey-intro h1 em{font-style:normal;color:var(--wa-green)}
+.works-account-journey-intro p{max-width:620px;margin:0;color:#60695e;font-size:.84rem;line-height:1.55}
+.works-account-journey-state{display:flex;align-items:center;gap:8px;flex:none;padding:9px 11px;border:1px solid #dce2d9;border-radius:9px;background:#fff;color:#687168;font-size:11px;font-weight:750}
+.works-account-journey-state i{width:7px;height:7px;border-radius:50%;background:#d99b3d}
+.works-account-journey-state i.is-connected{background:#4c9365}
+.works-account-no-selection{margin:22px 0 28px;padding:clamp(18px,3vw,28px);border:1px solid #dce2d9;border-radius:15px;background:#fff}
+.works-account-no-selection h2{max-width:650px;margin:9px 0;font-family:Manrope,Arial,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.02;letter-spacing:-.06em}
+.works-account-no-selection h2 em{font-style:normal;color:var(--wa-green)}
+.works-account-no-selection p{max-width:600px;margin:0 0 15px;color:#60695e;font-size:13px;line-height:1.55}
+.works-account-no-selection>a{display:inline-flex;align-items:center;gap:12px;min-height:43px;padding:0 15px;border-radius:8px;background:var(--wa-green);color:#fff;font-size:12px;font-weight:850}
+.works-account-selected{margin:19px 0 25px;padding:clamp(16px,3vw,25px);border-radius:15px}
+.works-account-selected .works-account-section-heading{margin-bottom:8px}
+.works-account-selected .works-account-section-heading h2{font-size:clamp(2rem,4vw,3rem)}
+.works-account-selected .works-account-section-heading>p{max-width:390px;font-size:12px}
+.works-account-form-heading{display:grid;gap:5px}
+.works-account-form-heading h3{margin:0;font-size:21px}
+.works-account-form-heading p{margin:0 0 5px;color:#626d63;font-size:12px;line-height:1.5}
+.works-account-field-optional{display:inline!important;margin-left:4px;color:#7a8278;font-size:10px;font-weight:550}
+.works-account-submit-actions{display:grid;gap:10px}
+.works-account-order-form> .works-account-submit-actions>button{min-height:48px;font-size:13px}
+.works-account-google-option{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid #dce2d9;border-radius:9px;background:#fff}
+.works-account-google-option span{color:#626d63;font-size:11px}
+.works-account-google-option button{min-height:36px;padding:0 11px;border:1px solid #cbd5ca;border-radius:7px;background:#fff;color:#294735;font:inherit;font-size:11px;font-weight:850;cursor:pointer}
+.works-account-google-option button:disabled{opacity:.55;cursor:not-allowed}
+.works-account-guest-note{margin:0;color:#626d63;font-size:11px;line-height:1.45}
+.works-account-work{padding-top:28px}
+@media(max-width:700px){
+ .works-account-journey-intro{align-items:flex-start;flex-direction:column;gap:13px;padding:14px 0 18px}
+ .works-account-journey-intro h1{font-size:clamp(2.3rem,11vw,3.4rem)}
+ .works-account-journey-intro p{font-size:12px}
+ .works-account-journey-state{font-size:10px}
+ .works-account-selected{margin:14px 0 20px;padding:15px}
+ .works-account-selected .works-account-section-heading{gap:7px}
+ .works-account-google-option{align-items:flex-start;flex-direction:column}
+ .works-account-google-option button{width:100%}
+ .works-account-no-selection{margin:15px 0 22px}
+}
