@@ -110,7 +110,7 @@ export default function AccountPage() {
           </div>
         </section>
 
-        <section className="works-account-businesses"><div><span className="works-account-eyebrow">THREE SPECIALIST TEAMS</span><h2>Different strengths.<br/><em>One place to begin.</em></h2></div><div className="works-account-business-links"><Link href="/#prospec">PROSPEC <span>Products, branding & supply ↗</span></Link><Link href="/#galaxy">GALAXY LIQUIDS <span>Mobile bars & hospitality ↗</span></Link><Link href="/#kavon">KAVON GROUP <span>Events & production ↗</span></Link></div></section>
+        <section className="works-account-businesses"><div><span className="works-account-eyebrow">THREE SPECIALIST TEAMS</span><h2>Different strengths.<br/><em>One place to begin.</em></h2></div><div className="works-account-business-links"><Link href="/#works-businesses">PROSPEC <span>Products, branding & supply ↗</span></Link><Link href="/#works-businesses">GALAXY LIQUIDS <span>Mobile bars & hospitality ↗</span></Link><Link href="/#works-businesses">KAVON GROUP <span>Events & production ↗</span></Link></div></section>
 
         {user && <section className="works-account-profile"><div><span className="works-account-eyebrow">ACCOUNT DETAILS</span><h2>Your details.</h2><p>{profile?.email || user.email || "Connected customer account"}</p></div><button type="button" onClick={() => void signOut(auth)}>Sign out</button></section>}
         {notice && <p className="works-account-notice" role="status">{notice}</p>}
