@@ -51,7 +51,7 @@ export default function WorksLanding() {
     <header className="works-header">
       <Link className="works-wordmark" href="/" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
       <nav className="works-nav" aria-label="Main navigation">
-        <a href="#works-discovery">Find a service</a>
+        <a href="#works-search">Find a service</a>
         <a href="#works-businesses">Businesses</a>
         <Link href="/account">My Account <span aria-hidden="true">↗</span></Link>
       </nav>
@@ -67,7 +67,7 @@ export default function WorksLanding() {
           <a className="works-primary" href="#works-discovery">Find a service <ArrowDown size={17}/></a>
           <a className="works-secondary" href="#works-businesses">Browse businesses <ArrowRight size={16}/></a>
         </div>
-        <form className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
+        <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
           <input aria-label="Search products and services" placeholder="What do you need to make happen?" value={query} onChange={event => { setQuery(event.target.value); setShowResults(true); }}/>
           <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
@@ -104,7 +104,7 @@ export default function WorksLanding() {
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
           <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy"/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
-          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><a href="#works-discovery" onClick={() => { setQuery(business.name); setShowResults(true); }}>Explore services <ArrowRight size={16}/></a></div>
+          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><a href="#works-search" onClick={event => { event.preventDefault(); findService(business.name); }}>Explore services <ArrowRight size={16}/></a></div>
         </article>)}
       </div>
     </section>
