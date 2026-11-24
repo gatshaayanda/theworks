@@ -100,7 +100,7 @@ export default function WorksLanding() {
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
           <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
-          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><button type="button" onClick={()=>{setBusinessFilter(business.name);setShowResults(true);document.getElementById("works-discovery")?.scrollIntoView({behavior:"smooth"});}}>Explore services & prices <ArrowRight size={16}/></button></div>
+          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><button type="button" onClick={()=>{setBusinessFilter(business.name);document.getElementById("works-discovery")?.scrollIntoView({behavior:"smooth"});}}>Explore services & prices <ArrowRight size={16}/></button></div>
         </article>)}
       </div>
     </section>
