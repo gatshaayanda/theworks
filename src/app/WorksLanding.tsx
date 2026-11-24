@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { subscribeToWorksServices, DEFAULT_WORKS_CATALOGUE, WORKS_BUSINESSES, type WorksService } from "@/lib/firebase/works-catalogue";
 import { ArrowDown, ArrowRight, BriefcaseBusiness, CalendarDays, Check, ChevronRight, Search, Shirt, Sparkles, Wine } from "lucide-react";
 import "./works-landing.css";
+import {localizeWorks,useWorksLanguage} from "@/lib/works-translations";
 
 const businesses = [
   { id: "prospec", number: "01", name: "PROSPEC", line: "Make your brand visible.", type: "Products, branding & supply", description: "Marketing, advertising, corporate clothing, printing, merchandise, signage and product sourcing.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=85", services: ["Corporate clothing", "Printing & signage", "Marketing & branding", "Product sourcing"] },
@@ -26,6 +27,7 @@ const businessExperiences = [
 ];
 
 export default function WorksLanding() {
+  const {language,setLanguage}=useWorksLanguage();
   const [query, setQuery] = useState("");
   const [catalogue, setCatalogue] = useState<WorksService[]>(DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""})));
   const [quantities, setQuantities] = useState<Record<string,number>>({});
@@ -74,7 +76,7 @@ export default function WorksLanding() {
   }
 
 
-  return <main className={"works-site"+experienceClass}>
+  return localizeWorks(language,<main className={"works-site"+experienceClass}>
     <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
     <header className="works-header">
       <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
@@ -82,6 +84,7 @@ export default function WorksLanding() {
         <Link href="#works-discovery">Find a service</Link>
         <Link href="#works-businesses">Businesses</Link>
         <Link href="/account" aria-label="Open My Account">My Account <span aria-hidden="true">↗</span></Link>
+        <label className="works-language-control"><span>Language</span><select aria-label="Display language" value={language} onChange={event=>setLanguage(event.target.value==="tn"?"tn":"en")}><option value="en">English</option><option value="tn">Setswana</option></select></label>
       </nav>
       <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link>
     </header>
@@ -148,5 +151,5 @@ export default function WorksLanding() {
       <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/account"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><Link href="#works-discovery">Find a service</Link><Link href="#works-businesses">Businesses</Link><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
       <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Three participating businesses. Distinct teams and responsibilities.</span></div>
     </footer>
-  </main>;
+  </main>);
 }
