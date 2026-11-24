@@ -75,7 +75,7 @@ export default function WorksLanding() {
         <div className="works-shortcuts" aria-label="Popular service categories">
           {shortcuts.map(item => { const Icon=item.icon; return <button key={item.label} type="button" onClick={() => findService(item.query)}><Icon size={18}/><span>{item.label}</span><ChevronRight size={15}/></button>; })}
         </div>
-        <div className="works-hero-foot"><span>One place to begin.</span><span>Three specialist teams to make it happen.</span></div>
+        <div className="works-hero-foot"><span>One place to begin.</span><span>Three specialist businesses to help make it happen.</span></div>
       </div>
       <div className="works-hero-visual" aria-label="A glimpse of the products and experiences available through THE WORKS">
         <div className="works-photo works-photo-main"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="A beautifully arranged event space" fetchPriority="high" onError={event => { event.currentTarget.style.display = "none"; }}/><span>EVENTS & EXPERIENCES</span></div>
