@@ -2,7 +2,6 @@
 import {useEffect,useState} from "react";
 import {subscribeToWorksCustomerPayments,type WorksPayment} from "@/lib/firebase/data";
 import {worksBusinessLabel} from "@/lib/firebase/works-catalogue";
-// from "@/lib/firebase/data";
 export default function WorksCustomerReceipts({uid}:{uid:string}){
  const[items,setItems]=useState<WorksPayment[]>([]),[notice,setNotice]=useState("");
  useEffect(()=>subscribeToWorksCustomerPayments(uid,setItems,error=>setNotice(error.message)),[uid]);
