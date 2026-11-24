@@ -1,6 +1,6 @@
 # THE WORKS — Product Direction & Experience Contract
 
-**Status:** product direction and balanced landing-page design approved by the product owner on 2026-11-24. Implementation may proceed against this contract; no landing-page implementation is claimed by this documentation update.
+**Status:** product direction and balanced landing-page design approved on 2026-11-24. First public landing-page milestone implemented on 2026-11-24; see the current implementation checkpoint at the end of this document.
 
 This document is the project-specific source of truth for the product model, customer journeys, shared account, company workspaces and visual direction. It supplements the inherited Iteration 13 engineering/PWA standards. When inherited generic demo behavior conflicts with this document, this document governs THE WORKS.
 
@@ -197,3 +197,31 @@ The product owner has reviewed and approved the balanced landing-page compositio
 - The product owner handles Firebase project configuration/rules unless explicitly delegated. Do not copy credentials, project IDs or secrets from another app.
 - Treat GitHub main as source of truth. Verify actual code, workflows and deployment state before claiming completion.
 - Preserve existing working behavior unless this product contract explicitly replaces generic demo/setup behavior.
+
+
+## 12. Implementation checkpoint — 2026-11-24
+
+### Delivered: public landing milestone
+- Replaced the public root entry with THE WORKS balanced editorial storefront.
+- Added the compact identity header, hero proposition, service search field and four service shortcuts in the first viewport.
+- Added provider-labelled matching service results using a curated service map derived from the supplied company profiles.
+- Added three separate business showcases, concise three-step journey explanation, shared-account benefit section and compact footer with one Briefcase icon.
+- Added responsive styling with warm paper, charcoal, deep green and amber; Manrope headings and DM Sans body/interface type.
+- Updated application metadata and the app manifest's product labels/theme colour. The existing icon assets remain inherited and are not yet THE WORKS-branded.
+- Preserved the previous Iteration 13 root setup/demo at /studio during migration; it is no longer the public root experience.
+
+### Honest boundaries / not yet delivered
+- Search results are curated discovery entries, not live catalogues, stock, package availability or pricing.
+- Search/category selection currently identifies a provider and jumps to its business panel; it does not yet create a quote request or enquiry.
+- The /account and /admin routes are inherited and have not yet been adapted into the shared THE WORKS customer account or authenticated company selector.
+- The Briefcase footer icon currently points to the inherited /admin route. Do not treat that route as the final three-company selector or as company-isolated administration.
+- No Firebase configuration, rules, storage or business data were changed.
+- Hero and business-card images are remote Unsplash sample imagery. Replace them with approved company-owned assets before presenting the platform as a finished client-facing launch.
+- PWA installation behavior and service-worker/offline behavior were not intentionally changed. The icon assets and offline cache contents still require a separate, controlled THE WORKS identity migration and offline verification.
+
+### Next implementation milestones
+1. Build the authenticated, permission-checked Briefcase company selector and three isolated company admin workspaces.
+2. Build the shared THE WORKS customer identity/account with company-scoped requests, quotations, conversations, projects/bookings, payments and receipts.
+3. Build provider-specific public service/catalogue experiences: Amrod-style PROSPEC catalogue; Galaxy mobile-bar packages and menus; Kavon event/project brief.
+4. Connect enquiries and quote workflows to the real approved persistence boundary after Firebase/project configuration and rules are explicitly authorised.
+5. Replace stock imagery and inherited PWA icon identity with approved THE WORKS and company assets, preserving the installation lock and testing offline behavior.
