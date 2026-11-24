@@ -10,7 +10,7 @@ const money=(n:number)=>"P"+n.toLocaleString("en-BW",{maximumFractionDigits:2});
 function priceLabel(s:WorksService){return s.priceMode==="quote"?"Request a quote":(s.priceMode==="from"?"From ":"")+money(s.price??0)+(s.unit?" / "+s.unit:"")}
 export default function WorksRequest(){
  const[services,setServices]=useState<WorksService[]>([]),[search,setSearch]=useState(""),[business,setBusiness]=useState("All"),[basket,setBasket]=useState<Pick[]>([]),[name,setName]=useState(""),[email,setEmail]=useState(""),[phone,setPhone]=useState(""),[location,setLocation]=useState(""),[date,setDate]=useState(""),[brief,setBrief]=useState(""),[budget,setBudget]=useState(""),[busy,setBusy]=useState(false),[notice,setNotice]=useState("");
- useEffect(()=>subscribeToWorksServices(setServices,e=>setNotice(e.message)),[]);
+ useEffect(()=>{const stop=subscribeToWorksServices(setServices,e=>setNotice(e.message));const params=new URLSearchParams(window.location.search);setSearch(params.get("search")||"");const requestedBusiness=params.get("business");if(requestedBusiness&&WORKS_BUSINESSES.includes(requestedBusiness as typeof WORKS_BUSINESSES[number]))setBusiness(requestedBusiness);return stop},[]);
  const visible=useMemo(()=>services.filter(s=>(business==="All"||s.business===business)&&(s.name+" "+s.category+" "+s.description+" "+s.business).toLowerCase().includes(search.toLowerCase())),[services,business,search]);
  const ids=new Set(basket.map(x=>x.service.id));
  function add(s:WorksService){setBasket(v=>ids.has(s.id)?v:[...v,{service:s,quantity:1,details:""}])}
