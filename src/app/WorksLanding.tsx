@@ -56,7 +56,7 @@ export default function WorksLanding() {
       <nav className="works-nav" aria-label="Main navigation">
         <Link href="#works-discovery">Find a service</Link>
         <Link href="#works-businesses">Businesses</Link>
-        <Link href="/account">My Account <span aria-hidden="true">↗</span></Link>
+        <Link href="/account" aria-label="Open My Account">My Account <span aria-hidden="true">↗</span></Link>
       </nav>
       <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link>
     </header>
