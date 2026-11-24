@@ -1,6 +1,6 @@
 # THE WORKS — Product Direction & Experience Contract
 
-**Status:** approved product direction for planning; public landing-page implementation is awaiting product-owner review of the proposed composition below.
+**Status:** product direction and balanced landing-page design approved by the product owner on 2026-11-24. Implementation may proceed against this contract; no landing-page implementation is claimed by this documentation update.
 
 This document is the project-specific source of truth for the product model, customer journeys, shared account, company workspaces and visual direction. It supplements the inherited Iteration 13 engineering/PWA standards. When inherited generic demo behavior conflicts with this document, this document governs THE WORKS.
 
@@ -53,6 +53,27 @@ The proposed landing page is a compact, mobile-first editorial service storefron
 8. **Compact footer:** customer account, business links, contact/legal links as verified, and the single Briefcase icon for authorised owner/staff entry.
 
 The landing page must not become a long generic marketing page. Prioritise the actual discovery and enquiry actions in the first viewport, use meaningful imagery, and keep supporting sections compact and scannable.
+
+### Approved first-viewport direction: balanced
+
+The product owner approved the **balanced** direction: combine an editorial, image-led brand introduction with immediately visible service discovery. Neither a cinematic hero nor a search directory should dominate at the expense of the other.
+
+The first viewport should contain:
+- A compact THE WORKS identity/header with Businesses and My Account access; no prominent admin navigation.
+- A concise optional announcement strip only when there is a real, current notice.
+- The headline **“Business gets done here.”** and short supporting proposition.
+- A purposeful, high-quality hero image or image composition representing the real service mix.
+- A prominent search/discovery field labelled **“What do you need to make happen?”**
+- Two clear actions: **“Find a service”** (primary) and **“Browse businesses”** (secondary).
+- A small set of immediately scannable service shortcuts, not a long category wall.
+
+The first viewport should feel editorial and human, but the customer must be able to start a task immediately without scrolling. On mobile, preserve a compact vertical rhythm, readable type, touch-friendly controls and the same hierarchy; do not simply shrink a desktop composition.
+
+Below the fold, use this order: service/category discovery and curated featured listings; the three distinct business identities; a concise three-step “How it works”; the shared My Account benefit; then a compact footer with the single owner/staff Briefcase entry. Avoid duplicating the same service list in multiple sections.
+
+Visual styling should borrow the *qualities* of Luvie's Foods and The Plug: warm, direct storefront language; purposeful photography; bold editorial type hierarchy; image-forward cards; curated discovery; clear customer actions; honest loading/empty states. Create a distinct THE WORKS identity and palette rather than copying either reference.
+
+This balanced composition is now the approved landing-page design direction. Further implementation details should be resolved against the inherited Iteration 13 visual standards and actual repository components, without reopening the approved first-viewport direction unless the product owner requests a change.
 
 ## 4. Service-first discovery and routing
 
@@ -166,7 +187,7 @@ The old generic setup workflow may be retained temporarily as isolated legacy co
 7. Adapt the existing KAVON experience to its real event-production workflow.
 8. Add optional cross-provider recommendations and authorised group-level reporting after the core journeys are correct.
 
-Do not start the landing-page implementation until the product owner has reviewed the proposed page composition. This document records the current plan, not a claim that these workflows are already implemented.
+The product owner has reviewed and approved the balanced landing-page composition. This document records the approved plan, not a claim that these workflows are already implemented.
 
 ## 10. Foundation protections and boundaries
 
