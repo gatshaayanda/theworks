@@ -1,3 +1,28 @@
+# THE WORKS — Business & Experiences
+
+**Public proposition:** Business gets done here.
+
+THE WORKS is a shared discovery, enquiry and customer-access platform for three participating specialist businesses: PROSPEC, GALAXY LIQUIDS and KAVON GROUP. It is not a claim that the businesses share legal ownership. Each business remains responsible for its own services, quotations, customer work, staff permissions and financial records.
+
+## Project direction
+- [THE WORKS Product Direction](docs/THE-WORKS-PRODUCT-DIRECTION.md) — product model, customer journeys, account, company workspaces and roadmap.
+- [Project Operating Contract](AGENTS.md) — authoritative project-specific rules and protected behavior.
+- [Design Direction](DESIGN.md) — approved Atmosphere-led visual genre and Luvie's Foods / The Plug reference adaptation.
+
+## Current public experience
+- Balanced editorial hero with immediately visible service search and category shortcuts.
+- Search results identify the responsible business.
+- Three distinct business showcases.
+- Concise how-it-works and shared-account explanation.
+- Compact footer with one owner Briefcase icon.
+
+## Important current boundaries
+The public landing is implemented, but search currently filters a curated discovery map; it does not yet submit enquiries or display live business catalogues. The inherited /account and /admin routes have not yet been adapted into THE WORKS shared account and company-scoped Briefcase selector. The inherited Iteration 13 setup/demo is preserved at /studio for migration/recovery only and is not the public entry point.
+
+This project was cloned from gatshaayanda/iteration13. Preserve its native PWA installation, embedded-browser handling, iOS installation guidance, service worker, offline shell, update behavior, Firebase configuration/rules and UploadThing configuration. Do not configure Firebase or add Firebase Storage without explicit instruction.
+
+---
+
 # Iteration 13 — Business OS / Store + Briefcase
 
 **Start every new implementation or QA chat at [START-HERE.md](./START-HERE.md).** The [Iteration 13 Portfolio Handoff](./docs/ITERATION13-PORTFOLIO-HANDOFF.md) explains how this repository is used as the shared reference for new and existing portfolio projects. The complete [documentation map](./docs/README.md) shows the shortest task-specific reading path. The mandatory [Change Safety & Regression Prevention Standard](./docs/CHANGE-SAFETY-STANDARD.md) applies to every change and requires the fix and adjacent working behavior to be verified. [AGENTS.md](./AGENTS.md) contains repository rules; [FOUNDATION-BLUEPRINT.md](./FOUNDATION-BLUEPRINT.md) documents architecture; [CLONING.md](./CLONING.md) governs source selection and adaptation; [docs/ADMIN-HUB-APP-FACTORY-SOP.md](./docs/ADMIN-HUB-APP-FACTORY-SOP.md) and [docs/CLONE-RESET-CHECKLIST.md](./docs/CLONE-RESET-CHECKLIST.md) govern new-project execution. [docs/VISUAL-DIRECTION-STANDARD.md](./docs/VISUAL-DIRECTION-STANDARD.md) defines the visual craftsmanship and mobile-first experience standard. Iteration 13 is the engineering standards/reference repository, not the default clone source. The product owner chooses each new project's source; if none is named, use `gatshaayanda/africhiko`. Existing projects are improved in place.
