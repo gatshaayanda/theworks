@@ -9,7 +9,7 @@ import { auth, hasFirebaseWebConfig } from "@/lib/firebase/client";
 import { getCustomerProfile, saveCustomerProfile, type CustomerProfile } from "@/lib/firebase/data";
 import "../works-account.css";
 
-type AccountTab = "overview" | "enquiries" | "messages" | "receipts";
+type AccountTab = "overview" | "orders" | "messages" | "receipts";
 type WorksEnquiry = {id:string;items:{business:string;name:string;priceLabel:string;quantity:number}[];status:string;createdAt:string;brief:string};
 
 export default function AccountPage() {
@@ -20,6 +20,11 @@ export default function AccountPage() {
   const [tab, setTab] = useState<AccountTab>("overview");
   const [notice, setNotice] = useState("");
   const [worksEnquiries, setWorksEnquiries] = useState<WorksEnquiry[]>([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("submitted") === "1") setNotice("Your order/request has been sent to the selected business team.");
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -95,7 +100,7 @@ export default function AccountPage() {
           <div className="works-account-hero-copy">
             <span className="works-account-eyebrow">THE WORKS / MY ACCOUNT</span>
             <h1>Dumela, <em>{greeting}.</em></h1>
-            <p>Your enquiries, quotations, conversations and project updates—together in one place.</p>
+            <p>Your orders & requests, quotations, conversations and project updates—together in one place.</p>
             <div className="works-account-hero-meta"><span className={user ? "is-connected" : ""}><i />{ready ? (user ? "Account connected" : "Browse first · Connect when ready") : "Restoring your space…"}</span><span>ONE CUSTOMER ACCOUNT</span></div>
           </div>
           <div className="works-account-hero-art" aria-label="THE WORKS customer account"><div className="works-account-art-ring" /><div className="works-account-art-card"><small>YOUR WORK, TOGETHER</small><strong>One place.<br/>Clear next steps.</strong><div><span>ENQUIRIES</span><span>QUOTES</span><span>PROJECTS</span></div></div><span className="works-account-art-stamp">THE<br/>WORKS</span></div>
@@ -109,16 +114,16 @@ export default function AccountPage() {
         <section className="works-account-work">
           <div className="works-account-section-heading"><div><span className="works-account-eyebrow">YOUR WORK, TOGETHER</span><h2>Keep things <em>moving.</em></h2></div><p>Each business remains responsible for its own enquiries, quotations, messages and delivery.</p></div>
           <div className="works-account-tabs" role="tablist" aria-label="Your account activity">
-            {([["overview","Overview"],["enquiries","Enquiries"],["messages","Messages"],["receipts","Receipts"]] as [AccountTab,string][]).map(([key,label]) => <button key={key} type="button" role="tab" aria-selected={tab===key} onClick={() => setTab(key)}>{label}</button>)}
+            {([["overview","Overview"],["orders","Orders"],["messages","Messages"],["receipts","Receipts"]] as [AccountTab,string][]).map(([key,label]) => <button key={key} type="button" role="tab" aria-selected={tab===key} onClick={() => setTab(key)}>{label}</button>)}
           </div>
           <div className="works-account-activity" role="tabpanel">
             {tab === "overview" ? <>
-              <div className="works-account-stat"><strong>{worksEnquiries.length}</strong><span>SHARED REQUESTS</span></div>
+              <div className="works-account-stat"><strong>{worksEnquiries.length}</strong><span>ORDERS & REQUESTS</span></div>
               <div className="works-account-stat"><strong>{worksEnquiries.reduce((n,x)=>n+(x.items?.length||0),0)}</strong><span>SELECTED ITEMS</span></div>
               <div className="works-account-stat"><strong>{new Set(worksEnquiries.flatMap(x=>x.items||[]).map(x=>x.business)).size}</strong><span>BUSINESSES INVOLVED</span></div>
-              {worksEnquiries.length ? worksEnquiries.slice(0,3).map(item=><article className="works-account-tab-empty" key={item.id}><span>↗</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" ("+x.business+")").join(" · ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-empty"><span>✳</span><div><strong>{user ? "Your next request starts here." : "Your next step starts here."}</strong><p>Choose multiple services from the participating businesses and follow your request here.</p><Link href="/request">Browse services & prices →</Link></div></div>}
-            </> : tab === "enquiries" ? <>
-              {worksEnquiries.length ? worksEnquiries.map(item=><article className="works-account-tab-empty" key={item.id}><span>01</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" · "+x.business+" · "+x.priceLabel).join(" | ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-tab-empty"><span>01</span><div><strong>Your enquiries</strong><p>Your submitted multi-business requests will appear here.</p><Link href="/request">Start a request →</Link></div></div>}
+              {worksEnquiries.length ? worksEnquiries.slice(0,3).map(item=><article className="works-account-tab-empty" key={item.id}><span>↗</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" ("+x.business+")").join(" · ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-empty"><span>✳</span><div><strong>{user ? "Your next order starts here." : "Your next step starts here."}</strong><p>Your orders and quote requests from the participating businesses will appear here.</p><Link href="/request">Browse services & prices →</Link></div></div>}
+            </> : tab === "orders" ? <>
+              {worksEnquiries.length ? worksEnquiries.map(item=><article className="works-account-tab-empty" key={item.id}><span>01</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" · "+x.business+" · "+x.priceLabel).join(" | ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-tab-empty"><span>01</span><div><strong>Your enquiries</strong><p>Your submitted orders and quote requests will appear here.</p><Link href="/request">Start a request →</Link></div></div>}
             </> : <div className="works-account-tab-empty"><span>{tab === "messages" ? "02" : "03"}</span><div><strong>{tab === "messages" ? "Business conversations" : "Receipts"}</strong><p>{tab === "messages" ? "Company-specific conversations will appear here as each business workspace is connected." : "Receipts will appear here when a business records a payment against its approved quotation."}</p></div></div>}
           </div>
         </section>
