@@ -69,6 +69,7 @@ export default function AccountPage(){
      await batch.commit();setQuantities({});window.history.replaceState({}, "", "/account?submitted=1");setNotice("Your order/request has been saved and sent to the responsible business team.");
    }catch(error){setNotice(error instanceof Error?error.message:"Your order could not be saved. Please try again.");}finally{setBusy(false)}
  }
+ const activeOrders=enquiries.filter(item=>!["completed","collected","delivered","cancelled","rejected"].includes((item.status||"").toLowerCase())).length;
  const greeting=profile?.name?.trim().split(/\s+/)[0]||user?.displayName?.trim().split(/\s+/)[0]||"there";
  return <main className="works-account-page">
   <div className="works-account-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
