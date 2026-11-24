@@ -1,7 +1,7 @@
 import AdminGate from "@/app/admin/admin-gate";
-import WorksCatalogueAdmin from "@/components/WorksCatalogueAdmin";
-import "@/app/works-request.css";
+import WorksOwnerBriefcase from "@/components/WorksOwnerBriefcase";
+import "@/app/works-briefcase.css";
 
 export default function AdminPage(){
-  return <AdminGate><WorksCatalogueAdmin /></AdminGate>;
+  return <AdminGate><WorksOwnerBriefcase /></AdminGate>;
 }
