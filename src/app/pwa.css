@@ -10,5 +10,5 @@
 .pwaInstallInfo>div:first-child{display:grid;gap:6px}
 .pwaInstallInfo strong{display:block;font-size:.9rem}
 .pwaInstallInfo span{display:block;font-size:.76rem;color:#555;line-height:1.5}
-.pwaInstallInfo button{justify-self:end;border:0;background:#0866FF;color:#fff;border-radius:8px;padding:8px 12px;font-weight:800}
+.pwaInstallInfo button{justify-self:end;border:0;background:#294735;color:#fff;border-radius:8px;padding:8px 12px;font-weight:800}
 @media(max-width:560px){.pwaInstallInfo{left:16px;right:16px;bottom:126px;max-width:none}}
