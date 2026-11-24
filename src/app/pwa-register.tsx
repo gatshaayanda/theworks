@@ -324,7 +324,7 @@ export default function PwaRegister({ initialEmbedded = false, initialAndroid = 
   ) : null;
 
   return <>
-    {!environment().standalone && installState !== "embedded" && !installCardDismissed && !(installState === "native" && installHelpOpen) && (
+    {!environment().standalone && installState !== "embedded" && (canInstall || canShowManualInstall) && !installCardDismissed && !(installState === "native" && installHelpOpen) && (
       <aside className="i13-install-card" aria-label="Install THE WORKS">
         <div className="i13-install-brand">
           <span className="i13-install-mark" aria-hidden="true">W</span>
