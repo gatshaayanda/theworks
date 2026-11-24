@@ -7,10 +7,13 @@ const ignoredFiles = new Set(["AGENTS.md","scripts/verify-identity.mjs"]);
 const textExtensions = new Set([".ts",".tsx",".js",".mjs",".css",".json",".webmanifest",".md",".yml",".yaml",".txt",".html",".svg"]);
 const failures = [];
 const page = fs.readFileSync(path.join(root, "src/app/page.tsx"), "utf8");
-if (!page.includes('url.searchParams.set("sample", "1")')) failures.push("shared business example links must launch first-time visitors directly into the Store");
-if (!page.includes('"iteration13:shared-example-visited:" + sharedExample.id')) failures.push("shared example links must remember when a visitor has opened the example");
-if (!page.includes("beginOwnBusinessFromSharedExample")) failures.push("returning visitors must be able to start a separate business without replacing the shared example");
-if (!page.includes("Open this example")) failures.push("returning visitors must be able to reopen the shared business example");
+const landing = fs.readFileSync(path.join(root, "src/app/WorksLanding.tsx"), "utf8");
+if (!page.includes("WorksLanding")) failures.push("public root must render the THE WORKS landing experience");
+for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"THE WORKS"']) if (!layout.includes(expected)) failures.push("layout: missing " + expected);
+  if (!landing.includes(expected)) failures.push("THE WORKS landing is missing " + expected);
+}
+if (!landing.includes('id="works-search"') || !landing.includes('aria-label="Popular service categories"')) failures.push("service search and first-viewport shortcuts must remain available");
+if (!landing.includes('href="/account"') || !landing.includes('href="/admin"')) failures.push("customer account and discreet owner Briefcase entry points must remain present");
 function walk(dir) {
   const files = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -27,25 +30,25 @@ for (const file of walk(root)) {
   if (/boemo-joos-food-deals|namane-tyres\.vercel\.app|yusuf-clothing-line\.vercel\.app/i.test(content)) failures.push(rel + ": inherited project URL remains");
 }
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "public/manifest.webmanifest"), "utf8"));
-if (manifest.name !== "Iteration 13 | Service Studio") failures.push("manifest: wrong application name");
-if (manifest.short_name !== "Iteration 13") failures.push("manifest: wrong short name");
-if (manifest.theme_color !== "#155eef") failures.push("manifest: wrong theme color");
+if (manifest.name !== "THE WORKS | Business & Experiences") failures.push("manifest: wrong application name");
+if (manifest.short_name !== "THE WORKS") failures.push("manifest: wrong short name");
+if (manifest.theme_color !== "#294735") failures.push("manifest: wrong theme color");
 if (!manifest.icons?.some(icon => icon.src === "/iteration13-icon.svg" || icon.src === "/iteration13-icon-192.png")) failures.push("manifest: prototype icon missing");
 for (const iconPath of ["/iteration13-icon.svg", "/iteration13-icon-192.png", "/iteration13-icon-512.png"]) {
   if (!manifest.icons?.some(icon => icon.src === iconPath)) failures.push("manifest: icon missing " + iconPath);
   if (!fs.existsSync(path.join(root, "public", iconPath.slice(1)))) failures.push("manifest icon asset missing " + iconPath);
 }
 const appManifest = fs.readFileSync(path.join(root, "src/app/manifest.ts"), "utf8");
-if (!appManifest.includes('name: "Iteration 13 | Service Studio"')) failures.push("app manifest: wrong application name");
+if (!appManifest.includes('name: "THE WORKS | Business & Experiences"')) failures.push("app manifest: wrong application name");
 if (appManifest.includes("The Plug") || appManifest.includes("plug-icon")) failures.push("app manifest: inherited The Plug identity remains");
 for (const iconPath of ["/iteration13-icon-192.png", "/iteration13-icon-512.png"]) if (!appManifest.includes(iconPath)) failures.push("app manifest: missing " + iconPath);
 if (!fs.existsSync(path.join(root, "public/iteration13-icon.svg"))) failures.push("prototype icon file missing");
 if (!fs.existsSync(path.join(root, "public/iteration13-icon-180.png"))) failures.push("Apple install icon file missing");
 const layout = fs.readFileSync(path.join(root, "src/app/layout.tsx"), "utf8");
 const pwaRegister = fs.readFileSync(path.join(root, "src/app/pwa-register.tsx"), "utf8");
-for (const expected of ["Iteration 13 | Service Studio", "applicationName:\"Iteration 13\""]) if (!layout.includes(expected)) failures.push("layout: missing " + expected);
+for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"THE WORKS"']) if (!layout.includes(expected)) failures.push("layout: missing " + expected);
 // Validate Apple install metadata semantically; whitespace and additional metadata fields are harmless.
-if (!/appleWebApp\s*:\s*\{[^}]*\bcapable\s*:\s*true\b[^}]*\btitle\s*:\s*["']Iteration 13["']/s.test(layout)) failures.push('layout: missing appleWebApp capable=true and title="Iteration 13"');
+if (!layout.includes('appleWebApp:{capable:true,title:"THE WORKS"')) failures.push("layout: missing THE WORKS Apple install metadata");
 const sw = fs.readFileSync(path.join(root, "public/sw.js"), "utf8");
 if (!/iteration13-shell-v\d+/.test(sw)) failures.push("service worker: missing isolated cache namespace");
 if (!sw.includes("/iteration13-icon.svg")) failures.push("service worker: prototype icon missing from app shell");
@@ -97,4 +100,4 @@ if (failures.length) {
   failures.forEach(failure => console.error(" - " + failure));
   process.exit(1);
 }
-console.log("IDENTITY VERIFIED — Iteration 13 app metadata and service-worker cache are isolated.");
+console.log("IDENTITY VERIFIED — THE WORKS metadata and inherited PWA cache/install contracts are intact.");
