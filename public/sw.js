@@ -51,15 +51,15 @@ self.addEventListener("notificationclick", (event) => {
   }));
 });
 
-const CACHE_VERSION = "iteration13-shell-v35";
-const MEDIA_CACHE = "iteration13-media-v6";
+const CACHE_VERSION = "theworks-shell-v35";
+const MEDIA_CACHE = "theworks-media-v6";
 const SHELL_CACHE = CACHE_VERSION;
 const STATIC_LIMIT = 100;
 const PUBLIC_PAGE_LIMIT = 12;
 const MEDIA_LIMIT = 24;
 const MEDIA_MAX_BYTES = 4 * 1024 * 1024;
 const MEDIA_HOSTS = ["images.unsplash.com", "utfs.io", "ufs.sh"];
-const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/iteration13-icon.svg", "/works-icon.svg", "/iteration13-icon-192.svg", "/iteration13-icon-512.svg", "/iteration13-icon-192.png", "/iteration13-icon-512.png", "/iteration13-icon-180.png", "/manifest.webmanifest"];
+const APP_SHELL = ["/", "/offline", "/patterns", "/iphone-install", "/iphone-install.svg", "/works-icon.svg", "/iteration13-icon-192.svg", "/iteration13-icon-512.svg", "/iteration13-icon-192.png", "/iteration13-icon-512.png", "/iteration13-icon-180.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
@@ -177,7 +177,7 @@ async function cacheMediaUrl(value) {
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(key => key.startsWith("theplug-shell-") || key.startsWith("theplug-media-") || (key.startsWith("iteration13-shell-") && key !== SHELL_CACHE) || (key.startsWith("iteration13-media-") && key !== MEDIA_CACHE)).map(key => caches.delete(key)));
+    await Promise.all(keys.filter(key => key.startsWith("theplug-shell-") || key.startsWith("theplug-media-") || (key.startsWith("theworks-shell-") && key !== SHELL_CACHE) || (key.startsWith("theworks-media-") && key !== MEDIA_CACHE)).map(key => caches.delete(key)));
     // Navigation preload overlaps the network request with worker startup. It is
     // optional and must never prevent activation on browsers that do not support it.
     try {
