@@ -2,7 +2,7 @@
 
 import {useEffect,useMemo,useState} from "react";
 import Link from "next/link";
-import {addDoc,collection,doc,onSnapshot,query,updateDoc,where,getDocs,writeBatch} from "firebase/firestore";
+import {addDoc,collection,doc,onSnapshot,query,where,getDocs,writeBatch} from "firebase/firestore";
 import {signOut} from "firebase/auth";
 import {auth,db} from "@/lib/firebase/client";
 import {WORKS_BUSINESSES,type WorksBusiness} from "@/lib/firebase/works-catalogue";
