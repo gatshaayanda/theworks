@@ -42,3 +42,25 @@
 
 .works-business-copy>button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin-top:18px;padding:13px 0;border:0;border-top:1px solid #d8ddd5;background:transparent;color:inherit;text-align:left;font:inherit;font-size:13px;font-weight:850;cursor:pointer}
 .works-business-copy>button:focus-visible{outline:3px solid #e5a044;outline-offset:3px}
+
+
+/* Provider storefront personalities: the shared THE WORKS shopping structure stays constant. */
+.works-theme-prospec{--works-green:#087f8b;--works-orange:#55cbd2;--works-accent-soft:#e5f5f6;--works-accent-ink:#064c55}
+.works-theme-galaxy{--works-green:#432437;--works-orange:#d6ed72;--works-accent-soft:#f5edf2;--works-accent-ink:#351a2b}
+.works-theme-kavon{--works-green:#58772d;--works-orange:#a9ce55;--works-accent-soft:#eff4e5;--works-accent-ink:#3d5720}
+.works-theme-prospec .works-topline,.works-theme-galaxy .works-topline,.works-theme-kavon .works-topline{background:var(--works-accent-ink)}
+.works-theme-prospec .works-catalogue-filters button[aria-pressed=true],.works-theme-galaxy .works-catalogue-filters button[aria-pressed=true],.works-theme-kavon .works-catalogue-filters button[aria-pressed=true]{background:var(--works-green);border-color:var(--works-green)}
+.works-theme-prospec .works-catalogue-price,.works-theme-galaxy .works-catalogue-price,.works-theme-kavon .works-catalogue-price{color:var(--works-green)}
+.works-theme-prospec .works-catalogue-controls button,.works-theme-galaxy .works-catalogue-controls button,.works-theme-kavon .works-catalogue-controls button,.works-theme-prospec .works-selection-bar>button,.works-theme-galaxy .works-selection-bar>button,.works-theme-kavon .works-selection-bar>button{background:var(--works-green);border-color:var(--works-green)}
+.works-theme-prospec .works-catalogue-controls button:focus-visible,.works-theme-prospec .works-catalogue-filters button:focus-visible,.works-theme-galaxy .works-catalogue-controls button:focus-visible,.works-theme-galaxy .works-catalogue-filters button:focus-visible,.works-theme-kavon .works-catalogue-controls button:focus-visible,.works-theme-kavon .works-catalogue-filters button:focus-visible{outline-color:var(--works-orange)}
+.works-active-business{display:grid;grid-template-columns:minmax(180px,.82fr) minmax(0,1.4fr);min-height:210px;overflow:hidden;margin:0 0 16px;border:1px solid color-mix(in srgb,var(--works-green) 22%,white);border-radius:14px;background:var(--works-accent-soft)}
+.works-active-business-image{min-height:210px;background:#dfe5df}
+.works-active-business-image img{display:block;width:100%;height:100%;min-height:210px;object-fit:cover}
+.works-active-business-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:22px 25px}
+.works-active-kicker{color:var(--works-green);font-size:9px;font-weight:950;letter-spacing:.13em}
+.works-active-business-copy h3{margin:9px 0 4px;color:var(--works-accent-ink);font-family:Manrope,Arial,sans-serif;font-size:clamp(1.45rem,3vw,2.1rem);letter-spacing:-.055em}
+.works-active-business-copy>strong{font-size:14px}
+.works-active-business-copy p{max-width:540px;margin:8px 0 13px;color:#50594f;font-size:12px;line-height:1.6}
+.works-active-business-copy button{padding:0;border:0;background:transparent;color:var(--works-green);font:inherit;font-size:11px;font-weight:900;cursor:pointer}
+.works-active-business-copy button:focus-visible{outline:3px solid var(--works-orange);outline-offset:4px}
+@media(max-width:640px){.works-active-business{grid-template-columns:1fr;min-height:0}.works-active-business-image,.works-active-business-image img{height:145px;min-height:145px}.works-active-business-copy{padding:16px}.works-active-business-copy h3{font-size:1.55rem}}

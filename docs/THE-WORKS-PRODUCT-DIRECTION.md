@@ -228,3 +228,17 @@ The product owner has reviewed and approved the balanced landing-page compositio
 3. Build provider-specific public service/catalogue experiences: Amrod-style PROSPEC catalogue; Galaxy mobile-bar packages and menus; Kavon event/project brief.
 4. Connect enquiries and quote workflows to the real approved persistence boundary after Firebase/project configuration and rules are explicitly authorised.
 5. Replace stock imagery and inherited PWA icon identity with approved THE WORKS and company assets, preserving the installation lock and testing offline behavior.
+
+
+## 13. Approved shared-platform and provider-brand experience — 2026-11-24
+
+THE WORKS uses one simple endorsed storefront model:
+
+- **All businesses (default):** the neutral THE WORKS identity remains the host. Customers can browse all three providers, and every listing continues to identify its responsible business.
+- **One business selected:** the shopping layout, basket, account and navigation remain familiar, while the active storefront adopts that provider's own visual character, introduction, imagery and catalogue context.
+  - **PROSPEC:** bright teal/cyan with charcoal contrast; creative, youthful and product-showcase led.
+  - **GALAXY LIQUIDS:** a darker hospitality/nightlife expression with a restrained citrus accent; expressive drinks and event imagery.
+  - **KAVON GROUP:** botanical/lime and soft sage accents with a polished corporate-events and experiences presentation.
+- **Cross-business packages:** do not make a combined package the default or imply one exists at a fixed price. A curated "Build your event" or similar route may be introduced later only when the businesses have confirmed the actual service combinations, provider responsibilities, availability and pricing. Until then, customers can select services from multiple providers in the shared basket, with each provider remaining clearly identified and responsible for its own quotation/delivery.
+
+The visual change is a contextual storefront skin, not a separate website or account. Returning to "All businesses" restores the neutral THE WORKS presentation. The current implementation uses the supplied profile descriptions as directional brand cues; exact logo artwork and final brand colour values should be confirmed against approved identity assets before a public brand lock.

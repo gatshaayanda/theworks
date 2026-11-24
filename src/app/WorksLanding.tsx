@@ -19,6 +19,12 @@ const shortcuts = [
   { label: "Events & production", icon: CalendarDays, query: "event" },
 ];
 
+const businessExperiences = [
+  { id: "PROSPEC", key: "prospec", name: "PROSPEC", line: "Ideas made visible.", description: "Explore branding, printing, corporate clothing, merchandise, signage and business supplies.", image: businesses[0].image, cue: "CREATIVE · PRINT · SUPPLY" },
+  { id: "GALAXY LIQUIDS", key: "galaxy", name: "GALAXY LIQUIDS", line: "A bar at your footsteps.", description: "Discover mobile bars, bespoke cocktail and mocktail menus, hospitality and event beverage experiences.", image: businesses[1].image, cue: "COCKTAILS · MOBILE BAR · HOSPITALITY" },
+  { id: "KAVON GROUP", key: "kavon", name: "KAVON GROUP", line: "We envision. We create. We execute.", description: "Explore corporate events, event production, décor, VIP hospitality and guest logistics.", image: businesses[2].image, cue: "EVENTS · PRODUCTION · EXPERIENCES" },
+];
+
 export default function WorksLanding() {
   const [query, setQuery] = useState("");
   const [catalogue, setCatalogue] = useState<WorksService[]>(DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""})));
@@ -33,6 +39,8 @@ export default function WorksLanding() {
   const subtotal = selected.reduce((sum,item)=>sum+(item.service.priceMode==="quote"?0:(item.service.price??0)*item.quantity),0);
   const quoteCount = selected.filter(item=>item.service.priceMode==="quote").length;
   const money = (value:number)=>"P"+value.toLocaleString("en-BW",{maximumFractionDigits:2});
+  const activeBrand = businessExperiences.find(item => item.id === businessFilter);
+  const experienceClass = activeBrand ? " works-theme-"+activeBrand.key : "";
   function setQuantity(id:string,next:number){setQuantities(current=>{const updated={...current};if(next<=0)delete updated[id];else updated[id]=Math.min(10000,next);return updated;});}
   function continueToAccount(){const items=selected.map(item=>item.service.id+":"+item.quantity).join(",");window.location.assign("/account?request=1&items="+encodeURIComponent(items));}
 
@@ -41,7 +49,7 @@ export default function WorksLanding() {
     window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
   }
 
-  return <main className="works-site">
+  return <main className={"works-site"+experienceClass}>
     <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
     <header className="works-header">
       <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
@@ -82,9 +90,13 @@ export default function WorksLanding() {
 
     <section className="works-discovery" id="works-discovery">
       <div className="works-section-heading">
-        <div><span className="works-eyebrow">SERVICE DISCOVERY</span><h2>Find your<br/><em>next step.</em></h2></div>
-        <p>Choose from the seeded catalogue, see indicative market prices, adjust quantities and carry your selection into your customer account.</p>
+        <div><span className="works-eyebrow">{activeBrand ? activeBrand.name+" · SERVICE DISCOVERY" : "SERVICE DISCOVERY"}</span><h2>{activeBrand ? <>Explore<br/><em>{activeBrand.key === "prospec" ? "what's possible." : activeBrand.key === "galaxy" ? "the experience." : "the execution."}</em></> : <>Find your<br/><em>next step.</em></>}</h2></div>
+        <p>{activeBrand ? "Browse this business's own products and services. Your THE WORKS basket and customer account stay the same." : "Choose from the catalogue, see indicative prices, adjust quantities and carry your selection into your customer account."}</p>
       </div>
+      {activeBrand && <section className={"works-active-business works-active-"+activeBrand.key} aria-label={activeBrand.name+" storefront"}>
+        <div className="works-active-business-image"><img src={activeBrand.image} alt={activeBrand.name+" brand experience"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/></div>
+        <div className="works-active-business-copy"><span className="works-active-kicker">THE WORKS STOREFRONT · {activeBrand.cue}</span><h3>{activeBrand.name}</h3><strong>{activeBrand.line}</strong><p>{activeBrand.description}</p><button type="button" onClick={() => setBusinessFilter("All")}>← View all businesses</button></div>
+      </section>}
       <div className="works-results" aria-live="polite">
         <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"} · {results.length} available</strong><button type="button" onClick={() => { setQuery(""); setBusinessFilter("All"); }}>Clear filters</button></div><div className="works-catalogue-filters"><button type="button" aria-pressed={businessFilter==="All"} onClick={()=>setBusinessFilter("All")}>All businesses</button>{WORKS_BUSINESSES.map(name=><button type="button" key={name} aria-pressed={businessFilter===name} onClick={()=>setBusinessFilter(name)}>{name}</button>)}</div>
         {results.length ? <div className="works-results-grid">{results.map(item => <article className="works-result works-catalogue-card" key={item.id}><span>{item.business} · {item.category}</span><strong>{item.name}</strong><p>{item.description}</p><b className="works-catalogue-price">{item.priceMode==="quote"?"Price on request":(item.priceMode==="from"?"From ":"")+money(item.price??0)+(item.unit?" / "+item.unit:"")}</b><small>Indicative market-reference price. Final price depends on confirmed specifications.</small><div className="works-catalogue-controls">{(quantities[item.id]||0)>0?<><button type="button" aria-label={"Remove one "+item.name} onClick={()=>setQuantity(item.id,(quantities[item.id]||0)-1)}>−</button><strong>{quantities[item.id]}</strong><button type="button" aria-label={"Add one "+item.name} onClick={()=>setQuantity(item.id,(quantities[item.id]||0)+1)}>+</button></>:<button type="button" onClick={()=>setQuantity(item.id,1)}>Add to basket +</button>}</div></article>)}</div> : <p className="works-no-results">No matching services. Try a broader search or choose another business.</p>}
