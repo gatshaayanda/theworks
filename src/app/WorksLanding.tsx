@@ -54,6 +54,27 @@ export default function WorksLanding() {
 
   function findService(value = "") {
     setQuery(value);
+    setSearchFocused(false);
+    window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  }
+  function chooseBusiness(name:string) {
+    setBusinessFilter(name);
+    setQuery("");
+    setSearchFocused(false);
+    window.setTimeout(() => document.querySelector(".works-results")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+  }
+  function chooseSuggestion(item:(typeof suggestions)[number]) {
+    if(item.kind==="business") chooseBusiness(item.business.name);
+    else {
+      setBusinessFilter(item.service.business);
+      setQuery(item.service.name);
+      setSearchFocused(false);
+      window.setTimeout(() => document.querySelector(".works-results")?.scrollIntoView({behavior:"smooth",block:"start"}),80);
+    }
+  }
+
+  function findService(value = "") {
+    setQuery(value);
     window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
   }
 
@@ -82,6 +103,7 @@ export default function WorksLanding() {
           <Search size={20} aria-hidden="true"/>
           <input aria-label="Search products and services" aria-autocomplete="list" aria-expanded={searchFocused && query.trim().length>0 && suggestions.length>0} placeholder="What do you need to make happen?" value={query} onFocus={()=>setSearchFocused(true)} onBlur={()=>window.setTimeout(()=>setSearchFocused(false),140)} onChange={event => { setQuery(event.target.value); setSearchFocused(true); }}/>
           <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
+          {searchFocused && query.trim() && <div className="works-search-suggestions" role="listbox" aria-label="Search suggestions">{suggestions.length ? suggestions.map(item=><button type="button" role="option" key={item.kind+"-"+item.id} onMouseDown={event=>event.preventDefault()} onClick={()=>chooseSuggestion(item)}><span className="works-suggestion-kind">{item.kind==="business"?"BUSINESS":"SERVICE"}</span><strong>{item.title}</strong><small>{item.detail}</small><ArrowRight size={15}/></button>) : <p>No suggestions yet. Press Enter to search the full catalogue.</p>}</div>}
         </form>
         <div className="works-shortcuts" aria-label="Popular service categories">
           {shortcuts.map(item => { const Icon=item.icon; return <button key={item.label} type="button" onClick={() => findService(item.query)}><Icon size={18}/><span>{item.label}</span><ChevronRight size={15}/></button>; })}
