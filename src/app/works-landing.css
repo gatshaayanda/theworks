@@ -135,3 +135,11 @@
 .works-search-suggestions>p{margin:0;padding:13px;color:#697067;font-size:12px}
 .works-results{scroll-margin-top:78px}
 @media(max-width:640px){.works-search-suggestions{max-height:50vh}.works-search-suggestions>button{grid-template-columns:58px minmax(0,1fr) 18px;padding:10px 8px}.works-results{scroll-margin-top:66px}}
+
+
+/* Language selector is available in both desktop and mobile storefront navigation. */
+.works-language-control{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #d6dbd2;border-radius:9px;background:#fff;color:#596258;font-size:11px;font-weight:750}
+.works-language-control select{max-width:105px;border:0;background:transparent;color:#20241f;font:inherit;cursor:pointer}
+.works-language-control:focus-within{outline:2px solid #e5a044;outline-offset:2px}
+.works-mobile-language{display:none}
+@media(max-width:640px){.works-mobile-language{display:inline-flex}.works-nav{display:none}}
