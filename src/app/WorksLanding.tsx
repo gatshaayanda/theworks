@@ -30,11 +30,19 @@ export default function WorksLanding() {
   const [catalogue, setCatalogue] = useState<WorksService[]>(DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""})));
   const [quantities, setQuantities] = useState<Record<string,number>>({});
   const [businessFilter, setBusinessFilter] = useState("All");
+  const [searchFocused, setSearchFocused] = useState(false);
   useEffect(()=>subscribeToWorksServices(items=>setCatalogue(items.length?items:DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""}))),()=>{}),[]);
   const results = useMemo(() => {
     const value = query.trim().toLowerCase();
     return catalogue.filter(item => (businessFilter==="All"||item.business===businessFilter) && (!value || (item.name+" "+item.category+" "+item.business+" "+item.description).toLowerCase().includes(value)));
   }, [catalogue,query,businessFilter]);
+  const suggestions = useMemo(() => {
+    const value = query.trim().toLowerCase();
+    if (!value) return [];
+    const serviceMatches = catalogue.filter(item => (item.name+" "+item.category+" "+item.business+" "+item.description).toLowerCase().includes(value)).slice(0,6).map(item=>({kind:"service" as const,id:item.id,title:item.name,detail:item.business+" · "+item.category,service:item}));
+    const businessMatches = businesses.filter(item => (item.name+" "+item.type+" "+item.description+" "+item.services.join(" ")).toLowerCase().includes(value)).map(item=>({kind:"business" as const,id:item.id,title:item.name,detail:item.type,business:item}));
+    return [...businessMatches,...serviceMatches].slice(0,7);
+  },[catalogue,query]);
   const selected = catalogue.filter(item=>(quantities[item.id]||0)>0).map(service=>({service,quantity:quantities[service.id]}));
   const subtotal = selected.reduce((sum,item)=>sum+(item.service.priceMode==="quote"?0:(item.service.price??0)*item.quantity),0);
   const quoteCount = selected.filter(item=>item.service.priceMode==="quote").length;
@@ -72,7 +80,7 @@ export default function WorksLanding() {
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
-          <input aria-label="Search products and services" placeholder="What do you need to make happen?" value={query} onChange={event => { setQuery(event.target.value);  }}/>
+          <input aria-label="Search products and services" aria-autocomplete="list" aria-expanded={searchFocused && query.trim().length>0 && suggestions.length>0} placeholder="What do you need to make happen?" value={query} onFocus={()=>setSearchFocused(true)} onBlur={()=>window.setTimeout(()=>setSearchFocused(false),140)} onChange={event => { setQuery(event.target.value); setSearchFocused(true); }}/>
           <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
         </form>
         <div className="works-shortcuts" aria-label="Popular service categories">
@@ -98,7 +106,7 @@ export default function WorksLanding() {
         <div className="works-active-business-copy"><span className="works-active-kicker">THE WORKS STOREFRONT · {activeBrand.cue}</span><h3>{activeBrand.name}</h3><strong>{activeBrand.line}</strong><p>{activeBrand.description}</p><button type="button" onClick={() => setBusinessFilter("All")}>← View all businesses</button></div>
       </section>}
       <div className="works-results" aria-live="polite">
-        <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"} · {results.length} available</strong><button type="button" onClick={() => { setQuery(""); setBusinessFilter("All"); }}>Clear filters</button></div><div className="works-catalogue-filters"><button type="button" aria-pressed={businessFilter==="All"} onClick={()=>setBusinessFilter("All")}>All businesses</button>{WORKS_BUSINESSES.map(name=><button type="button" key={name} aria-pressed={businessFilter===name} onClick={()=>setBusinessFilter(name)}>{name}</button>)}</div>
+        <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"} · {results.length} available</strong><button type="button" onClick={() => { setQuery(""); setBusinessFilter("All"); }}>Clear filters</button></div><div className="works-catalogue-filters"><button type="button" aria-pressed={businessFilter==="All"} onClick={()=>chooseBusiness("All")}>All businesses</button>{WORKS_BUSINESSES.map(name=><button type="button" key={name} aria-pressed={businessFilter===name} onClick={()=>chooseBusiness(name)}>{name}</button>)}</div>
         {results.length ? <div className="works-results-grid">{results.map(item => <article className="works-result works-catalogue-card" key={item.id}><span>{item.business} · {item.category}</span><strong>{item.name}</strong><p>{item.description}</p><b className="works-catalogue-price">{item.priceMode==="quote"?"Price on request":(item.priceMode==="from"?"From ":"")+money(item.price??0)+(item.unit?" / "+item.unit:"")}</b><small>Indicative market-reference price. Final price depends on confirmed specifications.</small><div className="works-catalogue-controls">{(quantities[item.id]||0)>0?<><button type="button" aria-label={"Remove one "+item.name} onClick={()=>setQuantity(item.id,(quantities[item.id]||0)-1)}>−</button><strong>{quantities[item.id]}</strong><button type="button" aria-label={"Add one "+item.name} onClick={()=>setQuantity(item.id,(quantities[item.id]||0)+1)}>+</button></>:<button type="button" onClick={()=>setQuantity(item.id,1)}>Add to basket +</button>}</div></article>)}</div> : <p className="works-no-results">No matching services. Try a broader search or choose another business.</p>}
       {selected.length > 0 && <div className="works-selection-bar"><div><strong>{selected.reduce((n,item)=>n+item.quantity,0)} items selected</strong><span>Estimated total · {money(subtotal)}{quoteCount>0?" · "+quoteCount+" quote-priced item"+(quoteCount===1?"":"s"):""}</span><small>Indicative prices only. Final quotations are confirmed by each business.</small></div><button type="button" onClick={continueToAccount}>Continue with selected services ↗</button></div>}
       </div>
@@ -113,7 +121,7 @@ export default function WorksLanding() {
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
           <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
-          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><button type="button" onClick={()=>{setBusinessFilter(business.name);document.getElementById("works-discovery")?.scrollIntoView({behavior:"smooth"});}}>Explore services & prices <ArrowRight size={16}/></button></div>
+          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><button type="button" onClick={()=>chooseBusiness(business.name)>Explore services & prices <ArrowRight size={16}/></button></div>
         </article>)}
       </div>
     </section></details>
