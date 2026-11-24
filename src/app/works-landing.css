@@ -16,3 +16,26 @@
 @media(max-width:640px){.works-topline{padding:8px 14px;font-size:.52rem}.works-header{min-height:65px;padding:0 14px}.works-wordmark strong{font-size:.88rem}.works-mark{width:35px;height:35px}.works-nav{display:none}.works-mobile-account{display:flex;align-items:center;gap:6px;padding:9px 11px;border:1px solid #d3d7ce;border-radius:8px;font-size:.7rem;font-weight:850}.works-hero{grid-template-columns:1fr;gap:18px;width:calc(100% - 28px);padding:30px 0 28px;min-height:0}.works-hero h1{font-size:clamp(3.4rem,16vw,5.2rem);margin:17px 0 13px}.works-hero-copy>p{font-size:.9rem;line-height:1.6}.works-hero-actions{gap:8px;margin-top:20px}.works-primary,.works-secondary{min-height:46px;padding:0 13px;font-size:.72rem}.works-hero-foot{margin-top:22px;font-size:.59rem;gap:9px}.works-hero-foot span+span{padding-left:9px}.works-hero-visual{min-height:210px;width:100%;max-width:none}.works-photo-main{inset:0 8% 7% 13%}.works-photo-small{width:38%;height:39%;left:0;top:9%}.works-photo-drink{width:40%;height:35%;right:0;bottom:0}.works-visual-stamp{width:83px;height:83px;right:0;top:1%}.works-visual-stamp strong{font-size:.68rem}.works-visual-stamp span{font-size:.34rem}
 .works-discovery,.works-businesses,.works-how,.works-account{width:calc(100% - 28px)}.works-discovery{padding:28px 0 44px}.works-section-heading{display:grid;gap:10px;margin-bottom:17px}.works-section-heading h2,.works-how h2,.works-account h2{font-size:clamp(2.6rem,12vw,3.6rem)}.works-section-heading>p{font-size:.78rem}.works-search{min-height:57px;padding-left:13px;gap:9px}.works-search input{font-size:.77rem}.works-search button{width:42px;height:42px}.works-shortcuts{grid-template-columns:1fr 1fr;gap:7px}.works-shortcuts button{min-height:53px;padding:8px;font-size:.64rem;gap:7px}.works-shortcuts button svg:first-child{width:16px}.works-results{padding:12px}.works-results-grid{grid-template-columns:1fr}.works-result{padding:11px}.works-businesses{padding:16px 0 43px}.works-business-grid{grid-template-columns:1fr;gap:13px}.works-business-image{height:205px}.works-business-copy{padding:16px}.works-business-copy p{min-height:0}.works-service-tags{margin:12px 0}.works-how{padding:31px 0 35px;gap:16px}.works-steps{grid-template-columns:1fr;gap:7px}.works-steps article{display:grid;grid-template-columns:34px 1fr;gap:0 9px;padding:12px}.works-steps article>span{grid-row:span 2}.works-steps h3{margin:0 0 4px;font-size:.88rem}.works-steps p{font-size:.69rem}.works-account{grid-template-columns:1fr;gap:15px;padding:20px;margin-bottom:37px}.works-account>div:first-child>p{font-size:.78rem}.works-account-panel{padding:15px}.works-footer{padding:24px 14px 14px}.works-footer-main{display:grid;grid-template-columns:1fr auto;gap:12px}.works-footer-main>p{grid-column:1/-1;grid-row:2}.works-footer-main nav{grid-column:1/-1;grid-row:3;flex-wrap:wrap;gap:14px}.works-briefcase{grid-column:2;grid-row:1}.works-footer-bottom{display:grid;gap:6px;font-size:.55rem}}
 @media(prefers-reduced-motion:reduce){.works-site *{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* Live catalogue selection — customer-first buying flow */
+.works-catalogue-filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.works-catalogue-filters button{min-height:38px;padding:8px 12px;border:1px solid #d8ddd5;border-radius:999px;background:#fff;color:#26362c;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.works-catalogue-filters button[aria-pressed=true]{background:#294735;border-color:#294735;color:#fff}
+.works-catalogue-card{display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-width:0}
+.works-catalogue-card>span{font-size:10px!important;font-weight:850;letter-spacing:.08em}
+.works-catalogue-card>strong{font-size:18px}
+.works-catalogue-card>p{flex:1}
+.works-catalogue-price{font-size:17px;color:#294735}
+.works-catalogue-card>small{color:#687168;font-size:10px;line-height:1.4}
+.works-catalogue-controls{display:flex;align-items:center;gap:10px;margin-top:8px}
+.works-catalogue-controls button{display:grid;place-items:center;min-width:38px;min-height:38px;padding:6px 11px;border:1px solid #294735;border-radius:9px;background:#294735;color:#fff;font-size:18px;font-weight:850;cursor:pointer}
+.works-catalogue-controls button:focus-visible,.works-catalogue-filters button:focus-visible{outline:3px solid #e5a044;outline-offset:3px}
+.works-selection-bar{position:sticky;bottom:12px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px 0 0;padding:14px 16px;border:1px solid #d5ddd3;border-radius:14px;background:#fff;box-shadow:0 8px 28px #172b201f}
+.works-selection-bar>div{display:grid;gap:4px;min-width:0}
+.works-selection-bar>div strong{font-size:14px}
+.works-selection-bar>div span{font-size:13px;font-weight:800}
+.works-selection-bar>div small{font-size:10px;color:#687168}
+.works-selection-bar>button{flex:none;min-height:44px;padding:10px 15px;border:0;border-radius:9px;background:#294735;color:#fff;font:inherit;font-size:13px;font-weight:850;cursor:pointer}
+.works-selection-bar>button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:560px){.works-selection-bar{align-items:stretch;flex-direction:column;gap:10px}.works-selection-bar>button{width:100%}.works-results-grid{grid-template-columns:minmax(0,1fr)!important}}
