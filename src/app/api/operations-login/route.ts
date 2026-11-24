@@ -22,7 +22,7 @@ function matchesWord(input:string,expected:string){
 export async function POST(request:Request){
  try{
   const expected=process.env.ADMIN_PASSWORD;
-  if(!expected)return NextResponse.json({error:"Operations access is not configured yet. Set ADMIN_PASSWORD in Vercel."},{status:503});
+  if(!expected)return NextResponse.json({error:"Owner access is not configured. Set ADMIN_PASSWORD and FIREBASE_ADMIN_KEY in Vercel."},{status:503});
   const body=await request.json().catch(()=>null) as {word?:unknown}|null;
   const word=typeof body?.word==="string"?body.word:"";
   if(!matchesWord(word,expected))return NextResponse.json({error:"Access denied. Check the access word and try again."},{status:401});
