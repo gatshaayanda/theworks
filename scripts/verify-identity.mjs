@@ -9,7 +9,7 @@ const failures = [];
 const page = fs.readFileSync(path.join(root, "src/app/page.tsx"), "utf8");
 const landing = fs.readFileSync(path.join(root, "src/app/WorksLanding.tsx"), "utf8");
 if (!page.includes("WorksLanding")) failures.push("public root must render the THE WORKS landing experience");
-for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"THE WORKS"']) if (!layout.includes(expected)) failures.push("layout: missing " + expected);
+for (const expected of ["Business gets", "done here.", "What do you need to make happen?", "Find a service", "Browse businesses", "PROSPEC", "GALAXY LIQUIDS", "KAVON GROUP", "Open My Account"]) {
   if (!landing.includes(expected)) failures.push("THE WORKS landing is missing " + expected);
 }
 if (!landing.includes('id="works-search"') || !landing.includes('aria-label="Popular service categories"')) failures.push("service search and first-viewport shortcuts must remain available");
