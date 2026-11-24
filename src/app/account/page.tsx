@@ -21,12 +21,12 @@ const priceLabel=(service:WorksService)=>service.priceMode==="quote"?"Price on r
 export default function AccountPage(){
  const {language,setLanguage}=useWorksLanguage();
  const[user,setUser]=useState<User|null>(null),[profile,setProfile]=useState<CustomerProfile|null>(null),[ready,setReady]=useState(false),[busy,setBusy]=useState(false),[tab,setTab]=useState<AccountTab>("overview"),[notice,setNotice]=useState("");
- const[services,setServices]=useState<WorksService[]>(starter),[quantities,setQuantities]=useState<Record<string,number>>({}),[enquiries,setEnquiries]=useState<WorksEnquiry[]>([]),[submittedRequest,setSubmittedRequest]=useState<WorksEnquiry|null>(null),[submittedId,setSubmittedId]=useState("");
+ const[services,setServices]=useState<WorksService[]>(starter),[quantities,setQuantities]=useState<Record<string,number>>({}),[enquiries,setEnquiries]=useState<WorksEnquiry[]>([]),[submittedRequest,setSubmittedRequest]=useState<WorksEnquiry|null>(null);
  const[name,setName]=useState(""),[phone,setPhone]=useState(""),[email,setEmail]=useState(""),[location,setLocation]=useState(""),[eventDate,setEventDate]=useState(""),[brief,setBrief]=useState("");
  useEffect(()=>subscribeToWorksServices(items=>setServices(items.length?items:starter),()=>setServices(starter)),[]);
  useEffect(()=>{
    const params=new URLSearchParams(window.location.search);
-   if(params.has("submitted")){const id=params.get("submitted")||"";if(id&&id!=="1")setSubmittedId(id);setTab("orders");}
+   if(params.has("submitted"))setTab("orders");
    const encoded=params.get("items");
    if(encoded){const parsed:Record<string,number>={};encoded.split(",").forEach(part=>{const [id,count]=part.split(":");const quantity=Math.max(1,Math.min(10000,Number(count)||1));if(id)parsed[id]=quantity;});setQuantities(parsed);}
  },[]);
@@ -70,7 +70,7 @@ export default function AccountPage(){
      batch.set(profileRef,{uid:customer.uid,name:name.trim(),email:email.trim(),phone:phone.trim(),preferredDeliveryLocation:location.trim(),notes:"",createdAt:customer.metadata.creationTime||now,updatedAt:now},{merge:true});
      batch.set(enquiryRef,{customerId:customer.uid,customerName:name.trim(),email:email.trim(),phone:phone.trim(),location:location.trim(),eventDate,brief:brief.trim(),items:lines,businesses:[...new Set(lines.map(line=>line.business))],status:"new",createdAt:now,updatedAt:now});
      for(const company of WORKS_BUSINESSES.filter(company=>lines.some(line=>line.business===company))){const companyRef=doc(collection(db,"worksCompanyRequests"));batch.set(companyRef,{enquiryId:enquiryRef.id,customerId:customer.uid,business:company,customerName:name.trim(),phone:phone.trim(),email:email.trim(),location:location.trim(),eventDate,brief:brief.trim(),items:lines.filter(line=>line.business===company),status:"new",createdAt:now,updatedAt:now});}
-     await batch.commit();const submitted={id:enquiryRef.id,customerName:name.trim(),email:email.trim(),phone:phone.trim(),location:location.trim(),eventDate,brief:brief.trim(),items:lines,businesses:[...new Set(lines.map(line=>line.business))],status:"new",createdAt:now} as WorksEnquiry;setSubmittedRequest(submitted);setSubmittedId(enquiryRef.id);setQuantities({});setTab("orders");window.history.replaceState({}, "", "/account?submitted="+encodeURIComponent(enquiryRef.id));setNotice("");
+     await batch.commit();const submitted={id:enquiryRef.id,customerName:name.trim(),email:email.trim(),phone:phone.trim(),location:location.trim(),eventDate,brief:brief.trim(),items:lines,businesses:[...new Set(lines.map(line=>line.business))],status:"new",createdAt:now} as WorksEnquiry;setSubmittedRequest(submitted);setQuantities({});setTab("orders");window.history.replaceState({}, "", "/account?submitted="+encodeURIComponent(enquiryRef.id));setNotice("");
    }catch(error){const code=typeof error==="object"&&error&&"code"in error?String((error as {code?:unknown}).code):"";setNotice(code==="unavailable"||/offline|network/i.test(error instanceof Error?error.message:"")?"We couldn’t reach THE WORKS to send this request. Nothing has been submitted yet. Your selection and details are still here—check your connection and try again.":"Your request could not be submitted. Nothing has been sent yet; your selection and details are still here. Please try again.");}finally{setBusy(false)}
  }
  const activeOrders=enquiries.filter(item=>!["completed","collected","delivered","cancelled","rejected"].includes((item.status||"").toLowerCase())).length;
