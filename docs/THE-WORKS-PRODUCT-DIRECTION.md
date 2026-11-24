@@ -208,7 +208,7 @@ The product owner has reviewed and approved the balanced landing-page compositio
 - Added three separate business showcases, concise three-step journey explanation, shared-account benefit section and compact footer with one Briefcase icon.
 - Added responsive styling with warm paper, charcoal, deep green and amber; Manrope headings and DM Sans body/interface type.
 - Aligned browser theme colour with the public palette, advanced the app-shell cache to `iteration13-shell-v33`, and connected the primary discovery action to reveal matching services.
-- Updated application metadata and the app manifest's product labels/theme colour. The existing icon assets remain inherited and are not yet THE WORKS-branded.
+- Updated application metadata, app manifest labels/theme colour, and the visible install-card/iPhone guidance brand copy and accent styling. Native install event capture, click-to-prompt behavior, embedded-browser gate, iOS guidance flow, service-worker cache namespace and offline shell were not redesigned. Existing icon assets remain inherited and are not yet THE WORKS-branded.
 - Preserved the previous Iteration 13 root setup/demo at /studio during migration; it is no longer the public root experience.
 
 ### Honest boundaries / not yet delivered
