@@ -104,6 +104,7 @@ export default function WorksLanding() {
       </div>
     </section>
 
+    <details className="works-businesses-disclosure"><summary>Meet the businesses <span>Optional · learn more about each team</span></summary>
     <section className="works-businesses" id="works-businesses">
       <div className="works-section-heading works-business-heading">
         <div><span className="works-eyebrow">MEET THE SPECIALISTS</span><h2>Good people.<br/><em>Different strengths.</em></h2></div>
@@ -115,21 +116,7 @@ export default function WorksLanding() {
           <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><button type="button" onClick={()=>{setBusinessFilter(business.name);document.getElementById("works-discovery")?.scrollIntoView({behavior:"smooth"});}}>Explore services & prices <ArrowRight size={16}/></button></div>
         </article>)}
       </div>
-    </section>
-
-    <section className="works-how">
-      <div className="works-how-heading"><span className="works-eyebrow">SIMPLE FROM THE START</span><h2>Three steps.<br/><em>One clear next move.</em></h2></div>
-      <div className="works-steps">
-        <article><span>01</span><h3>Find your fit</h3><p>Browse by service or go straight to the business you have in mind.</p></article>
-        <article><span>02</span><h3>Tell us what you need</h3><p>Share the details that help the right team understand your project.</p></article>
-        <article><span>03</span><h3>Keep things moving</h3><p>Follow the response, quotation and next steps through your customer account.</p></article>
-      </div>
-    </section>
-
-    <section className="works-account" id="works-account">
-      <div><span className="works-eyebrow">YOUR WORK, TOGETHER</span><h2>One account.<br/><em>All your activity.</em></h2><p>Keep your enquiries, quotations, messages and project updates organised across the participating businesses.</p></div>
-      <div className="works-account-panel"><div className="works-account-panel-top"><span>THE WORKS / MY ACCOUNT</span><span><i/> CUSTOMER SPACE</span></div><div className="works-account-lines"><span><b>01</b> Enquiries & quotations <Check size={17}/></span><span><b>02</b> Conversations & updates <Check size={17}/></span><span><b>03</b> Projects & bookings <Check size={17}/></span></div><Link href="/account">Open My Account <ArrowRight size={16}/></Link><small>Browse first. Create or connect your account when you are ready to follow a request.</small></div>
-    </section>
+    </section></details>
 
     <footer className="works-footer">
       <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/account"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><Link href="#works-discovery">Find a service</Link><Link href="#works-businesses">Businesses</Link><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
