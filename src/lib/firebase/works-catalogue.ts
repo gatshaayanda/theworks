@@ -6,6 +6,8 @@ export type WorksPriceMode="fixed"|"from"|"quote";
 export type WorksService={id:string;business:WorksBusiness;name:string;category:string;description:string;price:number|null;priceMode:WorksPriceMode;unit:string;published:boolean;featured:boolean;sortOrder:number;createdAt:string;updatedAt:string};
 export type WorksServiceDraft=Omit<WorksService,"id"|"createdAt"|"updatedAt">;
 export const WORKS_BUSINESSES:WorksBusiness[]=["PROSPEC","GALAXY LIQUIDS","KAVON GROUP"];
+// Stable internal business IDs are retained so existing request routing and records are unchanged.
+export function worksBusinessLabel(business:string):string{return business==="PROSPEC"?"Example Company 1":business==="GALAXY LIQUIDS"?"Example Company 2":business==="KAVON GROUP"?"Example Company 3":business;}
 export const DEFAULT_WORKS_CATALOGUE:WorksServiceDraft[]=[
 {business:"PROSPEC",name:"Logo design",category:"Branding & design",description:"A professionally designed logo supplied in practical digital formats. Final deliverables confirmed in the quote.",price:450,priceMode:"from",unit:"per project",published:true,featured:true,sortOrder:1},
 {business:"PROSPEC",name:"Business card design",category:"Branding & design",description:"Print-ready business card artwork. Printing and quantities quoted separately.",price:100,priceMode:"from",unit:"per design",published:true,featured:false,sortOrder:2},
