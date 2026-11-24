@@ -50,7 +50,7 @@ for (const expected of ["THE WORKS | Business & Experiences", 'applicationName:"
 // Validate Apple install metadata semantically; whitespace and additional metadata fields are harmless.
 if (!layout.includes('appleWebApp:{capable:true,title:"THE WORKS"')) failures.push("layout: missing THE WORKS Apple install metadata");
 const sw = fs.readFileSync(path.join(root, "public/sw.js"), "utf8");
-if (!/iteration13-shell-v\d+/.test(sw)) failures.push("service worker: missing isolated cache namespace");
+if (!/theworks-shell-v\d+/.test(sw) || !/theworks-media-v\d+/.test(sw)) failures.push("service worker: missing isolated THE WORKS cache namespace");
 if (!sw.includes("/works-icon.svg")) failures.push("service worker: THE WORKS icon missing from app shell");
 if (!sw.includes("/iphone-install") || !sw.includes("/iphone-install.svg")) failures.push("service worker: iPhone installation guide is not cached for offline use");
 if (!layout.includes("__iteration13InstallPrompt") || !layout.includes("beforeinstallprompt")) failures.push("PWA layout: early native install-prompt capture is missing");
