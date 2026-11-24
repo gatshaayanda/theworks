@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, browserLocalPersistence, onAuthStateChanged, setPersistence, signInWithPopup, signOut, type User } from "firebase/auth";
+import { GoogleAuthProvider, browserLocalPersistence, linkWithPopup, onAuthStateChanged, setPersistence, signInWithPopup, signOut, type User } from "firebase/auth";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "@/lib/firebase/client";
 import { auth, hasFirebaseWebConfig } from "@/lib/firebase/client";
 import { getCustomerProfile, saveCustomerProfile, type CustomerProfile } from "@/lib/firebase/data";
 import "../works-account.css";
 
 type AccountTab = "overview" | "enquiries" | "messages" | "receipts";
+type WorksEnquiry = {id:string;items:{business:string;name:string;priceLabel:string;quantity:number}[];status:string;createdAt:string;brief:string};
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -16,10 +19,12 @@ export default function AccountPage() {
   const [busy, setBusy] = useState(false);
   const [tab, setTab] = useState<AccountTab>("overview");
   const [notice, setNotice] = useState("");
+  const [worksEnquiries, setWorksEnquiries] = useState<WorksEnquiry[]>([]);
 
   useEffect(() => {
     let alive = true;
     let stop = () => {};
+    let stopRequests = () => {};
     const start = async () => {
       if (hasFirebaseWebConfig) {
         try { await setPersistence(auth, browserLocalPersistence); } catch {}
@@ -28,7 +33,9 @@ export default function AccountPage() {
       stop = onAuthStateChanged(auth, async (next) => {
         if (!alive) return;
         setUser(next);
+        stopRequests();
         if (next) {
+          stopRequests = onSnapshot(query(collection(db,"worksEnquiries"),where("customerId","==",next.uid)),snapshot=>setWorksEnquiries(snapshot.docs.map(d=>({id:d.id,...d.data()} as WorksEnquiry)).sort((a,b)=>b.createdAt.localeCompare(a.createdAt))),()=>setNotice("Your request history could not be loaded. Check your connection and try again."));
           const saved = await getCustomerProfile(next.uid).catch(() => null);
           if (!alive) return;
           setProfile(saved ?? {
@@ -36,12 +43,12 @@ export default function AccountPage() {
             phone: "", preferredDeliveryLocation: "", notes: "",
             createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
           });
-        } else setProfile(null);
+        } else { setProfile(null); setWorksEnquiries([]); }
         setReady(true);
       });
     };
     void start();
-    return () => { alive = false; stop(); };
+    return () => { alive = false; stop(); stopRequests(); };
   }, []);
 
   async function connectGoogle() {
@@ -53,7 +60,7 @@ export default function AccountPage() {
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
-      const result = await signInWithPopup(auth, provider);
+      const result = auth.currentUser?.isAnonymous ? await linkWithPopup(auth.currentUser, provider) : await signInWithPopup(auth, provider);
       const now = new Date().toISOString();
       const saved = await getCustomerProfile(result.user.uid).catch(() => null);
       if (!saved) {
@@ -105,8 +112,14 @@ export default function AccountPage() {
             {([["overview","Overview"],["enquiries","Enquiries"],["messages","Messages"],["receipts","Receipts"]] as [AccountTab,string][]).map(([key,label]) => <button key={key} type="button" role="tab" aria-selected={tab===key} onClick={() => setTab(key)}>{label}</button>)}
           </div>
           <div className="works-account-activity" role="tabpanel">
-            {tab === "overview" ? <><div className="works-account-stat"><strong>—</strong><span>OPEN ENQUIRIES</span></div><div className="works-account-stat"><strong>—</strong><span>QUOTATIONS</span></div><div className="works-account-stat"><strong>—</strong><span>ACTIVE PROJECTS</span></div><div className="works-account-empty"><span>✳</span><div><strong>{user ? "Your THE WORKS activity will appear here." : "Your next step starts here."}</strong><p>{user ? "The shared activity timeline is being connected to the participating businesses. No company requests or history are being shown from another service." : "When you send an enquiry, it will be associated with the specialist business responsible for responding."}</p><Link href="/#works-discovery">Find a service →</Link></div></div></> :
-              <div className="works-account-tab-empty"><span>{tab === "enquiries" ? "01" : tab === "messages" ? "02" : "03"}</span><div><strong>{tab === "enquiries" ? "Your enquiries" : tab === "messages" ? "Your conversations" : "Your receipts"}</strong><p>{tab === "enquiries" ? "Enquiries and quotations will be grouped by the business handling your request." : tab === "messages" ? "Messages from each participating business will stay in that business’s conversation." : "Receipts will be available here when a business records a payment."}</p></div></div>}
+            {tab === "overview" ? <>
+              <div className="works-account-stat"><strong>{worksEnquiries.length}</strong><span>SHARED REQUESTS</span></div>
+              <div className="works-account-stat"><strong>{worksEnquiries.reduce((n,x)=>n+(x.items?.length||0),0)}</strong><span>SELECTED ITEMS</span></div>
+              <div className="works-account-stat"><strong>{new Set(worksEnquiries.flatMap(x=>x.items||[]).map(x=>x.business)).size}</strong><span>BUSINESSES INVOLVED</span></div>
+              {worksEnquiries.length ? worksEnquiries.slice(0,3).map(item=><article className="works-account-tab-empty" key={item.id}><span>↗</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" ("+x.business+")").join(" · ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-empty"><span>✳</span><div><strong>{user ? "Your next request starts here." : "Your next step starts here."}</strong><p>Choose multiple services from the participating businesses and follow your request here.</p><Link href="/request">Browse services & prices →</Link></div></div>}
+            </> : tab === "enquiries" ? <>
+              {worksEnquiries.length ? worksEnquiries.map(item=><article className="works-account-tab-empty" key={item.id}><span>01</span><div><strong>Request · {item.id.slice(0,8).toUpperCase()}</strong><p>{item.items?.map(x=>x.name+" · "+x.business+" · "+x.priceLabel).join(" | ")}</p><small>{new Date(item.createdAt).toLocaleString()} · {item.status}</small></div></article>) : <div className="works-account-tab-empty"><span>01</span><div><strong>Your enquiries</strong><p>Your submitted multi-business requests will appear here.</p><Link href="/request">Start a request →</Link></div></div>}
+            </> : <div className="works-account-tab-empty"><span>{tab === "messages" ? "02" : "03"}</span><div><strong>{tab === "messages" ? "Business conversations" : "Receipts"}</strong><p>{tab === "messages" ? "Company-specific conversations will appear here as each business workspace is connected." : "Receipts will appear here when a business records a payment against its approved quotation."}</p></div></div>}
           </div>
         </section>
 
