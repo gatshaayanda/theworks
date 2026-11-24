@@ -80,7 +80,7 @@ export default function WorksLanding() {
       <div className="works-hero-visual" aria-label="A glimpse of the products and experiences available through THE WORKS">
         <div className="works-photo works-photo-main"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="A beautifully arranged event space" fetchPriority="high" onError={event => { event.currentTarget.style.display = "none"; }}/><span>EVENTS & EXPERIENCES</span></div>
         <div className="works-photo works-photo-small"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Branded clothing and apparel" loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>BRANDING</span></div>
-        <div className="works-photo works-photo-drink"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Cocktails prepared for an event" loading="lazy"/><span>HOSPITALITY</span></div>
+        <div className="works-photo works-photo-drink"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Cocktails prepared for an event" loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>HOSPITALITY</span></div>
         <div className="works-visual-stamp"><strong>MAKE<br/>IT HAPPEN.</strong><span>THE WORKS · BW</span></div>
       </div>
     </section>
@@ -103,7 +103,7 @@ export default function WorksLanding() {
       </div>
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
-          <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy"/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
+          <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
           <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><a href="#works-search" onClick={event => { event.preventDefault(); findService(business.name); }}>Explore services <ArrowRight size={16}/></a></div>
         </article>)}
       </div>
@@ -120,7 +120,7 @@ export default function WorksLanding() {
 
     <section className="works-account" id="works-account">
       <div><span className="works-eyebrow">YOUR WORK, TOGETHER</span><h2>One account.<br/><em>All your activity.</em></h2><p>Keep your enquiries, quotations, messages and project updates organised across the participating businesses.</p></div>
-      <div className="works-account-panel"><div className="works-account-panel-top"><span>THE WORKS / MY ACCOUNT</span><span><i/> CUSTOMER SPACE</span></div><div className="works-account-lines"><span><b>01</b> Enquiries & quotations <Check size={17}/></span><span><b>02</b> Conversations & updates <Check size={17}/></span><span><b>03</b> Projects & bookings <Check size={17}/></span></div><Link href="/account">Open My Account <ArrowRight size={16}/></Link><small>Browse first. Create or connect your account when you're ready to follow a request.</small></div>
+      <div className="works-account-panel"><div className="works-account-panel-top"><span>THE WORKS / MY ACCOUNT</span><span><i/> CUSTOMER SPACE</span></div><div className="works-account-lines"><span><b>01</b> Enquiries & quotations <Check size={17}/></span><span><b>02</b> Conversations & updates <Check size={17}/></span><span><b>03</b> Projects & bookings <Check size={17}/></span></div><Link href="/account">Open My Account <ArrowRight size={16}/></Link><small>Browse first. Create or connect your account when you are ready to follow a request.</small></div>
     </section>
 
     <footer className="works-footer">
