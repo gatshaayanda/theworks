@@ -40,16 +40,14 @@ export default function WorksLanding() {
     return services.filter(item => (item.name + " " + item.category + " " + item.provider + " " + item.description + " " + item.keywords).toLowerCase().includes(value));
   }, [query]);
 
-  function findService(value = "") {
-    setQuery(value);
-    setShowResults(true);
-    window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  function findService(_value = "") {
+    window.location.assign("/account");
   }
 
   return <main className="works-site">
     <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
     <header className="works-header">
-      <Link className="works-wordmark" href="/" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
+      <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
       <nav className="works-nav" aria-label="Main navigation">
         <a href="/account">Find a service</a>
         <a href="/account">Businesses</a>
@@ -124,7 +122,7 @@ export default function WorksLanding() {
     </section>
 
     <footer className="works-footer">
-      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><a href="/account">Find a service</a><a href="/account">Businesses</a><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
+      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><a href="/account">Find a service</a><a href="/account">Businesses</a><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/account" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
       <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Three participating businesses. Distinct teams and responsibilities.</span></div>
     </footer>
   </main>;
