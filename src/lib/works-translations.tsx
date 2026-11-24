@@ -7,10 +7,11 @@ export const WORKS_LANGUAGE_KEY="theworks:language:v1";
 export const WORKS_LANGUAGE_EVENT="theworks:language-changed";
 
 const tn:Record<string,string>={
+ "Language":"Puo","Display language":"Puo e e bontshiwang","there.":"tsala.","Clear filters":"Tlosa ditlhopho","Matching services":"Ditirelo tse di tshwanang","Explore services":"Lebelela ditirelo","available":"di teng","Price on request":"Tlhwatlhwa e tla itsisiwe","From ":"Go simolola ka ","Browse services & prices":"Lebelela ditirelo le ditlhwatlhwa","Search":"Batla",
  "Find a service":"Batla tirelo","Businesses":"Dikgwebo","My Account":"Akhaonto ya me","Back to THE WORKS":"Boela kwa THE WORKS",
  "YOUR CUSTOMER SPACE":"LEFELO LA GAGO LA MOREKI","THE WORKS / MY ACCOUNT":"THE WORKS / AKHAONTO YA ME",
  "Your selected services, orders, quotations, conversations and project updates—together in one place.":"Ditirelo tse o di tlhophileng, dikopo, ditlhwatlhwa, melaetsa le dikitsiso tsa diporojeke tsa gago di fano mmogo.",
- "ONE CUSTOMER ACCOUNT":"AKHAONTO E LE NNGWE YA MOREKI","YOUR WORK, TOGETHER":"DITIRO TSA GAGO, MMOGO","One place.":"Lefelo le le lengwe.","Clear next steps.":" dikgato tse di latelang di a bonala.",
+ "ONE CUSTOMER ACCOUNT":"AKHAONTO E LE NNGWE YA MOREKI","YOUR WORK, TOGETHER":"DITIRO TSA GAGO, MMOGO","One place.":"Lefelo le le lengwe.","Clear next steps.":"Dikgato tse di latelang di a bonala.",
  "ORDERS":"DIKOPO","QUOTES":"DITLHWA TSHUPISO","PROJECTS":"DIPOROJEKE","Guest order session":"Tiriso ya moeng","Account connected":"Akhaonto e golagantswe",
  "Browse first · Connect when ready":"Lebelela pele · Golaganya fa o ipaakantse","Restoring your space…":"Akhaonto ya gago e a buselediwa…",
  "GET STARTED":"SIMOLOLA","Your space is ready":"Lefelo la gago le siame","when you are.":"fa o ipaakantse.",
@@ -31,7 +32,7 @@ const tn:Record<string,string>={
  "Receipts will appear here when a business records a payment against an approved quotation.":"Dirisiti di tla bonala fano fa kgwebo e kwadisa tuelo ya tlhwatlhwa e e amogetsweng.",
  "Handled by:":"E samaganwa le:","Price on request":"Tlhwatlhwa e tla itsisiwe","Price to be confirmed":"Tlhwatlhwa e tla tlhomamisiwa",
  "Your details.":"Dintlha tsa gago.","ACCOUNT DETAILS":"DINTLHA TSA AKHAONTO","Sign out":"Tswa mo akhaontong",
- "Everything you need to make things happen.":" tsotlhe tse o di tlhokang go dira gore dilo di diragale.",
+ "Everything you need to make things happen.":"Tsotlhe tse o di tlhokang go dira gore dilo di diragale.",
  "THREE SPECIALIST BUSINESSES · ONE PLACE TO START":"DIKGWEBO TSE THARO TSA BOKGONI · LEFELO LE LE LENGWE LA GO SIMOLOLA",
  "BOTSWANA":"BOTSWANA","Browse services & prices":"Lebelela ditirelo le ditlhwatlhwa","SERVICE DISCOVERY":"BATLA DITIRELO",
  "Find your":"Batla","next step.":"kgato e e latelang.","Explore services":"Lebelela ditirelo","All businesses":"Dikgwebo tsotlhe",
@@ -59,7 +60,7 @@ export function useWorksLanguage(){
 export function localizeWorks(language:WorksLanguage,node:ReactNode):ReactNode{
  if(language!=="tn")return node;
  return Children.map(node,child=>{
-  if(typeof child==="string")return tn[child]??child;
+  if(typeof child==="string"){const trimmed=child.trim();const translated=tn[trimmed];return translated===undefined?child:child.replace(trimmed,translated)}
   if(isValidElement(child)){const element=child as React.ReactElement<{children?:ReactNode}>;return cloneElement(element,{children:localizeWorks(language,element.props.children)})}
   return child;
  });
