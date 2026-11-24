@@ -65,7 +65,7 @@ export default function WorksLanding() {
         <p>Find the products, services and people you need to bring your next project to life.</p>
         <div className="works-hero-actions">
           <Link className="works-primary" href="/request">Browse services & prices <ArrowDown size={17}/></Link>
-          <a className="works-secondary" href="/#works-businesses">Browse businesses <ArrowRight size={16}/></Link>
+          <Link className="works-secondary" href="/#works-businesses">Browse businesses <ArrowRight size={16}/></Link>
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
