@@ -90,5 +90,5 @@ export default function AccountPage(){
    {user&&<section className="works-account-profile"><div><span className="works-account-eyebrow">ACCOUNT DETAILS</span><h2>Your details.</h2><p>{profile?.email||user.email||"Connected customer account"}</p></div><button type="button" onClick={()=>void signOut(auth)}>Sign out</button></section>}
    {notice&&<p className="works-account-notice" role="status">{notice}</p>}
   </div><footer className="works-account-footer"><Link href="/" className="works-account-brand"><span className="works-account-mark">W<span>·</span></span><span><b>THE WORKS</b><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><span>THE WORKS · BOTSWANA</span></footer>
- </main>
+ </main>);
 }
