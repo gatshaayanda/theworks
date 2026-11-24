@@ -85,17 +85,16 @@ export default function WorksLanding() {
       </div>
     </section>
 
-    <section className="works-discovery" id="works-discovery">
+    {showResults && <section className="works-discovery" id="works-discovery">
       <div className="works-section-heading">
-        <div><span className="works-eyebrow">START WITH WHAT YOU NEED</span><h2>What do you need<br/><em>to make happen?</em></h2></div>
-        <p>You don't need to know which business to call. Tell us what you're looking for and we'll point you in the right direction.</p>
+        <div><span className="works-eyebrow">SERVICE DISCOVERY</span><h2>Find your<br/><em>next step.</em></h2></div>
+        <p>Every result names the specialist business responsible, so you know who will respond to your enquiry.</p>
       </div>
-
-      {showResults && <div className="works-results" aria-live="polite">
+      <div className="works-results" aria-live="polite">
         <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"}</strong><button type="button" onClick={() => { setShowResults(false); setQuery(""); }}>Clear</button></div>
         {results.length ? <div className="works-results-grid">{results.map(item => <a className="works-result" key={item.id} href={"#"+(item.provider==="PROSPEC"?"prospec":item.provider==="GALAXY LIQUIDS"?"galaxy":"kavon")}><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} <ArrowRight size={13}/></small></a>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
-      </div>}
-    </section>
+      </div>
+    </section>}
 
     <section className="works-businesses" id="works-businesses">
       <div className="works-section-heading works-business-heading">
