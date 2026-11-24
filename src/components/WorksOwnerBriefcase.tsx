@@ -3,7 +3,8 @@
 import {useEffect,useMemo,useState} from "react";
 import Link from "next/link";
 import {collection,doc,onSnapshot,query,updateDoc,where,getDocs,writeBatch} from "firebase/firestore";
-import {db} from "@/lib/firebase/client";
+import {signOut} from "firebase/auth";
+import {auth,db} from "@/lib/firebase/client";
 import {WORKS_BUSINESSES,type WorksBusiness} from "@/lib/firebase/works-catalogue";
 
 type WorksOrder={id:string;customerId?:string;customerName?:string;phone?:string;email?:string;location?:string;brief?:string;items?:{business:string;name:string;quantity:number;price?:number|null;priceMode?:string;priceLabel?:string}[];businesses?:string[];status?:string;createdAt?:string;updatedAt?:string;adminNote?:string;quoteTotal?:number;paymentsReceived?:number};
@@ -29,7 +30,7 @@ export default function WorksOwnerBriefcase(){
  const customers=new Set(visible.map(o=>o.customerId||o.phone||o.email).filter(Boolean)).size;
  const payments=visible.reduce((sum,o)=>sum+(Number(o.paymentsReceived)||0),0);
  function startShift(){const started=Date.now();setShiftStarted(started);try{localStorage.setItem(shiftKey,JSON.stringify({started,hours:shiftHours}))}catch{}setShiftMenu(false);setNotice("Your Briefcase shift has started.")}
- function endShift(){setShiftStarted(null);try{localStorage.removeItem(shiftKey)}catch{}setShiftMenu(false);setNotice("Your Briefcase shift has ended.")}
+ function endShift(){setShiftStarted(null);try{localStorage.removeItem(shiftKey)}catch{}setShiftMenu(false);void signOut(auth);setNotice("Your Briefcase shift has ended. You have been signed out.")}
  function changeHours(value:number){setShiftHours(value);if(shiftStarted){try{localStorage.setItem(shiftKey,JSON.stringify({started:shiftStarted,hours:value}))}catch{}}}
  function changeAvailability(value:string){setAvailability(value);try{localStorage.setItem(availabilityKey,value)}catch{}setNotice("Availability updated on this device. A public customer-facing availability signal is not connected yet.")}
  async function saveOrder(){if(!selected||saving)return;setSaving(true);setNotice("");try{const batch=writeBatch(db),nowIso=new Date().toISOString();batch.update(doc(db,"worksEnquiries",selected.id),{status,adminNote:note.trim(),updatedAt:nowIso});const companySnap=await getDocs(query(collection(db,"worksCompanyRequests"),where("enquiryId","==",selected.id)));companySnap.docs.forEach(d=>batch.update(d.ref,{status,adminNote:note.trim(),updatedAt:nowIso}));await batch.commit();setSelected(null);setNotice("Order status and owner note saved.")}catch(error){setNotice(error instanceof Error?error.message:"Order update could not be saved. Check Firestore rules.")}finally{setSaving(false)}}
