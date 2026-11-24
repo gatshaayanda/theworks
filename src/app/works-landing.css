@@ -143,3 +143,40 @@
 .works-language-control:focus-within{outline:2px solid #e5a044;outline-offset:2px}
 .works-mobile-language{display:none}
 @media(max-width:640px){.works-mobile-language{display:inline-flex}.works-nav{display:none}}
+
+/* Phone viewport fit: prevent the storefront and header from exceeding the device width. */
+.works-site{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+.works-site>*{min-width:0}
+.works-topline{width:100%;max-width:100%;min-width:0}
+.works-topline>span{min-width:0}
+.works-header{width:100%;max-width:100%;min-width:0}
+.works-wordmark{min-width:0}
+.works-language-control{min-width:0}
+.works-language-control select{min-width:0}
+.works-hero,.works-discovery,.works-businesses,.works-how,.works-account{min-width:0;max-width:100%}
+@media(max-width:640px){
+ .works-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px 10px;padding:10px 14px;min-height:0}
+ .works-wordmark{grid-column:1/-1;margin:0;min-width:0}
+ .works-mobile-account{grid-column:1;grid-row:2;justify-self:start;min-width:0;white-space:nowrap}
+ .works-mobile-language{grid-column:2;grid-row:2;justify-self:end;max-width:100%;gap:5px;padding:6px 8px;font-size:10px;white-space:nowrap}
+ .works-mobile-language select{width:88px;max-width:88px;font-size:10px}
+ .works-topline{align-items:center;flex-wrap:wrap;gap:4px 10px;padding:7px 12px;font-size:clamp(8px,2vw,10px);letter-spacing:.08em}
+ .works-topline>span:first-child{flex:1 1 230px}
+ .works-topline>span:last-child{flex:0 0 auto}
+ .works-hero{width:calc(100% - 28px);max-width:calc(100% - 28px);grid-template-columns:minmax(0,1fr)}
+ .works-hero-copy,.works-hero-visual{min-width:0;max-width:100%}
+ .works-hero h1{font-size:clamp(2.25rem,10.5vw,3.65rem);letter-spacing:-.075em;overflow-wrap:normal}
+ .works-hero-copy>p{max-width:100%;overflow-wrap:anywhere}
+ .works-hero-actions,.works-hero-search,.works-shortcuts{min-width:0;max-width:100%}
+ .works-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .works-shortcuts button{min-width:0}
+ .works-shortcuts button span{min-width:0;overflow-wrap:anywhere}
+ .works-search{width:100%;min-width:0}
+ .works-search input{width:100%;min-width:0}
+ .works-discovery,.works-businesses,.works-how,.works-account{width:calc(100% - 28px);max-width:calc(100% - 28px)}
+ .works-results,.works-results-grid,.works-result{min-width:0;max-width:100%}
+ .works-results-head{min-width:0;flex-wrap:wrap}
+ .works-catalogue-filters{max-width:100%;overflow-x:auto}
+ .works-businesses-disclosure{max-width:calc(100% - 28px)}
+ .works-footer{width:100%;max-width:100%;min-width:0}
+}
