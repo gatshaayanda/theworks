@@ -111,3 +111,20 @@
 .works-account-profile-actions button:first-child{background:#294735;color:#fff;border-color:#294735}
 .works-account-link-note{display:block;margin-top:6px;color:#687168;font-size:11px;line-height:1.45}
 @media(max-width:560px){.works-account-profile{flex-direction:column}.works-account-profile-actions{width:100%}.works-account-profile-actions button{flex:1}}
+
+
+.works-account-confirmation{margin:22px 0 28px;padding:clamp(18px,3vw,30px);border:1px solid #cbd9cb;border-radius:16px;background:#fff}
+.works-account-confirmation-mark{display:grid;place-items:center;width:38px;height:38px;margin-bottom:14px;border-radius:50%;background:#e8f2e8;color:#285a38;font-size:22px;font-weight:900}
+.works-account-confirmation h2{margin:8px 0;font-family:Manrope,Arial,sans-serif;font-size:clamp(2rem,4vw,3rem);line-height:1.02;letter-spacing:-.06em}
+.works-account-confirmation>p{max-width:700px;margin:0 0 15px;color:#59665b;font-size:13px;line-height:1.55}
+.works-account-confirmation-lines{display:grid;gap:0;margin:17px 0;border-top:1px solid #e8ece6}
+.works-account-confirmation-lines>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid #e8ece6}
+.works-account-confirmation-lines>div>span{font-size:13px;font-weight:800}
+.works-account-confirmation-lines>div>small{color:#687168;font-size:11px}
+.works-account-confirmation-lines>div>b{grid-column:2;grid-row:1/3;align-self:center;font-size:11px;text-align:right}
+.works-account-confirmation .works-account-confirmation-routing{font-weight:800;color:#294735}
+.works-account-confirmation-actions{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}
+.works-account-confirmation-actions>a,.works-account-confirmation-actions>button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 15px;border:1px solid #294735;border-radius:8px;background:#294735;color:#fff;font:inherit;font-size:12px;font-weight:850;cursor:pointer}
+.works-account-confirmation-actions>button{background:#fff;color:#294735}
+.works-account-confirmation>small{display:block;color:#737c72;font-size:10px;line-height:1.5}
+@media(max-width:520px){.works-account-confirmation{margin:14px 0 20px;padding:16px}.works-account-confirmation-actions{display:grid}.works-account-confirmation-actions>a,.works-account-confirmation-actions>button{width:100%}}
