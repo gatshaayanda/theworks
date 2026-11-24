@@ -6,19 +6,6 @@ import { subscribeToWorksServices, DEFAULT_WORKS_CATALOGUE, WORKS_BUSINESSES, ty
 import { ArrowDown, ArrowRight, BriefcaseBusiness, CalendarDays, Check, ChevronRight, Search, Shirt, Sparkles, Wine } from "lucide-react";
 import "./works-landing.css";
 
-type Service = { name: string; category: string; provider: string; id: string; description: string; keywords: string };
-const services: Service[] = [
-  { id: "brand", name: "Marketing & brand development", category: "Branding & creative", provider: "PROSPEC", description: "Strategy, advertising, public relations and creative direction.", keywords: "marketing advertising pr brand strategy creative" },
-  { id: "clothing", name: "Corporate clothing & uniforms", category: "Clothing & merchandise", provider: "PROSPEC", description: "Branded clothing, uniforms and promotional merchandise.", keywords: "clothing shirts uniforms t-shirts apparel" },
-  { id: "print", name: "Printing, signage & vehicle branding", category: "Printing & branding", provider: "PROSPEC", description: "Banners, stickers, large-format print and branded spaces.", keywords: "printing banner signage stickers vehicle branding" },
-  { id: "sourcing", name: "Product sourcing & supplies", category: "Procurement", provider: "PROSPEC", description: "Sourcing, procurement and supply coordination.", keywords: "procurement sourcing supplies products" },
-  { id: "bar", name: "Mobile bar hire", category: "Mobile bars & drinks", provider: "GALAXY LIQUIDS", description: "A mobile bar experience for private and corporate events.", keywords: "bar mobile drinks cocktails event hire" },
-  { id: "menus", name: "Cocktail & mocktail menus", category: "Mobile bars & drinks", provider: "GALAXY LIQUIDS", description: "Bespoke beverage menus shaped around your occasion.", keywords: "cocktail mocktail menu beverage drinks" },
-  { id: "planning", name: "Event planning & management", category: "Events & experiences", provider: "KAVON GROUP", description: "From concept development and coordination to execution.", keywords: "event planning management coordination" },
-  { id: "production", name: "Stage, sound & lighting", category: "Production", provider: "KAVON GROUP", description: "Technical production and event infrastructure.", keywords: "stage sound lighting production technical" },
-  { id: "hospitality", name: "Décor, VIP & guest logistics", category: "Hospitality & logistics", provider: "KAVON GROUP", description: "Styling, guest movement, hospitality and operational support.", keywords: "decor décor vip hospitality transfers transport logistics" },
-];
-
 const businesses = [
   { id: "prospec", number: "01", name: "PROSPEC", line: "Make your brand visible.", type: "Products, branding & supply", description: "Marketing, advertising, corporate clothing, printing, merchandise, signage and product sourcing.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=85", services: ["Corporate clothing", "Printing & signage", "Marketing & branding", "Product sourcing"] },
   { id: "galaxy", number: "02", name: "GALAXY LIQUIDS", line: "Bring the bar to your event.", type: "Mobile bars & hospitality", description: "Mobile bar hire, bespoke cocktail and mocktail menus, private events and corporate activations.", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1100&q=85", services: ["Mobile bar hire", "Cocktail menus", "Corporate activations", "Private celebrations"] },
@@ -34,7 +21,6 @@ const shortcuts = [
 
 export default function WorksLanding() {
   const [query, setQuery] = useState("");
-  const [showResults, setShowResults] = useState(true);
   const [catalogue, setCatalogue] = useState<WorksService[]>(DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""})));
   const [quantities, setQuantities] = useState<Record<string,number>>({});
   const [businessFilter, setBusinessFilter] = useState("All");
@@ -52,7 +38,6 @@ export default function WorksLanding() {
 
   function findService(value = "") {
     setQuery(value);
-    setShowResults(true);
     window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
   }
 
@@ -79,7 +64,7 @@ export default function WorksLanding() {
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
-          <input aria-label="Search products and services" placeholder="What do you need to make happen?" value={query} onChange={event => { setQuery(event.target.value); setShowResults(true); }}/>
+          <input aria-label="Search products and services" placeholder="What do you need to make happen?" value={query} onChange={event => { setQuery(event.target.value);  }}/>
           <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
         </form>
         <div className="works-shortcuts" aria-label="Popular service categories">
