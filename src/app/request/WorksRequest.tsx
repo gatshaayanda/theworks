@@ -4,13 +4,13 @@ import Link from "next/link";
 import {signInAnonymously} from "firebase/auth";
 import {collection,doc,getDoc,writeBatch} from "firebase/firestore";
 import {auth,db,hasFirebaseWebConfig} from "@/lib/firebase/client";
-import {subscribeToWorksServices,type WorksService,WORKS_BUSINESSES} from "@/lib/firebase/works-catalogue";
+import {subscribeToWorksServices,type WorksService,WORKS_BUSINESSES,DEFAULT_WORKS_CATALOGUE} from "@/lib/firebase/works-catalogue";
 type Pick={service:WorksService;quantity:number;details:string};
 const money=(n:number)=>"P"+n.toLocaleString("en-BW",{maximumFractionDigits:2});
 function priceLabel(s:WorksService){return s.priceMode==="quote"?"Request a quote":(s.priceMode==="from"?"From ":"")+money(s.price??0)+(s.unit?" / "+s.unit:"")}
 export default function WorksRequest(){
  const[services,setServices]=useState<WorksService[]>([]),[search,setSearch]=useState(""),[business,setBusiness]=useState("All"),[basket,setBasket]=useState<Pick[]>([]),[name,setName]=useState(""),[email,setEmail]=useState(""),[phone,setPhone]=useState(""),[location,setLocation]=useState(""),[date,setDate]=useState(""),[brief,setBrief]=useState(""),[budget,setBudget]=useState(""),[busy,setBusy]=useState(false),[notice,setNotice]=useState("");
- useEffect(()=>{const stop=subscribeToWorksServices(setServices,e=>setNotice(e.message));const params=new URLSearchParams(window.location.search);setSearch(params.get("search")||"");const requestedBusiness=params.get("business");if(requestedBusiness&&WORKS_BUSINESSES.includes(requestedBusiness as typeof WORKS_BUSINESSES[number]))setBusiness(requestedBusiness);return stop},[]);
+ useEffect(()=>{let receivedCatalogue=false;const starter=DEFAULT_WORKS_CATALOGUE.map((item,index)=>({...item,id:"starter-"+String(index+1).padStart(3,"0"),createdAt:"",updatedAt:""} as WorksService));const stop=subscribeToWorksServices(items=>{receivedCatalogue=true;setServices(items.length?items:starter);if(!items.length)setNotice("Showing the starter catalogue while the business teams finish publishing their service list.")},error=>{setServices(current=>current.length?current:starter);setNotice("Showing the starter catalogue. Live prices will appear when the catalogue connection is available.")});const params=new URLSearchParams(window.location.search);setSearch(params.get("search")||"");const requestedBusiness=params.get("business");if(requestedBusiness&&WORKS_BUSINESSES.includes(requestedBusiness as typeof WORKS_BUSINESSES[number]))setBusiness(requestedBusiness);return()=>{stop();void receivedCatalogue}},[]);
  const visible=useMemo(()=>services.filter(s=>(business==="All"||s.business===business)&&(s.name+" "+s.category+" "+s.description+" "+s.business).toLowerCase().includes(search.toLowerCase())),[services,business,search]);
  const ids=new Set(basket.map(x=>x.service.id));
  function add(s:WorksService){setBasket(v=>ids.has(s.id)?v:[...v,{service:s,quantity:1,details:""}])}
