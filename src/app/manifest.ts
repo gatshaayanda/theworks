@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "THE WORKS | Business & Experiences",
     short_name: "THE WORKS",
     description: "Discover specialist businesses, products and services through THE WORKS.",
-    start_url: "/#works-discovery",
+    start_url: "/",
     scope: "/",
     display: "standalone",
     background_color: "#f6f5f0",
@@ -28,7 +28,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: "Find a service",
         short_name: "Services",
         description: "Search services and products",
-        url: "/",
+        url: "/#works-discovery",
         icons: [{ src: "/iteration13-icon-192.png", sizes: "192x192", type: "image/png" }]
       },
       {
