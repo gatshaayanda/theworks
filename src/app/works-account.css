@@ -106,3 +106,8 @@
  .works-account-google-option button{width:100%}
  .works-account-no-selection{margin:15px 0 22px}
 }
+
+.works-account-profile-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.works-account-profile-actions button:first-child{background:#294735;color:#fff;border-color:#294735}
+.works-account-link-note{display:block;margin-top:6px;color:#687168;font-size:11px;line-height:1.45}
+@media(max-width:560px){.works-account-profile{flex-direction:column}.works-account-profile-actions{width:100%}.works-account-profile-actions button{flex:1}}
