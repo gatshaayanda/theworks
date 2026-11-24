@@ -64,7 +64,7 @@ export default function WorksLanding() {
         <h1>Business gets<br/><em>done here.</em></h1>
         <p>Find the products, services and people you need to bring your next project to life.</p>
         <div className="works-hero-actions">
-          <a className="works-primary" href="#works-discovery" onClick={event => { event.preventDefault(); findService(query); }}>Find a service <ArrowDown size={17}/></a>
+          <Link className="works-primary" href="/request">Browse services & prices <ArrowDown size={17}/></Link>
           <a className="works-secondary" href="#works-businesses">Browse businesses <ArrowRight size={16}/></a>
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
@@ -88,11 +88,11 @@ export default function WorksLanding() {
     {showResults && <section className="works-discovery" id="works-discovery">
       <div className="works-section-heading">
         <div><span className="works-eyebrow">SERVICE DISCOVERY</span><h2>Find your<br/><em>next step.</em></h2></div>
-        <p>Every result names the specialist business responsible, so you know who will respond to your enquiry.</p>
+        <p>Browse market-reference prices, add multiple items and send one request to the businesses responsible.</p>
       </div>
       <div className="works-results" aria-live="polite">
         <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"}</strong><button type="button" onClick={() => { setShowResults(false); setQuery(""); }}>Clear</button></div>
-        {results.length ? <div className="works-results-grid">{results.map(item => <a className="works-result" key={item.id} href={"#"+(item.provider==="PROSPEC"?"prospec":item.provider==="GALAXY LIQUIDS"?"galaxy":"kavon")}><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} <ArrowRight size={13}/></small></a>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
+        {results.length ? <div className="works-results-grid">{results.map(item => <Link className="works-result" key={item.id} href={"/request?search="+encodeURIComponent(item.name)}><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} · View prices & add <ArrowRight size={13}/></small></Link>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
       </div>
     </section>}
 
@@ -104,7 +104,7 @@ export default function WorksLanding() {
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
           <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
-          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><a href="#works-search" onClick={event => { event.preventDefault(); findService(business.name); }}>Explore services <ArrowRight size={16}/></a></div>
+          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><Link href={"/request?business="+encodeURIComponent(business.name)}>Explore services & prices <ArrowRight size={16}/></Link></div>
         </article>)}
       </div>
     </section>
