@@ -21,7 +21,7 @@ export default function WorksOwnerBriefcase(){
   return()=>stop();
  },[]);
  useEffect(()=>{const timer=window.setInterval(()=>setNow(Date.now()),1000);return()=>window.clearInterval(timer)},[]);
- useEffect(()=>{if(shiftStarted&&now>=shiftStarted+shiftHours*3600000)endShift()},[now,shiftStarted,shiftHours]);
+ useEffect(()=>{if(shiftStarted&&now>=shiftStarted+shiftHours*3600000){setShiftStarted(null);try{localStorage.removeItem(shiftKey)}catch{}setNotice("Your Briefcase shift has ended.")}},[now,shiftStarted,shiftHours]);
  const visible=useMemo(()=>orders.filter(o=>business==="ALL"||(o.businesses||o.items?.map(i=>i.business)||[]).includes(business)),[orders,business]);
  const counts=useMemo(()=>Object.fromEntries(STATUSES.map(s=>[s,visible.filter(o=>(o.status||"new").toLowerCase()===s).length])) as Record<string,number>,[visible]);
  const newCount=visible.filter(o=>["new","submitted"].includes((o.status||"new").toLowerCase())).length;
