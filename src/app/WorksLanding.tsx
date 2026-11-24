@@ -67,6 +67,14 @@ export default function WorksLanding() {
           <a className="works-primary" href="#works-discovery">Find a service <ArrowDown size={17}/></a>
           <a className="works-secondary" href="#works-businesses">Browse businesses <ArrowRight size={16}/></a>
         </div>
+        <form className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
+          <Search size={20} aria-hidden="true"/>
+          <input aria-label="Search products and services" placeholder="What do you need to make happen?" value={query} onChange={event => { setQuery(event.target.value); setShowResults(true); }}/>
+          <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
+        </form>
+        <div className="works-shortcuts" aria-label="Popular service categories">
+          {shortcuts.map(item => { const Icon=item.icon; return <button key={item.label} type="button" onClick={() => findService(item.query)}><Icon size={18}/><span>{item.label}</span><ChevronRight size={15}/></button>; })}
+        </div>
         <div className="works-hero-foot"><span>One place to begin.</span><span>Three specialist teams to make it happen.</span></div>
       </div>
       <div className="works-hero-visual" aria-label="A glimpse of the products and experiences available through THE WORKS">
@@ -82,14 +90,7 @@ export default function WorksLanding() {
         <div><span className="works-eyebrow">START WITH WHAT YOU NEED</span><h2>What do you need<br/><em>to make happen?</em></h2></div>
         <p>You don't need to know which business to call. Tell us what you're looking for and we'll point you in the right direction.</p>
       </div>
-      <form className="works-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
-        <Search size={20} aria-hidden="true"/>
-        <input aria-label="Search products and services" placeholder="Search products, services or events..." value={query} onChange={event => { setQuery(event.target.value); setShowResults(true); }}/>
-        <button type="submit" aria-label="Search"><ArrowRight size={19}/></button>
-      </form>
-      <div className="works-shortcuts" aria-label="Popular service categories">
-        {shortcuts.map(item => { const Icon=item.icon; return <button key={item.label} type="button" onClick={() => findService(item.query)}><Icon size={18}/><span>{item.label}</span><ChevronRight size={15}/></button>; })}
-      </div>
+
       {showResults && <div className="works-results" aria-live="polite">
         <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"}</strong><button type="button" onClick={() => { setShowResults(false); setQuery(""); }}>Clear</button></div>
         {results.length ? <div className="works-results-grid">{results.map(item => <a className="works-result" key={item.id} href={"#"+(item.provider==="PROSPEC"?"prospec":item.provider==="GALAXY LIQUIDS"?"galaxy":"kavon")}><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} <ArrowRight size={13}/></small></a>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
