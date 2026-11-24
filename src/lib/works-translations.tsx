@@ -7,7 +7,27 @@ export const WORKS_LANGUAGE_KEY="theworks:language:v1";
 export const WORKS_LANGUAGE_EVENT="theworks:language-changed";
 
 const tn:Record<string,string>={
- "Language":"Puo","Display language":"Puo e e bontshiwang","there.":"tsala.","Clear filters":"Tlosa ditlhopho","Matching services":"Ditirelo tse di tshwanang","Explore services":"Lebelela ditirelo","available":"di teng","Price on request":"Tlhwatlhwa e tla itsisiwe","From ":"Go simolola ka ","Browse services & prices":"Lebelela ditirelo le ditlhwatlhwa","Search":"Batla",
+ "Your order/request has been saved and sent to the responsible business team.":"Kopo ya gago e bolokilwe mme e rometswe kwa setlhopheng sa kgwebo se se ikarabelang.",
+ "Order history could not be refreshed. Check your connection.":"Hisitori ya dikopo ga e a kgona go ntšhwafadiwa. Tlhola kgokagano ya gago.",
+ "Customer sign-in is not configured in this deployment.":"Go tsena ga bareki ga go ise go baakanngwe mo webosaeteng eno.",
+ "We could not connect your account. Please try again.":"Ga re a kgona go golaganya akhaonto ya gago. Tsweetswee leka gape.",
+ "Keep at least one selected item and enter your name and phone number.":"Tlogela bonnye selo se le sengwe se se tlhophilweng mme o tsenye leina le nomoro ya mogala.",
+ "The customer order service is not configured yet.":"Tirelo ya dikopo tsa bareki ga e ise e baakanngwe.",
+ "Your order could not be saved. Please try again.":"Kopo ya gago ga e a kgona go bolokwa. Tsweetswee leka gape.",
+ "Overview":"Kakaretso","Order activity":"Ditiro tsa dikopo","Matching services":"Ditirelo tse di tshwanang",
+ "Price to be confirmed":"Tlhwatlhwa e tla tlhomamisiwa","Indicative subtotal · ":"Palogotlhe e e fopholediwang · ",
+ "Items selected":"Dilo tse di tlhophilweng","Clear filters":"Tlosa ditlhopho",
+ "From ":"Go simolola ka ","All businesses":"Dikgwebo tsotlhe",
+ "What do you need to make happen?":"O batla go fitlhelela eng?",
+ "No suggestions yet. Press Enter to search the full catalogue.":"Ga go na ditshitshinyo jaanong. Tobetsa Enter go batla mo lenaaneng lotlhe.",
+ "No matching services. Try a broader search or choose another business.":"Ga go na ditirelo tse di tshwanang. Leka mafoko a mangwe kgotsa tlhopha kgwebo e nngwe.",
+ "Indicative market-reference price. Final price depends on confirmed specifications.":"Tlhwatlhwa ke kakanyetso fela. Tlhwatlhwa ya bofelo e ikaegile ka dintlha tse di tlhomamisitsweng.",
+ "Each business receives only the items assigned to its team. This submits an order/request; it does not take payment or confirm a paid purchase.":"Kgwebo nngwe le nngwe e amogela fela dilo tse di e abetsweng. Seno se romela kopo; ga go tuelo e e tsewang kgotsa theko e e tlhomamisiwang.",
+ "Sizes, colours, guest count, venue or other details…":"Bogolo, mebala, palo ya baeng, lefelo kgotsa dintlha tse dingwe…",
+ "new":"E ntšha","accepted":"E amogetswe","in progress":"E a dirwa","completed":"E weditswe","cancelled":"E phimotswe",
+ "Explore":"Lebelela","Browse":"Lebelela","Select a business":"Tlhopha kgwebo",
+
+ "Language":"Puo","English":"Sekgoa","Setswana":"Setswana","Display language":"Puo e e bontshiwang","there.":"tsala.","Clear filters":"Tlosa ditlhopho","Matching services":"Ditirelo tse di tshwanang","Explore services":"Lebelela ditirelo","available":"di teng","Price on request":"Tlhwatlhwa e tla itsisiwe","From ":"Go simolola ka ","Browse services & prices":"Lebelela ditirelo le ditlhwatlhwa","Search":"Batla",
  "Find a service":"Batla tirelo","Businesses":"Dikgwebo","My Account":"Akhaonto ya me","Back to THE WORKS":"Boela kwa THE WORKS",
  "YOUR CUSTOMER SPACE":"LEFELO LA GAGO LA MOREKI","THE WORKS / MY ACCOUNT":"THE WORKS / AKHAONTO YA ME",
  "Your selected services, orders, quotations, conversations and project updates—together in one place.":"Ditirelo tse o di tlhophileng, dikopo, ditlhwatlhwa, melaetsa le dikitsiso tsa diporojeke tsa gago di fano mmogo.",
