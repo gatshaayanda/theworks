@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { GoogleAuthProvider, browserLocalPersistence, onAuthStateChanged, setPersistence, signInWithPopup, signOut, type User } from "firebase/auth";
 import { auth, hasFirebaseWebConfig } from "@/lib/firebase/client";
 import { getCustomerProfile, saveCustomerProfile, type CustomerProfile } from "@/lib/firebase/data";
-import "./works-account.css";
+import "../works-account.css";
 
 type AccountTab = "overview" | "enquiries" | "messages" | "receipts";
 
