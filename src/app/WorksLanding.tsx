@@ -40,17 +40,19 @@ export default function WorksLanding() {
     return services.filter(item => (item.name + " " + item.category + " " + item.provider + " " + item.description + " " + item.keywords).toLowerCase().includes(value));
   }, [query]);
 
-  function findService(_value = "") {
-    window.location.assign("/account");
+  function findService(value = "") {
+    setQuery(value);
+    setShowResults(true);
+    window.setTimeout(() => document.getElementById("works-discovery")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
   }
 
   return <main className="works-site">
     <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
     <header className="works-header">
-      <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
+      <Link className="works-wordmark" href="/" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
       <nav className="works-nav" aria-label="Main navigation">
-        <a href="/account">Find a service</a>
-        <a href="/account">Businesses</a>
+        <a href="/#works-search">Find a service</a>
+        <a href="/#works-businesses">Businesses</a>
         <Link href="/account">My Account <span aria-hidden="true">↗</span></Link>
       </nav>
       <Link className="works-mobile-account" href="/account" aria-label="My Account">Account <ArrowRight size={15}/></Link>
@@ -62,8 +64,8 @@ export default function WorksLanding() {
         <h1>Business gets<br/><em>done here.</em></h1>
         <p>Find the products, services and people you need to bring your next project to life.</p>
         <div className="works-hero-actions">
-          <Link className="works-primary" href="/account">Browse services & prices <ArrowDown size={17}/></Link>
-          <a className="works-secondary" href="/account">Browse businesses <ArrowRight size={16}/></a>
+          <Link className="works-primary" href="/request">Browse services & prices <ArrowDown size={17}/></Link>
+          <a className="works-secondary" href="/#works-businesses">Browse businesses <ArrowRight size={16}/></a>
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
           <Search size={20} aria-hidden="true"/>
@@ -90,7 +92,7 @@ export default function WorksLanding() {
       </div>
       <div className="works-results" aria-live="polite">
         <div className="works-results-head"><strong>{query.trim() ? "Matching services" : "Explore services"}</strong><button type="button" onClick={() => { setShowResults(false); setQuery(""); }}>Clear</button></div>
-        {results.length ? <div className="works-results-grid">{results.map(item => <Link className="works-result" key={item.id} href="/account"><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} · View prices & add <ArrowRight size={13}/></small></Link>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
+        {results.length ? <div className="works-results-grid">{results.map(item => <Link className="works-result" key={item.id} href={`/request?business=${encodeURIComponent(item.provider)}`}><span>{item.category}</span><strong>{item.name}</strong><p>{item.description}</p><small>{item.provider} · View prices & add <ArrowRight size={13}/></small></Link>)}</div> : <p className="works-no-results">No exact match yet. Try a broader term such as “event”, “branding” or “bar”.</p>}
       </div>
     </section>}
 
@@ -102,7 +104,7 @@ export default function WorksLanding() {
       <div className="works-business-grid">
         {businesses.map((business,index) => <article className={"works-business-card works-business-"+business.id} id={business.id} key={business.id}>
           <div className="works-business-image"><img src={business.image} alt={business.name+" service showcase"} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }}/><span>{business.number} / THE WORKS PARTNER</span><b>{business.type}</b></div>
-          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><Link href="/account">Explore services & prices <ArrowRight size={16}/></Link></div>
+          <div className="works-business-copy"><div className="works-business-title"><span>{business.name}</span><span>0{index+1}</span></div><h3>{business.line}</h3><p>{business.description}</p><div className="works-service-tags">{business.services.map(service=><span key={service}>{service}</span>)}</div><Link href={`/request?business=${encodeURIComponent(business.name)}`}>Explore services & prices <ArrowRight size={16}/></Link></div>
         </article>)}
       </div>
     </section>
@@ -122,7 +124,7 @@ export default function WorksLanding() {
     </section>
 
     <footer className="works-footer">
-      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><a href="/account">Find a service</a><a href="/account">Businesses</a><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/account" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
+      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><a href="/#works-search">Find a service</a><a href="/#works-businesses">Businesses</a><Link href="/account">My Account</Link></nav><Link className="works-briefcase" href="/account" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
       <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Three participating businesses. Distinct teams and responsibilities.</span></div>
     </footer>
   </main>;
