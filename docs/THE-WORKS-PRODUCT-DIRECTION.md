@@ -207,6 +207,7 @@ The product owner has reviewed and approved the balanced landing-page compositio
 - Added provider-labelled matching service results using a curated service map derived from the supplied company profiles.
 - Added three separate business showcases, concise three-step journey explanation, shared-account benefit section and compact footer with one Briefcase icon.
 - Added responsive styling with warm paper, charcoal, deep green and amber; Manrope headings and DM Sans body/interface type.
+- Aligned browser theme colour with the public palette, advanced the app-shell cache to `iteration13-shell-v33`, and connected the primary discovery action to reveal matching services.
 - Updated application metadata and the app manifest's product labels/theme colour. The existing icon assets remain inherited and are not yet THE WORKS-branded.
 - Preserved the previous Iteration 13 root setup/demo at /studio during migration; it is no longer the public root experience.
 
@@ -217,7 +218,7 @@ The product owner has reviewed and approved the balanced landing-page compositio
 - The Briefcase footer icon currently points to the inherited /admin route. Do not treat that route as the final three-company selector or as company-isolated administration.
 - No Firebase configuration, rules, storage or business data were changed.
 - Hero and business-card images are remote Unsplash sample imagery. Replace them with approved company-owned assets before presenting the platform as a finished client-facing launch.
-- PWA installation behavior and service-worker/offline behavior were not intentionally changed. The icon assets and offline cache contents still require a separate, controlled THE WORKS identity migration and offline verification.
+- The protected PWA installation controller, early native-prompt capture, iOS guidance, embedded-browser handling and user-controlled update lifecycle were left unchanged. The public landing refresh advances the existing isolated app-shell cache from `iteration13-shell-v32` to `iteration13-shell-v33`; offline behavior is unchanged. Existing icon artwork remains inherited and still needs a separate, controlled THE WORKS identity migration and offline verification.
 
 ### Next implementation milestones
 1. Build the authenticated, permission-checked Briefcase company selector and three isolated company admin workspaces.
