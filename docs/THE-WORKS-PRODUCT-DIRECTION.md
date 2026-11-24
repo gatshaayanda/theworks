@@ -2,7 +2,9 @@
 
 **Status:** product direction and balanced landing-page design approved on 2026-11-24. First public landing-page milestone implemented on 2026-11-24; see the current implementation checkpoint at the end of this document.
 
-This document is the project-specific source of truth for the product model, customer journeys, shared account, company workspaces and visual direction. It supplements the inherited Iteration 13 engineering/PWA standards. When inherited generic demo behavior conflicts with this document, this document governs THE WORKS.
+This document records THE WORKS product direction and visual decisions. It supplements the inherited Iteration 13 engineering/PWA standards.
+
+> **Product-owner correction — 2026-11-24 (supersedes conflicting platform/OS expansion language below):** THE WORKS is a customer storefront for buying products and services from PROSPEC, GALAXY LIQUIDS and KAVON GROUP. Treat this as an Iteration 13 clone/adaptation, not a new business operating system. The customer journey is storefront → browse catalogue/business → select/add to basket → place the order or request a quote where the item is quote-priced → customer account for order/request history. Keep the established Iteration 13 customer/account, catalogue, basket/order, receipt and owner Briefcase patterns. The single footer Briefcase opens the existing owner access gate using the demo word (`ADMIN_PASSWORD`) and then the THE WORKS catalogue/admin experience. Do not route customers to admin, studio, setup/demo business creation, Backpack, or unrelated legacy experiences. Do not invent payment processing: only claim payment/checkout capability when an actual payment provider and successful transaction flow are implemented. Each participating business remains clearly identified as the seller/provider for its own items.
 
 ## 1. Product definition
 
