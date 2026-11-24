@@ -15,19 +15,19 @@
   "theme_color": "#294735",
   "icons": [
     {
-      "src": "/iteration13-icon.svg",
+      "src": "/works-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/iteration13-icon-192.png",
+      "src": "/works-icon.svg",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/iteration13-icon-512.png",
+      "src": "/works-icon.svg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
