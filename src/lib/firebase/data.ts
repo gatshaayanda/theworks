@@ -39,14 +39,14 @@ export async function saveNotificationPreferences(uid:string,prefs:NotificationP
 export async function saveNotificationToken(uid:string,token:string,admin:boolean){const encoded=encodeURIComponent(token);await setDoc(doc(db,"notificationTokens",uid,"tokens",encoded),{token,admin,updatedAt:new Date().toISOString()} as NotificationToken,{merge:true})}
 
 export type ConversationAttachment={url:string;name:string;type:string;size:number};
-export type Conversation={id:string;customerId:string;customerName?:string;title:string;status:"open"|"waiting"|"resolved";createdAt:string;updatedAt:string;lastMessageAt:string;lastMessagePreview:string;unreadForCustomer:boolean;unreadForAdmin:boolean;customerLastReadAt?:string;adminLastReadAt?:string};
+export type Conversation={id:string;customerId:string;customerName?:string;business?:string;enquiryId?:string;title:string;status:"open"|"waiting"|"resolved";createdAt:string;updatedAt:string;lastMessageAt:string;lastMessagePreview:string;unreadForCustomer:boolean;unreadForAdmin:boolean;customerLastReadAt?:string;adminLastReadAt?:string};
 export type ConversationMessage={id:string;senderId:string;senderRole:"customer"|"admin";text:string;attachment?:ConversationAttachment|null;createdAt:string};
 
 const conversationsCollection=collection(db,"conversations");
-export async function createCustomerConversation(uid:string,title:string):Promise<string>{
+export async function createCustomerConversation(uid:string,title:string,business="THE PLUG",enquiryId?:string):Promise<string>{
  const profile=await getCustomerProfile(uid);
  const now=new Date().toISOString();
- const reference=await addDoc(conversationsCollection,{customerId:uid,customerName:profile?.name||"The Plug customer",title,status:"open",createdAt:now,updatedAt:now,lastMessageAt:now,lastMessagePreview:"",unreadForCustomer:false,unreadForAdmin:false});
+ const reference=await addDoc(conversationsCollection,{customerId:uid,customerName:profile?.name||"THE WORKS customer",business,enquiryId:enquiryId||null,title,status:"open",createdAt:now,updatedAt:now,lastMessageAt:now,lastMessagePreview:"",unreadForCustomer:false,unreadForAdmin:false});
  return reference.id;
 }
 export function subscribeToCustomerConversations(uid:string,onChange:(items:Conversation[])=>void,onError:(error:Error)=>void):Unsubscribe{
@@ -81,3 +81,7 @@ export async function getBusinessSettings():Promise<BusinessSettings|null>{const
 export async function saveBusinessSettings(settings:BusinessSettings){await setDoc(doc(settingsCollection,"main"),settings)}
 export async function getDailyReconciliation(date:string):Promise<DailyReconciliation|null>{const snapshot=await getDoc(doc(reconciliationCollection,date));return snapshot.exists()?{date:snapshot.id,...snapshot.data() as Omit<DailyReconciliation,"date">}:null}
 export async function saveDailyReconciliation(record:DailyReconciliation){await setDoc(doc(reconciliationCollection,record.date),record)}
+
+
+export type WorksPayment={id:string;enquiryId:string;customerId:string;business:string;amount:number;method:"cash"|"bank transfer"|"mobile money"|"other";reference?:string;recordedAt:string;recordedBy:string;customerName?:string};
+export function subscribeToWorksCustomerPayments(uid:string,onChange:(items:WorksPayment[])=>void,onError:(error:Error)=>void):Unsubscribe{return onSnapshot(query(collection(db,"worksPayments"),where("customerId","==",uid)),snapshot=>onChange(snapshot.docs.map(item=>({id:item.id,...item.data() as Omit<WorksPayment,"id">})).sort((a,b)=>b.recordedAt.localeCompare(a.recordedAt))),error=>onError(error instanceof Error?error:new Error("Payment records unavailable.")))}

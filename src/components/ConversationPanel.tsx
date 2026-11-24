@@ -39,7 +39,7 @@ export default function ConversationPanel({conversationId,conversationTitle,onBa
    setText("");setFile(null);
    const input=document.getElementById("theplug-conversation-file") as HTMLInputElement|null;if(input)input.value="";
    const response=await fetch("/api/notifications/message-created",{method:"POST",headers:{Authorization:"Bearer "+(await user.getIdToken()),"Content-Type":"application/json"},body:JSON.stringify({conversationId:currentConversationId,messageId})});
-   if(!response.ok)setNotice("Message sent. The Plug could not send the instant alert, but the message is saved.");
+   if(!response.ok)setNotice("Message sent. {business} could not send the instant alert, but the message is saved.");
   }catch(error){setNotice(error instanceof Error?error.message:"Your message could not be sent.")}
   finally{setBusy(false)}
  }

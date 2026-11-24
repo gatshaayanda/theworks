@@ -506,6 +506,19 @@ service cloud.firestore {
           && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.businesses.hasAny([company]))
       );
     }
+    match /worksPayments/{paymentId} {
+      allow read: if isAdmin() || (signedIn() && resource.data.customerId == request.auth.uid);
+      allow create: if signedIn() && isAdmin()
+        && request.resource.data.keys().hasOnly(["enquiryId","customerId","business","amount","method","reference","recordedAt","recordedBy","customerName"])
+        && request.resource.data.keys().hasAll(["enquiryId","customerId","business","amount","method","recordedAt","recordedBy"])
+        && request.resource.data.business in ["PROSPEC","GALAXY LIQUIDS","KAVON GROUP"]
+        && isWorksCompanyAdmin(request.resource.data.business)
+        && request.resource.data.enquiryId is string && request.resource.data.customerId is string
+        && request.resource.data.amount is number && request.resource.data.amount > 0
+        && request.resource.data.method in ["cash","bank transfer","mobile money","other"]
+        && request.resource.data.recordedAt is string && request.resource.data.recordedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
     match /worksCompanyRequests/{requestId} {
       allow create: if signedIn() && request.resource.data.customerId == request.auth.uid
         && request.resource.data.business in ['PROSPEC','GALAXY LIQUIDS','KAVON GROUP']
