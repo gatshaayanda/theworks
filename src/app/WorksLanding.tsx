@@ -8,9 +8,9 @@ import "./works-landing.css";
 import {localizeWorks,useWorksLanguage} from "@/lib/works-translations";
 
 const businesses = [
-  { id: "prospec", number: "01", name: "Example Company 1", line: "Make your brand visible.", type: "Products, branding & supply", description: "Marketing, advertising, corporate clothing, printing, merchandise, signage and product sourcing.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=85", services: ["Corporate clothing", "Printing & signage", "Marketing & branding", "Product sourcing"] },
-  { id: "galaxy", number: "02", name: "Example Company 2", line: "Bring the bar to your event.", type: "Mobile bars & hospitality", description: "Mobile bar hire, bespoke cocktail and mocktail menus, private events and corporate activations.", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1100&q=85", services: ["Mobile bar hire", "Cocktail menus", "Corporate activations", "Private celebrations"] },
-  { id: "kavon", number: "03", name: "Example Company 3", line: "Your vision. Our execution.", type: "Events & production", description: "Event concepts, production, décor, VIP hospitality, guest logistics and coordinated execution.", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1100&q=85", services: ["Event management", "Stage & production", "Décor & styling", "VIP hospitality"] },
+  { id: "prospec", number: "01", name: "Northstar Branding & Supply", line: "Make your brand visible.", type: "Branding, printing & business supply", description: "Marketing, advertising, corporate clothing, printing, merchandise, signage and product sourcing.", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=85", services: ["Corporate clothing", "Printing & signage", "Marketing & branding", "Product sourcing"] },
+  { id: "galaxy", number: "02", name: "Copperleaf Mobile Bar", line: "Bring the bar to your event.", type: "Mobile bars & beverage hospitality", description: "Mobile bar hire, bespoke cocktail and mocktail menus, private events and corporate activations.", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1100&q=85", services: ["Mobile bar hire", "Cocktail menus", "Corporate activations", "Private celebrations"] },
+  { id: "kavon", number: "03", name: "Metsi Events & Production", line: "Your vision. Our execution.", type: "Event planning & technical production", description: "Event concepts, production, décor, VIP hospitality, guest logistics and coordinated execution.", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1100&q=85", services: ["Event management", "Stage & production", "Décor & styling", "VIP hospitality"] },
 ];
 
 const shortcuts = [
@@ -21,9 +21,9 @@ const shortcuts = [
 ];
 
 const businessExperiences = [
-  { id: "PROSPEC", key: "prospec", name: "Example Company 1", line: "Ideas made visible.", description: "Explore branding, printing, corporate clothing, merchandise, signage and business supplies.", image: businesses[0].image, cue: "CREATIVE · PRINT · SUPPLY" },
-  { id: "GALAXY LIQUIDS", key: "galaxy", name: "Example Company 2", line: "A bar at your footsteps.", description: "Discover mobile bars, bespoke cocktail and mocktail menus, hospitality and event beverage experiences.", image: businesses[1].image, cue: "COCKTAILS · MOBILE BAR · HOSPITALITY" },
-  { id: "KAVON GROUP", key: "kavon", name: "Example Company 3", line: "We envision. We create. We execute.", description: "Explore corporate events, event production, décor, VIP hospitality and guest logistics.", image: businesses[2].image, cue: "EVENTS · PRODUCTION · EXPERIENCES" },
+  { id: "PROSPEC", key: "prospec", name: "Northstar Branding & Supply", line: "Ideas made visible.", description: "Explore branding, printing, corporate clothing, merchandise, signage and business supplies.", image: businesses[0].image, cue: "CREATIVE · PRINT · SUPPLY" },
+  { id: "GALAXY LIQUIDS", key: "galaxy", name: "Copperleaf Mobile Bar", line: "A bar at your footsteps.", description: "Discover mobile bars, bespoke cocktail and mocktail menus, hospitality and event beverage experiences.", image: businesses[1].image, cue: "COCKTAILS · MOBILE BAR · HOSPITALITY" },
+  { id: "KAVON GROUP", key: "kavon", name: "Metsi Events & Production", line: "We envision. We create. We execute.", description: "Explore corporate events, event production, décor, VIP hospitality and guest logistics.", image: businesses[2].image, cue: "EVENTS · PRODUCTION · EXPERIENCES" },
 ];
 
 export default function WorksLanding() {
@@ -77,9 +77,9 @@ export default function WorksLanding() {
 
 
   return localizeWorks(language,<main className={"works-site"+experienceClass}>
-    <div className="works-topline"><span>THREE SPECIALIST BUSINESSES · ONE PLACE TO START</span><span>BOTSWANA</span></div>
+    <div className="works-topline"><span>BOTSWANA'S DIGITAL DIRECTORY OF SERVICES</span><span>BOTSWANA</span></div>
     <header className="works-header">
-      <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link>
+      <Link className="works-wordmark" href="/account" aria-label="THE WORKS home"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>DIGITAL SERVICES DIRECTORY</small></span></Link>
       <nav className="works-nav" aria-label="Main navigation">
         <Link href="#works-discovery">Find a service</Link>
         <Link href="#works-businesses">Businesses</Link>
@@ -92,10 +92,10 @@ export default function WorksLanding() {
     <section className="works-hero">
       <div className="works-hero-copy">
         <span className="works-eyebrow"><i/> YOUR NEXT PROJECT STARTS HERE</span>
-        <h1>Business gets<br/><em>done here.</em></h1>
-        <p>Find the products, services and people you need to bring your next project to life.</p>
+        <h1>Find the service.<br/><em>Make it happen.</em></h1>
+        <p>Browse a directory of specialist services, compare listed prices and connect with the right service provider for your next project.</p>
         <div className="works-hero-actions">
-          <Link className="works-primary" href="#works-discovery">Browse services & prices <ArrowDown size={17}/></Link>
+          <Link className="works-primary" href="#works-discovery">Browse the service directory <ArrowDown size={17}/></Link>
           <Link className="works-secondary" href="#works-businesses">Browse businesses <ArrowRight size={16}/></Link>
         </div>
         <form id="works-search" className="works-search works-hero-search" onSubmit={event => { event.preventDefault(); findService(query); }}>
@@ -107,7 +107,7 @@ export default function WorksLanding() {
         <div className="works-shortcuts" aria-label="Popular service categories">
           {shortcuts.map(item => { const Icon=item.icon; return <button key={item.label} type="button" onClick={() => findService(item.query)}><Icon size={18}/><span>{item.label}</span><ChevronRight size={15}/></button>; })}
         </div>
-        <div className="works-hero-foot"><span>One place to begin.</span><span>Three specialist businesses to help make it happen.</span></div>
+        <div className="works-hero-foot"><span>One digital directory.</span><span>Specialist services, clearly listed.</span></div>
       </div>
       <div className="works-hero-visual" aria-label="A glimpse of the products and experiences available through THE WORKS">
         <div className="works-photo works-photo-main"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="A beautifully arranged event space" fetchPriority="high" onError={event => { event.currentTarget.style.display = "none"; }}/><span>EVENTS & EXPERIENCES</span></div>
@@ -148,8 +148,8 @@ export default function WorksLanding() {
     </section></details>
 
     <footer className="works-footer">
-      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/account"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>BUSINESS & EXPERIENCES</small></span></Link><p>Everything you need to make things happen.</p><nav aria-label="Footer navigation"><Link href="#works-discovery">Find a service</Link><Link href="#works-businesses">Businesses</Link><Link href="/account">My Account</Link><Link href="/games">Game Corner</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
-      <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Three participating businesses. Distinct teams and responsibilities.</span></div>
+      <div className="works-footer-main"><Link className="works-wordmark works-footer-brand" href="/account"><span className="works-mark">W<span>·</span></span><span><strong>THE WORKS</strong><small>DIGITAL SERVICES DIRECTORY</small></span></Link><p>A digital directory of services in Botswana.</p><nav aria-label="Footer navigation"><Link href="#works-discovery">Find a service</Link><Link href="#works-businesses">Businesses</Link><Link href="/account">My Account</Link><Link href="/games">Game Corner</Link></nav><Link className="works-briefcase" href="/admin" aria-label="Open the Owner's Briefcase" title="Owner's Briefcase"><BriefcaseBusiness size={22}/></Link></div>
+      <div className="works-footer-bottom"><span>THE WORKS · BOTSWANA</span><span>Discover services from independent specialist providers.</span></div>
     </footer>
   </main>);
 }
