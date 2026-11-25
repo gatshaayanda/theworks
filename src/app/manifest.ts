@@ -3,9 +3,9 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "THE WORKS | Business & Experiences",
+    name: "THE WORKS | Digital Services Directory",
     short_name: "THE WORKS",
-    description: "Discover specialist businesses, products and services through THE WORKS.",
+    description: "Browse Botswana's digital directory of specialist services and service providers.",
     start_url: "/",
     scope: "/",
     display: "standalone",
